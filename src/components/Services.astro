@@ -1,6 +1,6 @@
 ---
 import type { Dictionary } from '../i18n/pl';
-import { prices, type ExtraServiceId, type PmuServiceId } from '../config/site';
+import { prices, type PmuServiceId } from '../config/site';
 
 interface Props {
   t: Dictionary;
@@ -9,7 +9,6 @@ const { t } = Astro.props;
 const cur = t.services.currency;
 // Kolejność: usta jako pierwsze (potencjalna usługa wiodąca), potem brwi i kreska.
 const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
-const extraIds = Object.keys(prices.extra) as ExtraServiceId[];
 ---
 
 <section class="section section--tint" id="cennik" aria-labelledby="cennik-title">
@@ -48,24 +47,45 @@ const extraIds = Object.keys(prices.extra) as ExtraServiceId[];
       }
     </ul>
 
-    <div class="extra">
-      <h3>{t.services.extraTitle}</h3>
-      <ul>
+    <p class="corr-note">* {t.services.correctionNote(prices.correctionWithinMonths)}</p>
+
+    <div class="packages">
+      <h3>{t.services.packagesTitle}</h3>
+      <ul class="price-list">
         {
-          extraIds.map((id) => {
-            const price = prices.extra[id].price;
-            return (
-              <li>
-                <span>{t.services.extra[id]}</span>
-                <span class="extra__dots" aria-hidden="true" />
-                <span class:list={['extra__price', price === null && 'extra__price--ask']}>
-                  {price === null ? t.services.priceOnRequest : `${price} ${cur}`}
-                </span>
-              </li>
-            );
-          })
+          prices.pmuPackages.map((p) => (
+            <li>
+              <span>{t.services.packages[p.id]}</span>
+              <span class="price">
+                {p.price} {cur}
+              </span>
+            </li>
+          ))
         }
       </ul>
+    </div>
+
+    <div class="styling">
+      <h3>{t.services.stylingTitle}</h3>
+      <div class="styling__groups">
+        {
+          prices.styling.map((g) => (
+            <div>
+              <h4>{t.services.stylingGroups[g.group]}</h4>
+              <ul class="price-list">
+                {g.items.map((i) => (
+                  <li>
+                    <span>{t.services.styling[i.id]}</span>
+                    <span class="price">
+                      {i.price} {cur}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
@@ -127,37 +147,63 @@ const extraIds = Object.keys(prices.extra) as ExtraServiceId[];
     color: var(--muted);
   }
   .price-corr dt::after {
-    content: ':';
+    content: '*:';
   }
-  .extra {
+  .corr-note {
+    margin: 16px 0 0;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .packages {
     margin-top: 32px;
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 24px;
     max-width: 560px;
   }
-  .extra h3 {
-    font-size: 1.15rem;
+  .packages h3,
+  .styling h3 {
+    font-size: 1.2rem;
   }
-  .extra ul {
+  .styling {
+    margin-top: 40px;
+  }
+  .styling__groups {
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 800px) {
+    .styling__groups {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+  }
+  h4 {
+    margin: 0 0 4px;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .price-list {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .extra li {
+  .price-list li {
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
     padding: 10px 0;
     border-bottom: 1px solid var(--line);
   }
-  .extra__dots {
-    flex: 1;
+  .price-list li:last-child {
+    border-bottom: 0;
   }
-  .extra__price {
+  .price {
     white-space: nowrap;
     font-weight: 600;
-  }
-  .extra__price--ask {
-    font-weight: 400;
-    color: var(--muted);
-    font-size: 0.9375rem;
   }
 </style>

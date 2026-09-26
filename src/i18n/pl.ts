@@ -6,7 +6,7 @@
  * W trybie deweloperskim (npm run dev) takie fragmenty są oznaczone żółtą etykietą.
  */
 
-import type { ExtraServiceId, PmuServiceId } from '../config/site';
+import type { PmuPackageId, PmuServiceId, StylingGroupId, StylingServiceId } from '../config/site';
 import type { PortfolioCategory } from '../config/portfolio';
 
 export const pl = {
@@ -16,7 +16,7 @@ export const pl = {
   meta: {
     title: 'Makijaż permanentny Wrocław — brwi, usta, kreska | Veronika PMU',
     description:
-      'Naturalny makijaż permanentny brwi, ust i kreski we Wrocławiu (Krzyki). Kształt i kolor dobrane do Twojej twarzy. Zobacz efekty i ceny — Veronika PMU.',
+      'Naturalny makijaż permanentny brwi, ust i kreski we Wrocławiu (Krzyki). Kształt i kolor dobrane do Twojej twarzy. Laminacja i farbowanie brwi i rzęs. Zobacz efekty i ceny.',
   },
 
   nav: {
@@ -41,7 +41,7 @@ export const pl = {
     title: 'Naturalny makijaż permanentny we Wrocławiu',
     lead: 'Brwi, usta i kreska dopasowane do Twojej twarzy — tak, żebyś po zabiegu nadal wyglądała jak Ty.',
     artistLine: 'Veronika · linergistka PMU',
-    priceFrom: 'Zabiegi od',
+    priceFrom: 'Makijaż permanentny od',
     location: 'Krzyki, okolice ul. Skarbowców',
   },
 
@@ -64,7 +64,6 @@ export const pl = {
     lead: 'Jasne ceny, bez niespodzianek. Jeśli nie wiesz, który zabieg wybrać — napisz, pomogę.',
     currency: 'zł',
     correction: 'Korekta',
-    priceOnRequest: 'cena w wiadomości',
     pmu: {
       usta: {
         name: 'Makijaż permanentny ust',
@@ -79,18 +78,37 @@ export const pl = {
           'Brwi, które wyglądają dobrze od rana, bez codziennego rysowania. Kształt dopasowany do Twojej twarzy i mimiki.',
       },
       kreska: {
-        name: 'Kreska permanentna',
-        short: 'Kreska',
+        name: 'Linia rzęs (kreska permanentna)',
+        short: 'Linia rzęs',
         description: 'Subtelnie podkreślona linia rzęs, dzięki której oko wygląda na wyraźniejsze — nawet bez makijażu.',
       },
     } satisfies Record<PmuServiceId, { name: string; short: string; description: string }>,
-    extraTitle: 'Brwi i rzęsy — zabiegi dodatkowe',
-    extra: {
-      laminacjaBrwi: 'Laminacja brwi',
-      koloryzacjaBrwi: 'Koloryzacja brwi',
-      laminacjaRzes: 'Laminacja rzęs',
-      koloryzacjaRzes: 'Koloryzacja rzęs',
-    } satisfies Record<ExtraServiceId, string>,
+    correctionNote: (months: number) =>
+      `Korekta jest wykonywana nie później niż ${months} ${months === 1 ? 'miesiąc' : months < 5 ? 'miesiące' : 'miesięcy'} po zabiegu podstawowym.`,
+    packagesTitle: 'Pakiety makijażu permanentnego',
+    packages: {
+      brwiUsta: 'Brwi + usta',
+      brwiKreska: 'Brwi + linia rzęs',
+      kreskaUsta: 'Linia rzęs + usta',
+      brwiUstaKreska: 'Brwi + usta + linia rzęs',
+    } satisfies Record<PmuPackageId, string>,
+    stylingTitle: 'Stylizacja brwi i rzęs',
+    stylingGroups: {
+      brwi: 'Brwi',
+      rzesy: 'Rzęsy',
+      pakiety: 'Pakiety',
+    } satisfies Record<StylingGroupId, string>,
+    styling: {
+      regulacja: 'Regulacja',
+      laminacjaBrwi: 'Laminacja',
+      regulacjaLaminacja: 'Regulacja + laminacja',
+      regulacjaFarbowanie: 'Regulacja + farbowanie',
+      regulacjaFarbowanieLaminacja: 'Regulacja + farbowanie + laminacja',
+      farbowanieRzes: 'Farbowanie',
+      farbowanieLaminacjaRzes: 'Farbowanie + laminacja',
+      farbowanieRzesBrwi: 'Farbowanie rzęs i brwi',
+      farbowanieLaminacjaRzesBrwi: 'Farbowanie + laminacja rzęs i brwi',
+    } satisfies Record<StylingServiceId, string>,
   },
 
   approach: {
@@ -115,7 +133,8 @@ export const pl = {
   about: {
     title: 'Cześć, jestem Veronika',
     paragraphs: [
-      'Wykonuję makijaż permanentny we Wrocławiu. Najbliższy jest mi naturalny efekt — taki, po którym ludzie mówią „świetnie wyglądasz”, a nie „zrobiłaś sobie makijaż permanentny”.',
+      'Kiedyś sama bałam się makijażu permanentnego — niebieskich brwi, kresek, które zostają na 10 lat, i ust ze zbyt mocnym konturem. Dziś sama go wykonuję i wiem, że może wyglądać lekko i naturalnie: nie rzuca się w oczy, a sprawia, że wyglądasz świeżo każdego dnia.',
+      'Najważniejsze jest dla mnie uwzględnienie wszystkich Twoich oczekiwań — dlatego kształt i kolor zawsze będą takie, jakie chcesz właśnie Ty.',
       'Najbardziej lubię pracować z ustami, ale z tą samą uwagą robię brwi i kreskę. Do każdej twarzy podchodzę indywidualnie i spokojnie odpowiadam na wszystkie pytania — również te, które wydają się „głupie”.',
     ],
     languagesTitle: 'Możesz pisać do mnie w języku:',
@@ -133,7 +152,7 @@ export const pl = {
       { title: 'Twoja akceptacja', text: 'Oglądasz projekt w lustrze. Poprawiamy go, aż będzie dokładnie taki, jak chcesz.' },
       { title: 'Zabieg', text: 'Zaczynam pracę dopiero wtedy, gdy projekt jest zaakceptowany.' },
       { title: 'Pielęgnacja i gojenie', text: 'Dostajesz zalecenia, jak dbać o skórę w czasie gojenia. Jeśli coś Cię niepokoi — po prostu napisz.' },
-      { title: 'Korekta', text: 'Jeśli po wygojeniu trzeba coś uzupełnić, umawiamy korektę.' },
+      { title: 'Korekta', text: 'Jeśli po wygojeniu trzeba coś uzupełnić, umawiamy korektę — nie później niż 2 miesiące po zabiegu.' },
     ],
   },
 
@@ -148,6 +167,11 @@ export const pl = {
       {
         q: 'Czy efekt będzie wyglądał naturalnie?',
         a: 'To mój główny cel. Kształt i kolor dobieramy razem, a przed zabiegiem widzisz projekt na swojej twarzy. Jeśli coś Ci nie pasuje — zmieniamy, zanim zacznę.',
+        verified: true,
+      },
+      {
+        q: 'Jak długo utrzymuje się efekt?',
+        a: 'Zwykle od 1 do 3 lat. Kolor nie przechodzi z czasem w szaro-zielone odcienie — po prostu stopniowo traci intensywność.',
         verified: true,
       },
       {
@@ -172,13 +196,13 @@ export const pl = {
       },
       {
         q: 'Czy korekta jest konieczna?',
-        a: 'Skóra każdej osoby goi się inaczej, dlatego po wygojeniu oceniamy efekt i w razie potrzeby uzupełniamy kolor lub kształt. Korekta kosztuje 200 zł (brwi, usta) lub 150 zł (kreska).',
+        a: 'Skóra każdej osoby goi się inaczej, dlatego po wygojeniu oceniamy efekt i w razie potrzeby uzupełniamy kolor lub kształt. Korektę wykonuję nie później niż 2 miesiące po zabiegu podstawowym. Kosztuje 200 zł (brwi, usta) lub 150 zł (linia rzęs).',
         verified: false,
       },
       {
         q: 'Ile trwa zabieg?',
-        a: 'Czas zależy od rodzaju zabiegu. Dokładnie powiem Ci przy umawianiu wizyty, żebyś mogła spokojnie zaplanować dzień.',
-        verified: false,
+        a: 'Zarezerwuj sobie około 2 godzin.',
+        verified: true,
       },
       {
         q: 'Jak przygotować się do zabiegu?',

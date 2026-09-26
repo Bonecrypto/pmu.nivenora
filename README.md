@@ -42,7 +42,6 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 | Wszystkie teksty po polsku, FAQ | `src/i18n/pl.ts` |
 | Zdjęcie Veroniki | `src/assets/veronika/veronika.jpg` |
 
-- Cena `null` → na stronie „cena w wiadomości”.
 - Kontakt `null` → kanał nie jest pokazywany.
 - `bookingUrl` ustawiony → wszystkie główne przyciski zmieniają się z „Napisz na Instagramie” na „Umów wizytę”.
 - Portfolio: `stage: 'healed'` → etykieta „Wygojone” i miejsce na początku galerii.
@@ -54,8 +53,7 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 Założenia tymczasowe (oznaczone w kodzie jako `TEMP` / `TODO`):
 
 - [ ] **Zdjęcia portfolio** — obecnie to kadry ze zrzutu ekranu Instagrama (~180 px, niska jakość). Potrzebne oryginały z telefonu (bez filtrów). Oznaczyć, które są wygojone, a które tuż po zabiegu.
-- [ ] **Teksty FAQ z etykietą „Do weryfikacji”** (ból, gojenie, korekta, czas zabiegu, przygotowanie, pielęgnacja, przeciwwskazania) — Veronika musi potwierdzić lub poprawić. Widoczne w `npm run dev`.
-- [ ] **Ceny laminacji / koloryzacji** brwi i rzęs.
+- [ ] **Teksty FAQ z etykietą „Do weryfikacji”** (ból, gojenie, czy korekta jest konieczna, przygotowanie, pielęgnacja, przeciwwskazania) — Veronika musi potwierdzić lub poprawić. Widoczne w `npm run dev`.
 - [ ] **Adres** — teraz: „Krzyki, okolice ul. Skarbowców, dokładny adres podam przy umawianiu”.
 - [ ] **Dodatkowe kanały kontaktu** (telefon / WhatsApp / Booksy) — teraz tylko Instagram DM.
 - [ ] **Domena** i `SITE_URL`.
