@@ -1,20 +1,34 @@
 ---
 import '../styles/global.css';
-import { getImage } from 'astro:assets';
 import type { Dictionary } from '../i18n/pl';
 import { site, prices } from '../config/site';
 import { locales, localeMeta, defaultLocale, getDictionary } from '../i18n';
-import veronikaPhoto from '../assets/veronika/veronika.jpg';
 
 interface Props {
   t: Dictionary;
+  /** Która podstrona — do linków alternatywnych językowo (hreflang). */
+  page?: 'home' | 'privacy' | 'none';
+  title?: string;
+  description?: string;
+  noindex?: boolean;
 }
-const { t } = Astro.props;
+const { t, page = 'home', title = t.meta.title, description = t.meta.description, noindex = false } = Astro.props;
+const pathKey = page === 'privacy' ? 'privacyPath' : 'path';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const alternates = locales.map((l) => ({ hreflang: localeMeta[l].hreflang, href: new URL(localeMeta[l].path, Astro.site).href }));
-const ogImage = await getImage({ src: veronikaPhoto, width: 800, height: 800, format: 'jpg' });
-const ogImageUrl = new URL(ogImage.src, Astro.site).href;
+const alternates =
+  page === 'none'
+    ? []
+    : locales.map((l) => ({ hreflang: localeMeta[l].hreflang, href: new URL(localeMeta[l][pathKey], Astro.site).href }));
+// Obrazki podglądu linku generuje scripts/make-og.cjs → public/og/<lang>.jpg
+const ogImageUrl = new URL(`/og/${t.lang}.jpg`, Astro.site).href;
+// Opcjonalnie: Cloudflare Web Analytics (bez cookies) — token z panelu Cloudflare jako zmienna PUBLIC_CF_BEACON_TOKEN.
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const allPrices = [
+  ...Object.values(prices.pmu).map((p) => p.price),
+  ...prices.pmuPackages.map((p) => p.price),
+  ...prices.styling.flatMap((g) => g.items.map((i) => i.price)),
+];
 
 // Dane strukturalne dla Google (lokalny biznes). Bez adresu ulicy, dopóki nie jest zatwierdzony.
 const jsonLd = {
@@ -35,6 +49,8 @@ const jsonLd = {
   areaServed: { '@type': 'City', name: site.location.city },
   knowsLanguage: ['pl', 'uk', 'ru', 'en'],
   sameAs: [site.instagram.profileUrl],
+  priceRange: `${Math.min(...allPrices)}–${Math.max(...allPrices)} PLN`,
+  currenciesAccepted: 'PLN',
   ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
   ...(site.contact.email ? { email: site.contact.email } : {}),
   makesOffer: Object.entries(prices.pmu).map(([id, p]) => ({
@@ -51,25 +67,34 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{t.meta.title}</title>
-    <meta name="description" content={t.meta.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
-    <link rel="alternate" hreflang="x-default" href={new URL(localeMeta[defaultLocale].path, Astro.site).href} />
+    {
+      alternates.length > 0 && (
+        <link rel="alternate" hreflang="x-default" href={new URL(localeMeta[defaultLocale][pathKey], Astro.site).href} />
+      )
+    }
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#fbf8f4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={t.locale} />
     {locales.filter((l) => l !== t.lang).map((l) => <meta property="og:locale:alternate" content={getDictionary(l).locale} />)}
     <meta property="og:site_name" content={site.brand} />
-    <meta property="og:title" content={t.meta.title} />
-    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {page === 'home' && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
     <a class="skip-link" href="#main">{t.nav.skip}</a>
@@ -77,5 +102,15 @@ const jsonLd = {
     <script>
       import '../scripts/track';
     </script>
+    {
+      cfBeaconToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+        />
+      )
+    }
   </body>
 </html>

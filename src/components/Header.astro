@@ -4,17 +4,21 @@ import type { Dictionary } from '../i18n/pl';
 import { site } from '../config/site';
 import LangSwitcher from './LangSwitcher.astro';
 import { localeMeta } from '../i18n/locales';
+import Icon from './Icon.astro';
 
 interface Props {
   t: Dictionary;
+  page?: 'home' | 'privacy';
 }
-const { t } = Astro.props;
+const { t, page = 'home' } = Astro.props;
+// Na stronie głównej same kotwice (płynne przewijanie), na podstronach — link do strony głównej.
+const base = page === 'home' ? '' : localeMeta[t.lang].path;
 const links = [
-  { href: '#efekty', label: t.nav.results },
-  { href: '#cennik', label: t.nav.prices },
-  { href: '#o-mnie', label: t.nav.about },
-  { href: '#faq', label: t.nav.faq },
-  { href: '#kontakt', label: t.nav.contact },
+  { href: `${base}#efekty`, label: t.nav.results },
+  { href: `${base}#cennik`, label: t.nav.prices },
+  { href: `${base}#o-mnie`, label: t.nav.about },
+  { href: `${base}#faq`, label: t.nav.faq },
+  { href: `${base}#kontakt`, label: t.nav.contact },
 ];
 ---
 
@@ -28,7 +32,15 @@ const links = [
         {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </nav>
-    <LangSwitcher current={t.lang} label={t.nav.language} />
+    {
+      site.contact.phone && (
+        <a class="phone" href={`tel:${site.contact.phone.replace(/\s/g, '')}`} data-track="phone_click" data-track-location="header">
+          <Icon name="phone" />
+          {site.contact.phone}
+        </a>
+      )
+    }
+    <LangSwitcher current={t.lang} label={t.nav.language} page={page} />
     <ContactButton t={t} location="header" size="sm" label="short" />
   </div>
 </header>
@@ -67,6 +79,31 @@ const links = [
   .nav {
     display: none;
   }
+  .phone {
+    display: none;
+  }
+  /* Numer telefonu w nagłówku tylko na dużych ekranach (na telefonie jest dolny pasek) */
+  @media (min-width: 1360px) {
+    .header__inner {
+      max-width: 1320px;
+    }
+    .phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 12px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .phone :global(svg) {
+      width: 17px;
+      height: 17px;
+      color: var(--accent);
+    }
+  }
   .header__inner > :global(.lang) {
     margin-left: auto;
   }
@@ -75,19 +112,20 @@ const links = [
       margin-left: 8px;
     }
   }
-  @media (min-width: 900px) {
+  @media (min-width: 1040px) {
     .nav {
       display: block;
       margin-left: auto;
     }
     .nav ul {
       display: flex;
-      gap: 28px;
+      gap: clamp(16px, 1.8vw, 28px);
       list-style: none;
       margin: 0;
       padding: 0;
     }
     .nav a {
+      white-space: nowrap;
       color: var(--ink);
       text-decoration: none;
       font-size: 0.9375rem;

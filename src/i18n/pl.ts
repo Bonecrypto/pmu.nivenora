@@ -216,6 +216,10 @@ export const pl = {
   },
 
   footer: {
+    privacy: 'Polityka prywatności',
+    backHome: 'Wróć na stronę główną',
+    notFoundTitle: 'Nie znaleziono strony',
+    notFoundText: 'Ta strona nie istnieje albo została przeniesiona.',
     tagline: 'makijaż permanentny Wrocław — Krzyki',
     rights: 'Wszelkie prawa zastrzeżone.',
   },

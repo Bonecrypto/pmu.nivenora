@@ -5,8 +5,10 @@ import Icon from './Icon.astro';
 interface Props {
   current: Locale;
   label: string;
+  page?: 'home' | 'privacy';
 }
-const { current, label } = Astro.props;
+const { current, label, page = 'home' } = Astro.props;
+const key = page === 'privacy' ? 'privacyPath' : 'path';
 ---
 
 <nav class="lang" aria-label={label}>
@@ -16,7 +18,7 @@ const { current, label } = Astro.props;
       locales.map((l) => (
         <li>
           <a
-            href={localeMeta[l].path}
+            href={localeMeta[l][key]}
             hreflang={localeMeta[l].hreflang}
             lang={localeMeta[l].hreflang}
             title={localeMeta[l].name}

@@ -1,6 +1,7 @@
 ---
 import type { Dictionary } from '../i18n/pl';
 import { site } from '../config/site';
+import { localeMeta } from '../i18n/locales';
 interface Props {
   t: Dictionary;
 }
@@ -18,6 +19,9 @@ const year = new Date().getFullYear();
         >@{site.instagram.handle}</a
       >{' '}
       · © {year} {site.brand}. {t.footer.rights}
+    </p>
+    <p>
+      <a href={localeMeta[t.lang].privacyPath}>{t.footer.privacy}</a>
     </p>
   </div>
 </footer>
