@@ -19,8 +19,8 @@ const usedCategories = (['usta', 'brwi', 'kreska'] as PortfolioCategory[]).filte
 );
 
 const thumbWidths = (w: number) => {
-  const ws = [360, 540, 720].filter((x) => x <= w);
-  return ws.length ? ws : [w];
+  const ws = [360, 540, 720].filter((x) => x < w);
+  return [...ws, Math.min(w, 1080)];
 };
 
 // Wersja powiększona do podglądu (nigdy nie powiększamy ponad oryginał).

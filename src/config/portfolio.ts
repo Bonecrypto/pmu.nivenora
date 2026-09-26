@@ -14,7 +14,7 @@ import type { Locale } from '../i18n/locales';
  *  - 'before-after' → zdjęcie porównawcze przed / po
  *  - undefined      → nie wiadomo; nic nie jest pokazywane (nie zgadujemy)
  *
- * TEMP: obecne pliki to kadry wycięte ze zrzutu ekranu profilu na Instagramie (ok. 180 px).
+ * TEMP: obecne pliki to kadry wycięte ze zrzutów ekranu profilu na Instagramie (ok. 470 px).
  * Są prawdziwe, ale w niskiej rozdzielczości — do podmiany na oryginały z telefonu Veroniki.
  */
 
