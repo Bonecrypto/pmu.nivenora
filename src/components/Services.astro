@@ -1,6 +1,8 @@
 ---
 import type { Dictionary } from '../i18n/pl';
 import { prices, type PmuServiceId } from '../config/site';
+import { localeMeta } from '../i18n/locales';
+import ServiceInquiry from './ServiceInquiry.astro';
 
 interface Props {
   t: Dictionary;
@@ -42,6 +44,12 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
                   </dd>
                 </div>
               </dl>
+              <ServiceInquiry t={t} service={s.name} id={id} class="card__ask" />
+              {id === 'usta' && (
+                <a class="card__more" href={localeMeta[t.lang].pages.lips} data-track="lips_page_click">
+                  {t.services.moreLips} →
+                </a>
+              )}
             </li>
           );
         })
@@ -90,6 +98,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
           ))
         }
       </div>
+      <ServiceInquiry t={t} service={t.services.stylingTitle} id="styling" label={t.services.askStyling} class="styling__ask" />
     </details>
   </div>
 </section>
@@ -157,6 +166,20 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
     margin: 16px 0 0;
     font-size: 0.9375rem;
     color: var(--muted);
+  }
+  .card :global(.card__ask) {
+    margin-top: 16px;
+    width: 100%;
+  }
+  .card__more {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  .styling :global(.styling__ask) {
+    margin-top: 16px;
   }
   .packages {
     margin-top: 24px;

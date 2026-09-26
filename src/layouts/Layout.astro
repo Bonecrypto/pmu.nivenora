@@ -2,28 +2,29 @@
 import '../styles/global.css';
 import type { Dictionary } from '../i18n/pl';
 import { site, prices } from '../config/site';
-import { locales, localeMeta, defaultLocale, getDictionary } from '../i18n';
+import { locales, localeMeta, defaultLocale, getDictionary, type PageId } from '../i18n';
 
 interface Props {
   t: Dictionary;
   /** Która podstrona — do linków alternatywnych językowo (hreflang). */
-  page?: 'home' | 'privacy' | 'none';
+  page?: PageId | 'none';
   title?: string;
   description?: string;
   noindex?: boolean;
 }
 const { t, page = 'home', title = t.meta.title, description = t.meta.description, noindex = false } = Astro.props;
-const pathKey = page === 'privacy' ? 'privacyPath' : 'path';
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const alternates =
   page === 'none'
     ? []
-    : locales.map((l) => ({ hreflang: localeMeta[l].hreflang, href: new URL(localeMeta[l][pathKey], Astro.site).href }));
+    : locales.map((l) => ({ hreflang: localeMeta[l].hreflang, href: new URL(localeMeta[l].pages[page as PageId], Astro.site).href }));
 // Obrazki podglądu linku generuje scripts/make-og.cjs → public/og/<lang>.jpg
 const ogImageUrl = new URL(`/og/${t.lang}.jpg`, Astro.site).href;
 // Opcjonalnie: Cloudflare Web Analytics (bez cookies) — token z panelu Cloudflare jako zmienna PUBLIC_CF_BEACON_TOKEN.
 const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+// Opcjonalnie: weryfikacja w Google Search Console (metoda „tag HTML”) — wartość content jako PUBLIC_GOOGLE_SITE_VERIFICATION.
+const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const allPrices = [
   ...Object.values(prices.pmu).map((p) => p.price),
   ...prices.pmuPackages.map((p) => p.price),
@@ -73,10 +74,11 @@ const jsonLd = {
     {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
     {
       alternates.length > 0 && (
-        <link rel="alternate" hreflang="x-default" href={new URL(localeMeta[defaultLocale][pathKey], Astro.site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(localeMeta[defaultLocale].pages[page as PageId], Astro.site).href} />
       )
     }
     {noindex && <meta name="robots" content="noindex" />}
+    {googleVerification && <meta name="google-site-verification" content={googleVerification} />}
     <meta name="theme-color" content="#fbf8f4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

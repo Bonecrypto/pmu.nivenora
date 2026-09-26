@@ -21,7 +21,7 @@ const t = getDictionary(Astro.props.locale);
 ---
 
 <Layout t={t}>
-  <LangSuggest current={Astro.props.locale} />
+  <LangSuggest current={Astro.props.locale} page="home" />
   <Header t={t} />
   <main id="main">
     <Hero t={t} />

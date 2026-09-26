@@ -3,12 +3,12 @@ import ContactButton from './ContactButton.astro';
 import type { Dictionary } from '../i18n/pl';
 import { site } from '../config/site';
 import LangSwitcher from './LangSwitcher.astro';
-import { localeMeta } from '../i18n/locales';
+import { localeMeta, type PageId } from '../i18n/locales';
 import Icon from './Icon.astro';
 
 interface Props {
   t: Dictionary;
-  page?: 'home' | 'privacy';
+  page?: PageId;
 }
 const { t, page = 'home' } = Astro.props;
 // Na stronie głównej same kotwice (płynne przewijanie), na podstronach — link do strony głównej.

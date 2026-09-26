@@ -8,9 +8,10 @@ interface Props {
   location: string;
   size?: 'sm' | 'md';
   label?: 'short' | 'long';
+  variant?: 'primary' | 'ghost';
   class?: string;
 }
-const { t, location, size = 'md', label = 'long', class: className } = Astro.props;
+const { t, location, size = 'md', label = 'long', variant = 'primary', class: className } = Astro.props;
 
 const text = primaryContactIsBooking
   ? t.cta.primaryBooking
@@ -20,7 +21,7 @@ const text = primaryContactIsBooking
 ---
 
 <a
-  class:list={['btn btn--primary', size === 'sm' && 'btn--sm', className]}
+  class:list={['btn', `btn--${variant}`, size === 'sm' && 'btn--sm', className]}
   href={primaryContactUrl}
   target="_blank"
   rel="noopener"

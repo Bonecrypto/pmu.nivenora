@@ -83,6 +83,10 @@ export const en: Dictionary = {
     },
     correctionNote: (months: number) =>
       `The touch-up is done no later than ${months} ${months === 1 ? 'month' : 'months'} after the initial procedure.`,
+    ask: 'Ask about a date',
+    askStyling: 'Ask about styling',
+    askMessage: (service: string) => `Hi! I’d like to ask about an appointment: ${service}.`,
+    moreLips: 'More about lips',
     packagesTitle: 'Permanent makeup packages',
     packages: {
       brwiUsta: 'Brows + lips',
@@ -214,6 +218,24 @@ export const en: Dictionary = {
     notFoundText: 'This page doesn’t exist or has moved.',
     tagline: 'permanent makeup, Wrocław — Krzyki',
     rights: 'All rights reserved.',
+  },
+
+  lips: {
+    metaTitle: 'Permanent lip makeup in Wrocław — natural result | Veronika PMU',
+    metaDescription:
+      'Permanent lip makeup in Wrocław (Krzyki): an even contour and a natural colour chosen for you. 400 PLN, touch-up 200 PLN. See results and ask about a date.',
+    eyebrow: 'Permanent lip makeup · Wrocław',
+    title: 'Natural lips that look good from the moment you wake up',
+    lead: 'An even contour and a fresh colour matched to your skin tone — **without the “done” look**. It’s my favourite treatment.',
+    pointsTitle: 'What permanent lip makeup gives you',
+    points: [
+      { title: 'Fresh colour every day', text: 'Your lips look healthy and fresh — **no lipstick** that wears off after your first coffee.' },
+      { title: 'An even contour', text: 'I enhance the natural shape of your lips — **no forced enlargement**.' },
+      { title: 'A shade we choose together', text: 'From a soft nude to a brighter pink. You choose, I advise on what will look natural.' },
+    ],
+    galleryTitle: 'My work — lips',
+    faqTitle: 'Questions about lip makeup',
+    otherServices: 'See also brows, lash line and all prices',
   },
 
   langSuggest: {

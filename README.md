@@ -46,11 +46,19 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 - `bookingUrl` ustawiony → wszystkie główne przyciski zmieniają się z „Napisz na Instagramie” na „Umów wizytę”.
 - Portfolio: `stage: 'healed'` → etykieta „Wygojone” i miejsce na początku galerii.
 
-**Języki:** polski (`/`), ukraiński (`/uk/`), angielski (`/en/`). Teksty: `src/i18n/pl.ts`, `uk.ts`, `en.ts` — ten sam kształt, `npm run check` pokaże, jeśli czegoś brakuje. Zmieniając tekst po polsku, zmień go też w `uk.ts` i `en.ts`.
-Przełącznik PL / UA / EN jest w nagłówku. Jeśli język przeglądarki różni się od języka strony, na górze pojawia się pasek z propozycją zmiany (bez automatycznych przekierowań).
+**Języki:** polski (`/`), ukraiński (`/uk/`), angielski (`/en/`), rosyjski (`/ru/`). Teksty: `src/i18n/pl.ts`, `uk.ts`, `en.ts`, `ru.ts` — ten sam kształt, `npm run check` pokaże, jeśli czegoś brakuje. Zmieniając tekst po polsku, zmień go też w pozostałych plikach.
+Przełącznik języków jest w nagłówku (dla rosyjskiego celowo bez flagi — sam kod „RU”). Adresy podstron w każdym języku: `src/i18n/locales.ts`. Jeśli język przeglądarki różni się od języka strony, na górze pojawia się pasek z propozycją zmiany (bez automatycznych przekierowań).
 Nowy język: kopia `pl.ts` → wpis w `src/i18n/locales.ts` i `src/i18n/index.ts` → `src/pages/<lang>/index.astro`.
 
 **Podgląd linku (Open Graph):** `public/og/{pl,uk,en}.jpg` — generowane przez `node scripts/make-og.cjs` (Playwright). Wygeneruj ponownie po zmianie zdjęć lub tekstów.
+
+**Strona o ustach:** `/makijaz-permanentny-ust/` (`/uk/lips/`, `/en/lips/`, `/ru/lips/`) — pod wyszukiwanie „makijaż permanentny ust Wrocław” i reklamy. Teksty: sekcja `lips` w plikach językowych, komponent `src/components/LipsPage.astro`.
+
+**„Zapytaj o termin”:** przy każdej usłudze — WhatsApp z gotową wiadomością zawierającą nazwę usługi (`src/components/ServiceInquiry.astro`). Bez WhatsApp → Instagram.
+
+**Kody QR:** `node scripts/make-qr.cjs` → `docs/qr/` (Instagram). Z `SITE_URL=https://… node scripts/make-qr.cjs` także QR do strony (z `?utm_source=qr`).
+
+**Google Search Console:** metoda „tag HTML” → wartość `content` jako zmienna budowania `PUBLIC_GOOGLE_SITE_VERIFICATION`.
 
 **Polityka prywatności:** `src/content/privacy.ts` (strony `/polityka-prywatnosci/`, `/uk/privacy/`, `/en/privacy/`).
 

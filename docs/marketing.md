@@ -61,7 +61,15 @@ Link do konkretnej wersji językowej: `/uk/` (ukraińska), `/en/` (angielska).
 
 ---
 
-## 3. Prośba o opinię (wysyłaj 1–2 tygodnie po zabiegu lub po korekcie)
+## 3. Reklama i linki do konkretnych stron
+
+- Reklama / post o **ustach** → link do `/makijaz-permanentny-ust/` (po ukraińsku `/uk/lips/`, po rosyjsku `/ru/lips/`, po angielsku `/en/lips/`). Osoba od razu widzi prace z ustami, cenę i przycisk „Zapytaj o termin”.
+- Dodaj do linku `?utm_source=instagram` (albo `facebook`, `google`) — w statystykach będzie widać, skąd przyszły osoby.
+- Kody QR (wizytówki, lustro w gabinecie): `docs/qr/`.
+
+---
+
+## 3a. Prośba o opinię (wysyłaj 1–2 tygodnie po zabiegu lub po korekcie)
 
 Najlepiej prosić o opinię w Google (gdy profil będzie gotowy) — wtedy link do opinii wklej w wiadomość.
 

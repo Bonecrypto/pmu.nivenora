@@ -4,14 +4,15 @@
  * niż bieżąca strona (i mamy go), pokazujemy pasek „Ta strona jest dostępna po …”.
  * Tylko JS, bez przekierowań (dobre dla SEO). Zamknięcie lub wybór języka = nie pokazujemy więcej.
  */
-import { dictionaries, locales, localeMeta, type Locale } from '../i18n';
+import { dictionaries, locales, localeMeta, type Locale, type PageId } from '../i18n';
 
 interface Props {
   current: Locale;
+  page?: PageId;
 }
-const { current } = Astro.props;
+const { current, page = 'home' } = Astro.props;
 const data = Object.fromEntries(
-  locales.map((l) => [l, { ...dictionaries[l].langSuggest, path: localeMeta[l].path, short: localeMeta[l].short }]),
+  locales.map((l) => [l, { ...dictionaries[l].langSuggest, path: localeMeta[l].pages[page], short: localeMeta[l].short }]),
 );
 ---
 
@@ -43,8 +44,8 @@ const data = Object.fromEntries(
       l.toLowerCase().slice(0, 2),
     );
     const first = browser[0];
-    // Polski / ukraiński — jeśli są pierwszym językiem przeglądarki; każdy inny język → angielski.
-    const preferred = first === 'pl' || first === 'uk' ? first : first ? 'en' : null;
+    // Polski / ukraiński / rosyjski — jeśli są pierwszym językiem przeglądarki; każdy inny język → angielski.
+    const preferred = first && first in options ? first : first ? 'en' : null;
     if (preferred && preferred !== current && options[preferred]) {
       const o = options[preferred];
       el.querySelector('[data-s-badge]')!.textContent = o.short;

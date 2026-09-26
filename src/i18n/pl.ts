@@ -90,6 +90,10 @@ export const pl = {
     } satisfies Record<PmuServiceId, { name: string; short: string; description: string }>,
     correctionNote: (months: number) =>
       `Korekta jest wykonywana nie później niż ${months} ${months === 1 ? 'miesiąc' : months < 5 ? 'miesiące' : 'miesięcy'} po zabiegu podstawowym.`,
+    ask: 'Zapytaj o termin',
+    askStyling: 'Zapytaj o stylizację',
+    askMessage: (service: string) => `Dzień dobry! Chciałabym zapytać o termin: ${service}.`,
+    moreLips: 'Więcej o makijażu ust',
     packagesTitle: 'Pakiety makijażu permanentnego',
     packages: {
       brwiUsta: 'Brwi + usta',
@@ -225,6 +229,24 @@ export const pl = {
   },
 
   // Pokazywane odwiedzającym z innym językiem przeglądarki, na stronie w innym języku.
+  lips: {
+    metaTitle: 'Makijaż permanentny ust Wrocław — naturalny efekt | Veronika PMU',
+    metaDescription:
+      'Makijaż permanentny ust we Wrocławiu (Krzyki): wyrównany kontur i naturalny kolor dobrany do Ciebie. 400 zł, korekta 200 zł. Zobacz efekty i zapytaj o termin.',
+    eyebrow: 'Makijaż permanentny ust · Wrocław',
+    title: 'Naturalne usta, które wyglądają dobrze od rana',
+    lead: 'Wyrównany kontur i świeży kolor dobrany do Twojej karnacji — **bez efektu „zrobionych” ust**. To zabieg, który lubię najbardziej.',
+    pointsTitle: 'Co daje makijaż permanentny ust',
+    points: [
+      { title: 'Świeży kolor na co dzień', text: 'Usta wyglądają zdrowo i świeżo — **bez szminki**, która ściera się po pierwszej kawie.' },
+      { title: 'Wyrównany kontur', text: 'Podkreślam naturalny kształt Twoich ust — **bez powiększania na siłę**.' },
+      { title: 'Odcień dobrany razem', text: 'Od delikatnego „nude” po wyraźniejszy róż. Ty wybierasz, ja doradzam, co będzie wyglądać naturalnie.' },
+    ],
+    galleryTitle: 'Moje prace — usta',
+    faqTitle: 'Pytania o makijaż ust',
+    otherServices: 'Zobacz też brwi, linię rzęs i cały cennik',
+  },
+
   langSuggest: {
     text: 'Ta strona jest dostępna po polsku.',
     cta: 'Przejdź',
