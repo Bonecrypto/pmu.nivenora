@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { getDictionary, localeMeta, type Locale } from '../i18n';
+import { privacy } from '../content/privacy';
+import { site } from '../config/site';
+
+interface Props {
+  locale: Locale;
+}
+const t = getDictionary(Astro.props.locale);
+const doc = privacy[Astro.props.locale];
+---
+
+<Layout t={t} page="privacy" title={`${doc.title} | ${site.brand}`} description={doc.title}>
+  <Header t={t} page="privacy" />
+  <main id="main" class="section">
+    <article class="container doc">
+      <h1>{doc.title}</h1>
+      <p class="updated">{doc.updated}</p>
+      {
+        doc.sections.map((s) => (
+          <section>
+            <h2>{s.h}</h2>
+            {s.p.map((p) => (
+              <p>{p}</p>
+            ))}
+          </section>
+        ))
+      }
+      <p><a href={localeMeta[t.lang].path}>← {t.footer.backHome}</a></p>
+    </article>
+  </main>
+  <Footer t={t} />
+</Layout>
+
+<style>
+  :global(body) {
+    padding-bottom: 0;
+  }
+  .doc {
+    max-width: 720px;
+  }
+  .doc h1 {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+  }
+  .doc h2 {
+    font-size: 1.3rem;
+    margin-top: 2em;
+  }
+  .updated {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+</style>

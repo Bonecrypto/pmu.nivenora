@@ -208,6 +208,10 @@ export const en: Dictionary = {
   },
 
   footer: {
+    privacy: 'Privacy policy',
+    backHome: 'Back to the home page',
+    notFoundTitle: 'Page not found',
+    notFoundText: 'This page doesn’t exist or has moved.',
     tagline: 'permanent makeup, Wrocław — Krzyki',
     rights: 'All rights reserved.',
   },

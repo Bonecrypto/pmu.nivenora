@@ -50,6 +50,14 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 Przełącznik PL / UA / EN jest w nagłówku. Jeśli język przeglądarki różni się od języka strony, na górze pojawia się pasek z propozycją zmiany (bez automatycznych przekierowań).
 Nowy język: kopia `pl.ts` → wpis w `src/i18n/locales.ts` i `src/i18n/index.ts` → `src/pages/<lang>/index.astro`.
 
+**Podgląd linku (Open Graph):** `public/og/{pl,uk,en}.jpg` — generowane przez `node scripts/make-og.cjs` (Playwright). Wygeneruj ponownie po zmianie zdjęć lub tekstów.
+
+**Polityka prywatności:** `src/content/privacy.ts` (strony `/polityka-prywatnosci/`, `/uk/privacy/`, `/en/privacy/`).
+
+**Cloudflare Web Analytics:** Workers & Pages → Web Analytics → Add a site → skopiuj token → zmienna budowania `PUBLIC_CF_BEACON_TOKEN`. Bez tokenu skrypt nie jest dodawany.
+
+**Teksty poza stroną** (Google Business Profile, bio na Instagramie, prośba o opinię, pytania do Veroniki): [`docs/marketing.md`](docs/marketing.md).
+
 ## Przed publikacją — do uzupełnienia / potwierdzenia
 
 Założenia tymczasowe (oznaczone w kodzie jako `TEMP` / `TODO`):
@@ -59,7 +67,7 @@ Założenia tymczasowe (oznaczone w kodzie jako `TEMP` / `TODO`):
 - [ ] **Adres** — teraz: „Krzyki, okolice ul. Skarbowców, dokładny adres podam przy umawianiu”.
 - [ ] **System rezerwacji** (np. Booksy) — teraz Instagram DM, telefon i WhatsApp.
 - [ ] **Domena** i `SITE_URL`.
-- [ ] **Polityka prywatności** — zależy od finalnej analityki i formy kontaktu (obecnie strona nie używa cookies ani formularzy).
+- [ ] **Polityka prywatności** — gotowa wersja podstawowa; Veronika sprawdza, ewentualnie dopisuje dane firmy (imię i nazwisko / NIP).
 - [ ] Tekst „O mnie” — przeczytać z Veroniką, czy brzmi jak ona.
 
 Zasady treści: tylko prawdziwe prace, prawdziwe opinie, żadnych wymyślonych liczb klientek, lat doświadczenia, certyfikatów ani obietnic medycznych.

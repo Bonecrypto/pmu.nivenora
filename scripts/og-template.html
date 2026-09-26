@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: Lora; src: url('../node_modules/@fontsource-variable/lora/files/lora-latin-ext-wght-normal.woff2') format('woff2'); unicode-range: U+0100-024F; }
+@font-face { font-family: Lora; src: url('../node_modules/@fontsource-variable/lora/files/lora-latin-wght-normal.woff2') format('woff2'); unicode-range: U+0000-00FF; }
+@font-face { font-family: Lora; src: url('../node_modules/@fontsource-variable/lora/files/lora-cyrillic-wght-normal.woff2') format('woff2'); unicode-range: U+0400-04FF; }
+* { box-sizing: border-box; margin: 0; }
+body { width: 1200px; height: 630px; background: #fbf8f4; color: #2a2320; font-family: system-ui, sans-serif; display: flex; overflow: hidden; }
+.photo { width: 500px; height: 630px; object-fit: cover; object-position: 50% 30%; }
+.right { flex: 1; padding: 56px 60px 44px; display: flex; flex-direction: column; }
+.brand { font-family: Lora; font-size: 34px; }
+.brand span { font-family: system-ui; font-size: 16px; letter-spacing: .2em; color: #6b5f58; margin-left: 6px; }
+h1 { font-family: Lora; font-weight: 500; font-size: 54px; line-height: 1.1; margin-top: 34px; }
+.sub { font-size: 24px; color: #6b5f58; margin-top: 18px; }
+.works { display: flex; gap: 10px; margin-top: auto; }
+.works img { width: 120px; height: 120px; object-fit: cover; border-radius: 10px; }
+.price { margin-left: auto; align-self: flex-end; background: #8a4f41; color: #fff; font-weight: 700; font-size: 22px; padding: 12px 20px; border-radius: 999px; white-space: nowrap; }
+</style></head>
+<body>
+<img class="photo" src="../src/assets/veronika/veronika.jpg">
+<div class="right">
+  <div class="brand">Veronika <span>PMU</span></div>
+  <h1 id="title"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="works">
+    <img src="../src/assets/portfolio/usta-przed-po-01.jpg">
+    <img src="../src/assets/portfolio/brwi-usta-01.jpg">
+    <img src="../src/assets/portfolio/usta-02.jpg">
+    <div class="price" id="price"></div>
+  </div>
+</div>
+<script>
+const q = new URLSearchParams(location.search);
+for (const k of ['title','sub','price']) document.getElementById(k).textContent = q.get(k);
+</script>
+</body></html>
