@@ -3,14 +3,17 @@ import type { Dictionary } from '../i18n/pl';
 import { rich, plain } from '../i18n/rich';
 interface Props {
   t: Dictionary;
+  /** Wybrane pytania (domyślnie wszystkie). */
+  items?: Dictionary['faq']['items'];
+  title?: string;
 }
-const { t } = Astro.props;
+const { t, items = t.faq.items, title = t.faq.title } = Astro.props;
 const isDev = import.meta.env.DEV;
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: t.faq.items.map((i) => ({
+  mainEntity: items.map((i) => ({
     '@type': 'Question',
     name: i.q,
     acceptedAnswer: { '@type': 'Answer', text: plain(i.a) },
@@ -21,11 +24,11 @@ const faqJsonLd = {
 <section class="section" id="faq" aria-labelledby="faq-title">
   <div class="container faq">
     <div class="section-head">
-      <h2 id="faq-title">{t.faq.title}</h2>
+      <h2 id="faq-title">{title}</h2>
     </div>
     <div class="faq__list">
       {
-        t.faq.items.map((item) => (
+        items.map((item) => (
           <details>
             <summary>{item.q}</summary>
             <div class="answer">

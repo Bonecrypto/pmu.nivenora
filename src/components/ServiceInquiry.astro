@@ -1,0 +1,34 @@
+---
+/**
+ * „Zapytaj o termin” dla konkretnej usługi: WhatsApp z gotową wiadomością (nazwa usługi w treści).
+ * Bez WhatsApp → wiadomość na Instagramie (tam nie da się wstawić treści).
+ */
+import Icon from './Icon.astro';
+import type { Dictionary } from '../i18n/pl';
+import { primaryContactUrl, whatsappUrl } from '../config/site';
+
+interface Props {
+  t: Dictionary;
+  /** Nazwa usługi wstawiana do wiadomości. */
+  service: string;
+  /** Id do analityki (np. 'usta'). */
+  id: string;
+  label?: string;
+  variant?: 'ghost' | 'primary';
+  class?: string;
+}
+const { t, service, id, label = t.services.ask, variant = 'ghost', class: className } = Astro.props;
+const wa = whatsappUrl(t.services.askMessage(service));
+---
+
+<a
+  class:list={['btn', `btn--${variant}`, className]}
+  href={wa ?? primaryContactUrl}
+  target="_blank"
+  rel="noopener"
+  data-track="service_inquiry_click"
+  data-track-location={id}
+>
+  <Icon name={wa ? 'whatsapp' : 'instagram'} />
+  {label}
+</a>

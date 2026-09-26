@@ -1,0 +1,208 @@
+---
+/** Osobna strona o makijażu permanentnym ust — pod wyszukiwanie „makijaż permanentny ust Wrocław” i reklamy. */
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Portfolio from './Portfolio.astro';
+import Process from './Process.astro';
+import Faq from './Faq.astro';
+import Contact from './Contact.astro';
+import Footer from './Footer.astro';
+import MobileCta from './MobileCta.astro';
+import LangSuggest from './LangSuggest.astro';
+import ContactButton from './ContactButton.astro';
+import ServiceInquiry from './ServiceInquiry.astro';
+import { getDictionary, localeMeta, type Locale } from '../i18n';
+import { rich } from '../i18n/rich';
+import { prices, site } from '../config/site';
+import { portfolio } from '../config/portfolio';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+const price = prices.pmu.usta;
+const cur = t.services.currency;
+const heroImage = portfolio.find((p) => p.categories.includes('usta') && p.stage === 'before-after') ?? portfolio.find((p) => p.categories.includes('usta'))!;
+// Pytania ogólne pasujące do ust (bez przygotowania i pielęgnacji — to Veronika wysyła indywidualnie).
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: t.services.pmu.usta.name,
+  serviceType: t.services.pmu.usta.name,
+  description: t.lips.metaDescription,
+  areaServed: { '@type': 'City', name: site.location.city },
+  provider: { '@type': 'BeautySalon', name: site.brand, telephone: site.contact.phone ?? undefined, sameAs: [site.instagram.profileUrl] },
+  offers: { '@type': 'Offer', price: price.price, priceCurrency: 'PLN' },
+};
+const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8].includes(i));
+---
+
+<Layout t={t} page="lips" title={t.lips.metaTitle} description={t.lips.metaDescription}>
+  <LangSuggest current={locale} page="lips" />
+  <Header t={t} page="lips" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
+  <main id="main">
+    <section class="lips-hero">
+      <div class="container lips-hero__grid">
+        <div>
+          <p class="eyebrow">{t.lips.eyebrow}</p>
+          <h1>{t.lips.title}</h1>
+          <p class="lips-hero__lead" set:html={rich(t.lips.lead)} />
+          <div class="price">
+            <div>
+              <span class="price__main">{price.price} <small>{cur}</small></span>
+              <span class="price__corr">{t.services.correction}*: {price.correction} {cur}</span>
+            </div>
+            <p class="price__note">* {t.services.correctionNote(prices.correctionWithinMonths)}</p>
+          </div>
+          <div class="actions" data-hero-cta>
+            <ServiceInquiry t={t} service={t.services.pmu.usta.name} id="lips-page" variant="primary" />
+            <ContactButton t={t} location="lips-hero" variant="ghost" />
+          </div>
+        </div>
+        <Image
+          src={heroImage.image}
+          alt={heroImage.alt[locale]}
+          widths={[heroImage.image.width]}
+          sizes="(min-width: 900px) 440px, 100vw"
+          class="lips-hero__img"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </section>
+
+    <section class="section section--tint" aria-labelledby="lips-points">
+      <div class="container">
+        <h2 id="lips-points">{t.lips.pointsTitle}</h2>
+        <ol class="points">
+          {
+            t.lips.points.map((p, i) => (
+              <li>
+                <span class="num" aria-hidden="true">
+                  0{i + 1}
+                </span>
+                <h3>{p.title}</h3>
+                <p set:html={rich(p.text)} />
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <Portfolio t={t} category="usta" title={t.lips.galleryTitle} />
+    <Process t={t} />
+    <Faq t={t} items={faqItems} title={t.lips.faqTitle} />
+    <Contact t={t} />
+    <div class="container other">
+      <a href={`${localeMeta[locale].path}#cennik`}>{t.lips.otherServices} →</a>
+    </div>
+  </main>
+  <Footer t={t} />
+  <MobileCta t={t} />
+</Layout>
+
+<style>
+  .lips-hero {
+    padding-block: clamp(28px, 6vw, 72px) clamp(40px, 7vw, 80px);
+  }
+  .lips-hero__grid {
+    display: grid;
+    gap: 32px;
+  }
+  @media (min-width: 900px) {
+    .lips-hero__grid {
+      grid-template-columns: 1.15fr 440px;
+      align-items: center;
+      gap: 64px;
+    }
+  }
+  .lips-hero__lead {
+    font-size: clamp(1.1rem, 2.6vw, 1.25rem);
+    color: var(--muted);
+    max-width: 36ch;
+  }
+  .lips-hero :global(.lips-hero__img) {
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+  .price {
+    margin: 24px 0;
+    padding: 18px 20px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    max-width: 420px;
+  }
+  .price > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .price__main {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+  .price__main small {
+    font-size: 1rem;
+    color: var(--muted);
+  }
+  .price__corr {
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+  .price__note {
+    margin: 10px 0 0;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 479px) {
+    .actions > :global(*) {
+      flex: 1 1 100%;
+    }
+  }
+  .points {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 28px;
+  }
+  @media (min-width: 800px) {
+    .points {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+  }
+  .points li {
+    border-top: 1px solid var(--ink);
+    padding-top: 16px;
+  }
+  .num {
+    display: block;
+    font-family: var(--font-display);
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .points p {
+    color: var(--muted);
+    margin: 0;
+  }
+  .other {
+    padding-block: 28px;
+    text-align: center;
+    font-weight: 600;
+  }
+</style>

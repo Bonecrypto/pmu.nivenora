@@ -6,6 +6,7 @@ const texts = {
   pl: { title: 'Naturalny makijaż permanentny we Wrocławiu', sub: 'Brwi · usta · linia rzęs — Krzyki', price: 'od 300 zł' },
   uk: { title: 'Природний перманентний макіяж у Вроцлаві', sub: 'Брови · губи · стрілка — Кшики', price: 'від 300 зл' },
   en: { title: 'Natural permanent makeup in Wrocław', sub: 'Brows · lips · lash line — Krzyki', price: 'from 300 PLN' },
+  ru: { title: 'Естественный перманентный макияж во Вроцлаве', sub: 'Брови · губы · стрелка — Кшики', price: 'от 300 зл' },
 };
 (async () => {
   const b = await chromium.launch();

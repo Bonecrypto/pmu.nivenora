@@ -7,12 +7,17 @@ import Icon from './Icon.astro';
 
 interface Props {
   t: Dictionary;
+  /** Tylko zdjęcia z tej kategorii (bez filtrów i bez „Pokaż więcej”). */
+  category?: PortfolioCategory;
+  title?: string;
 }
-const { t } = Astro.props;
+const { t, category, title = t.portfolio.title } = Astro.props;
 const isDev = import.meta.env.DEV;
 
 // Wygojone efekty zawsze na początku — to najlepszy dowód jakości.
-const items = [...portfolio].sort((a, b) => Number(b.stage === 'healed') - Number(a.stage === 'healed'));
+const items = [...portfolio]
+  .filter((p) => !category || p.categories.includes(category))
+  .sort((a, b) => Number(b.stage === 'healed') - Number(a.stage === 'healed'));
 
 const usedCategories = (['usta', 'brwi', 'kreska'] as PortfolioCategory[]).filter((c) =>
   items.some((i) => i.categories.includes(c)),
@@ -28,20 +33,20 @@ const large = await Promise.all(
   items.map((i) => getImage({ src: i.image, width: Math.min(i.image.width, 1400), format: 'webp' })),
 );
 // Na starcie widać tylko tyle zdjęć — reszta po kliknięciu „Pokaż więcej” (bez JS widać wszystkie).
-const INITIAL_VISIBLE = 8;
+const INITIAL_VISIBLE = category ? Infinity : 8;
 const hasTempImages = items.some((i) => i.image.width < 600);
 ---
 
 <section class="section" id="efekty" aria-labelledby="efekty-title">
   <div class="container">
     <div class="section-head">
-      <h2 id="efekty-title">{t.portfolio.title}</h2>
+      <h2 id="efekty-title">{title}</h2>
       <p class="lead">{t.portfolio.lead}</p>
       {isDev && hasTempImages && <p class="dev-flag">{t.dev.tempImages}</p>}
     </div>
 
     {
-      usedCategories.length > 1 && (
+      !category && usedCategories.length > 1 && (
         <div class="filters" role="group" aria-label={t.portfolio.title} data-filters>
           <button type="button" aria-pressed="true" data-filter="all">
             {t.portfolio.filterAll}

@@ -1,14 +1,13 @@
 ---
-import { locales, localeMeta, type Locale } from '../i18n/locales';
+import { locales, localeMeta, type Locale, type PageId } from '../i18n/locales';
 import Icon from './Icon.astro';
 
 interface Props {
   current: Locale;
   label: string;
-  page?: 'home' | 'privacy';
+  page?: PageId;
 }
 const { current, label, page = 'home' } = Astro.props;
-const key = page === 'privacy' ? 'privacyPath' : 'path';
 ---
 
 <nav class="lang" aria-label={label}>
@@ -18,7 +17,7 @@ const key = page === 'privacy' ? 'privacyPath' : 'path';
       locales.map((l) => (
         <li>
           <a
-            href={localeMeta[l][key]}
+            href={localeMeta[l].pages[page]}
             hreflang={localeMeta[l].hreflang}
             lang={localeMeta[l].hreflang}
             title={localeMeta[l].name}
@@ -28,20 +27,21 @@ const key = page === 'privacy' ? 'privacyPath' : 'path';
             data-track="language_switch"
             data-track-location={l}
           >
+            {localeMeta[l].flag && (
             <span class="flag" aria-hidden="true">
-              {l === 'pl' && (
+              {localeMeta[l].flag === 'pl' && (
                 <svg viewBox="0 0 16 10" preserveAspectRatio="none">
                   <rect width="16" height="5" fill="#fff" />
                   <rect y="5" width="16" height="5" fill="#dc143c" />
                 </svg>
               )}
-              {l === 'uk' && (
+              {localeMeta[l].flag === 'ua' && (
                 <svg viewBox="0 0 16 10" preserveAspectRatio="none">
                   <rect width="16" height="5" fill="#0057b7" />
                   <rect y="5" width="16" height="5" fill="#ffd700" />
                 </svg>
               )}
-              {l === 'en' && (
+              {localeMeta[l].flag === 'gb' && (
                 <svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice">
                   <clipPath id="flag-gb-clip">
                     <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
@@ -54,7 +54,8 @@ const key = page === 'privacy' ? 'privacyPath' : 'path';
                 </svg>
               )}
             </span>
-            <span class="code">{localeMeta[l].short}</span>
+            )}
+            <span class:list={['code', !localeMeta[l].flag && 'code--always']}>{localeMeta[l].short}</span>
           </a>
         </li>
       ))
@@ -140,9 +141,9 @@ const key = page === 'privacy' ? 'privacyPath' : 'path';
       display: block;
     }
   }
-  /* Bardzo wąskie ekrany: same flagi */
-  @media (max-width: 374px) {
-    .code {
+  /* Wąskie ekrany: same flagi (język bez flagi zawsze pokazuje kod) */
+  @media (max-width: 459px) {
+    .code:not(.code--always) {
       display: none;
     }
     a {
