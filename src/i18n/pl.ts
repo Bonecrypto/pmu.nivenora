@@ -43,7 +43,7 @@ export const pl = {
 
   hero: {
     title: 'Naturalny makijaż permanentny we Wrocławiu',
-    lead: 'Brwi, usta i kreska dopasowane do Twojej twarzy — tak, żebyś po zabiegu nadal wyglądała jak Ty.',
+    lead: 'Brwi, usta i kreska dopasowane do Twojej twarzy — tak, żebyś po zabiegu **nadal wyglądała jak Ty**.',
     artistLine: 'Veronika · linergistka PMU',
     priceFrom: 'Makijaż permanentny od',
     place: 'Wrocław · Krzyki, okolice ul. Skarbowców',
@@ -119,10 +119,8 @@ export const pl = {
 
   about: {
     title: 'Cześć, jestem Veronika',
-    paragraphs: [
-      'Kiedyś sama bałam się makijażu permanentnego — niebieskich brwi, kresek, które zostają na 10 lat, i ust ze zbyt mocnym konturem. Dziś sama go wykonuję i wiem, że może wyglądać lekko i naturalnie: nie rzuca się w oczy, a sprawia, że wyglądasz świeżo każdego dnia.',
-      'Najważniejsze są dla mnie Twoje oczekiwania — dlatego kształt i kolor zawsze będą takie, jakie chcesz właśnie Ty. Najbardziej lubię pracować z ustami, ale z tą samą uwagą robię brwi i linię rzęs.',
-    ],
+    text: 'Kiedyś sama **bałam się makijażu permanentnego** — niebieskich brwi i zbyt mocnych konturów. Dziś robię go tak, jak sama chciałabym go mieć: **lekko i naturalnie**. Najbardziej lubię pracować z **ustami**.',
+    points: ['Kształt i kolor dopasowane do Ciebie', 'Nic bez Twojej akceptacji', 'Naturalny efekt, bez przerysowania'],
     languagesTitle: 'Możesz pisać do mnie w języku:',
     languages: ['polskim', 'ukraińskim', 'rosyjskim', 'angielskim'],
     photoAlt: 'Veronika — linergistka makijażu permanentnego we Wrocławiu',
@@ -134,13 +132,13 @@ export const pl = {
       { title: 'Wiadomość', text: 'Piszesz, jaki zabieg Cię interesuje. Ustalamy termin i odpowiadam na pytania.' },
       {
         title: 'Projekt',
-        text: 'Rysuję kształt na Twojej twarzy i razem dobieramy kolor. Zaczynam dopiero, gdy projekt Ci się podoba.',
+        text: 'Rysuję kształt na Twojej twarzy i razem dobieramy kolor. Zaczynam dopiero, gdy **projekt Ci się podoba**.',
       },
       {
         title: 'Zabieg i gojenie',
-        text: 'Zabieg trwa około 2 godzin. Potem dostajesz zalecenia, jak dbać o skórę w czasie gojenia.',
+        text: 'Zabieg trwa **około 2 godzin**. Potem dostajesz zalecenia, jak dbać o skórę w czasie gojenia.',
       },
-      { title: 'Korekta', text: 'Jeśli trzeba coś uzupełnić — umawiamy korektę, nie później niż 2 miesiące po zabiegu.' },
+      { title: 'Korekta', text: 'Jeśli trzeba coś uzupełnić — umawiamy korektę, **nie później niż 2 miesiące** po zabiegu.' },
     ],
   },
 
@@ -154,32 +152,32 @@ export const pl = {
     items: [
       {
         q: 'Czy efekt będzie wyglądał naturalnie?',
-        a: 'To mój główny cel. Kształt i kolor dobieramy razem, a przed zabiegiem widzisz projekt na swojej twarzy. Jeśli coś Ci nie pasuje — zmieniamy, zanim zacznę.',
+        a: 'To mój główny cel. Kształt i kolor dobieramy razem, a przed zabiegiem **widzisz projekt na swojej twarzy**. Jeśli coś Ci nie pasuje — zmieniamy, zanim zacznę.',
         verified: true,
       },
       {
         q: 'Jak długo utrzymuje się efekt?',
-        a: 'Zwykle od 1 do 3 lat. Kolor nie przechodzi z czasem w szaro-zielone odcienie — po prostu stopniowo traci intensywność.',
+        a: 'Zwykle **od 1 do 3 lat**. Kolor nie przechodzi z czasem w szaro-zielone odcienie — po prostu stopniowo traci intensywność.',
         verified: true,
       },
       {
         q: 'Czy zabieg boli?',
-        a: 'Odczucia są indywidualne. Większość osób opisuje je jako dyskomfort, a nie silny ból. Przed zabiegiem powiem Ci, czego się spodziewać.',
+        a: 'Odczucia są indywidualne. Większość osób opisuje je jako **dyskomfort, a nie silny ból**. Przed zabiegiem powiem Ci, czego się spodziewać.',
         verified: false,
       },
       {
         q: 'Jak wygląda gojenie?',
-        a: 'Zaraz po zabiegu kolor jest wyraźniejszy, a w kolejnych dniach skóra się goi i kolor łagodnieje. Pełny efekt widać dopiero po wygojeniu. Szczegółowe zalecenia dostaniesz po zabiegu.',
+        a: 'Zaraz po zabiegu kolor jest wyraźniejszy, a w kolejnych dniach skóra się goi i kolor łagodnieje. **Pełny efekt widać dopiero po wygojeniu.** Szczegółowe zalecenia dostaniesz po zabiegu.',
         verified: false,
       },
       {
         q: 'Czy korekta jest konieczna?',
-        a: 'Skóra każdej osoby goi się inaczej, dlatego po wygojeniu oceniamy efekt i w razie potrzeby uzupełniamy kolor lub kształt. Korektę wykonuję nie później niż 2 miesiące po zabiegu podstawowym. Kosztuje 200 zł (brwi, usta) lub 150 zł (linia rzęs).',
+        a: 'Skóra każdej osoby goi się inaczej, dlatego po wygojeniu oceniamy efekt i w razie potrzeby uzupełniamy kolor lub kształt. Korektę wykonuję **nie później niż 2 miesiące** po zabiegu podstawowym. Kosztuje 200 zł (brwi, usta) lub 150 zł (linia rzęs).',
         verified: false,
       },
       {
         q: 'Ile trwa zabieg?',
-        a: 'Zarezerwuj sobie około 2 godzin.',
+        a: 'Zarezerwuj sobie **około 2 godzin**.',
         verified: true,
       },
       {
@@ -194,7 +192,7 @@ export const pl = {
       },
       {
         q: 'Czy są przeciwwskazania?',
-        a: 'Tak, w niektórych sytuacjach zabieg trzeba przełożyć lub z niego zrezygnować. Jeśli jesteś w ciąży, karmisz piersią, przyjmujesz leki lub masz choroby skóry — napisz przed umówieniem wizyty, a wszystko omówimy.',
+        a: 'Tak, w niektórych sytuacjach zabieg trzeba przełożyć lub z niego zrezygnować. Jeśli jesteś w ciąży, karmisz piersią, przyjmujesz leki lub masz choroby skóry — **napisz przed umówieniem wizyty**, a wszystko omówimy.',
         verified: false,
       },
     ],

@@ -5,6 +5,7 @@ import Icon from './Icon.astro';
 import type { Dictionary } from '../i18n/pl';
 import { lowestPmuPrice } from '../config/site';
 import { portfolio } from '../config/portfolio';
+import { rich } from '../i18n/rich';
 import veronikaPhoto from '../assets/veronika/veronika.jpg';
 
 interface Props {
@@ -22,7 +23,7 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
         <span>{t.hero.artistLine}</span>
       </div>
       <h1>{t.hero.title}</h1>
-      <p class="hero__lead">{t.hero.lead}</p>
+      <p class="hero__lead" set:html={rich(t.hero.lead)} />
       <div class="hero__actions" data-hero-cta>
         <ContactButton t={t} location="hero" />
         <a class="btn btn--ghost" href="#efekty" data-track="see_results_click" data-track-location="hero">

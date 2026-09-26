@@ -1,5 +1,6 @@
 ---
 import type { Dictionary } from '../i18n/pl';
+import { rich, plain } from '../i18n/rich';
 interface Props {
   t: Dictionary;
 }
@@ -12,7 +13,7 @@ const faqJsonLd = {
   mainEntity: t.faq.items.map((i) => ({
     '@type': 'Question',
     name: i.q,
-    acceptedAnswer: { '@type': 'Answer', text: i.a },
+    acceptedAnswer: { '@type': 'Answer', text: plain(i.a) },
   })),
 };
 ---
@@ -29,7 +30,7 @@ const faqJsonLd = {
             <summary>{item.q}</summary>
             <div class="answer">
               {isDev && !item.verified && <p class="dev-flag">{t.dev.unverified}</p>}
-              <p>{item.a}</p>
+              <p set:html={rich(item.a)} />
             </div>
           </details>
         ))

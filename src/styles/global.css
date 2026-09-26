@@ -213,6 +213,16 @@ a {
   top: 12px;
 }
 
+/* Wyróżnienia w tekstach (**tekst** w plikach językowych) */
+.hl {
+  font-weight: 650;
+  color: var(--ink);
+  background: linear-gradient(transparent 62%, var(--accent-soft) 62%);
+  padding: 0 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* Etykiety widoczne tylko w trybie deweloperskim */
 .dev-flag {
   display: inline-block;

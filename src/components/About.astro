@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import type { Dictionary } from '../i18n/pl';
+import { rich } from '../i18n/rich';
+import Icon from './Icon.astro';
 import veronikaPhoto from '../assets/veronika/veronika.jpg';
 
 interface Props {
@@ -14,14 +16,24 @@ const { t } = Astro.props;
     <Image
       src={veronikaPhoto}
       alt={t.about.photoAlt}
-      widths={[300, 600, 846]}
-      sizes="(min-width: 800px) 420px, 150px"
+      widths={[400, 600, 846]}
+      sizes="(min-width: 800px) 460px, calc(100vw - 32px)"
       class="about__photo"
       loading="lazy"
     />
     <div>
       <h2 id="o-mnie-title">{t.about.title}</h2>
-      {t.about.paragraphs.map((p) => <p>{p}</p>)}
+      <p class="about__text" set:html={rich(t.about.text)} />
+      <ul class="points">
+        {
+          t.about.points.map((p) => (
+            <li>
+              <Icon name="check" />
+              {p}
+            </li>
+          ))
+        }
+      </ul>
       <p class="langs-title">{t.about.languagesTitle}</p>
       <ul class="langs">
         {t.about.languages.map((l) => <li>{l}</li>)}
@@ -33,29 +45,56 @@ const { t } = Astro.props;
 <style>
   .about {
     display: grid;
-    gap: 20px;
-  }
-  @media (min-width: 800px) {
-    .about :global(.about__photo) {
-      width: 100%;
-      max-width: 420px;
-    }
-    .about {
-      grid-template-columns: 420px 1fr;
-      gap: 56px;
-      align-items: center;
-    }
+    gap: 24px;
   }
   .about :global(.about__photo) {
-    width: 150px;
-    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 460px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    object-position: 50% 35%;
+    object-position: 50% 30%;
     border-radius: var(--radius);
   }
-  .langs-title {
-    margin: 24px 0 10px;
+  @media (min-width: 800px) {
+    .about {
+      grid-template-columns: minmax(0, 460px) 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about :global(.about__photo) {
+      aspect-ratio: 4 / 5;
+    }
+  }
+  .about__text {
+    font-size: 1.125rem;
+    max-width: 52ch;
+  }
+  .points {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .points li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-weight: 600;
+  }
+  .points :global(svg) {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    padding: 3px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .langs-title {
+    margin: 28px 0 10px;
+    color: var(--muted);
+    font-size: 0.9375rem;
   }
   .langs {
     list-style: none;

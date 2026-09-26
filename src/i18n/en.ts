@@ -37,7 +37,7 @@ export const en: Dictionary = {
 
   hero: {
     title: 'Natural permanent makeup in Wrocław',
-    lead: 'Brows, lips and lash line designed for your face — so that after the procedure you still look like you.',
+    lead: 'Brows, lips and lash line designed for your face — so that after the procedure **you still look like you**.',
     artistLine: 'Veronika · permanent makeup artist',
     priceFrom: 'Permanent makeup from',
     place: 'Wrocław · Krzyki, near Skarbowców St.',
@@ -112,10 +112,8 @@ export const en: Dictionary = {
 
   about: {
     title: 'Hi, I’m Veronika',
-    paragraphs: [
-      'I used to be afraid of permanent makeup myself — blue brows, eyeliner that stays for 10 years, lips with a harsh outline. Now I do it myself, and I know it can look light and natural: it doesn’t catch the eye, it just makes you look fresh every day.',
-      'What matters most to me is what you want — so the shape and colour will always be exactly how you like them. I especially love working with lips, but I give brows and lash lines the same care.',
-    ],
+    text: 'I used to be **afraid of permanent makeup** myself — blue brows, harsh outlines. Now I do it the way I’d want it for myself: **light and natural**. My favourite to work on: **lips**.',
+    points: ['Shape and colour matched to you', 'Nothing without your approval', 'Natural result, never overdone'],
     languagesTitle: 'You can message me in:',
     languages: ['Polish', 'Ukrainian', 'Russian', 'English'],
     photoAlt: 'Veronika — permanent makeup artist in Wrocław',
@@ -127,13 +125,13 @@ export const en: Dictionary = {
       { title: 'Message', text: 'Tell me which treatment you’re interested in. We pick a date and I answer your questions.' },
       {
         title: 'Design',
-        text: 'I draw the shape on your face and we choose the colour together. I only start once you love the design.',
+        text: 'I draw the shape on your face and we choose the colour together. I only start once **you love the design**.',
       },
       {
         title: 'Procedure & healing',
-        text: 'The procedure takes about 2 hours. Afterwards you get aftercare instructions for the healing period.',
+        text: 'The procedure takes **about 2 hours**. Afterwards you get aftercare instructions for the healing period.',
       },
-      { title: 'Touch-up', text: 'If anything needs adding, we book a touch-up — no later than 2 months after.' },
+      { title: 'Touch-up', text: 'If anything needs adding, we book a touch-up — **no later than 2 months** after.' },
     ],
   },
 
@@ -147,32 +145,32 @@ export const en: Dictionary = {
     items: [
       {
         q: 'Will it look natural?',
-        a: 'That’s my main goal. We choose the shape and colour together, and you see the design on your face before we start. If something isn’t right, we change it first.',
+        a: 'That’s my main goal. We choose the shape and colour together, and **you see the design on your face** before we start. If something isn’t right, we change it first.',
         verified: true,
       },
       {
         q: 'How long does it last?',
-        a: 'Usually 1 to 3 years. The colour doesn’t turn grey-green over time — it simply fades gradually.',
+        a: 'Usually **1 to 3 years**. The colour doesn’t turn grey-green over time — it simply fades gradually.',
         verified: true,
       },
       {
         q: 'Does it hurt?',
-        a: 'Everyone feels it differently. Most people describe it as discomfort rather than real pain. I’ll tell you what to expect before we start.',
+        a: 'Everyone feels it differently. Most people describe it as **discomfort rather than real pain**. I’ll tell you what to expect before we start.',
         verified: false,
       },
       {
         q: 'What is healing like?',
-        a: 'Right after the procedure the colour is more intense; over the next days the skin heals and the colour softens. You see the final result once it’s healed. You’ll get detailed aftercare instructions.',
+        a: 'Right after the procedure the colour is more intense; over the next days the skin heals and the colour softens. **You see the final result once it’s healed.** You’ll get detailed aftercare instructions.',
         verified: false,
       },
       {
         q: 'Is a touch-up necessary?',
-        a: 'Everyone’s skin heals differently, so after healing we assess the result and, if needed, add colour or refine the shape. I do touch-ups no later than 2 months after the initial procedure. It costs 200 PLN (brows, lips) or 150 PLN (lash line).',
+        a: 'Everyone’s skin heals differently, so after healing we assess the result and, if needed, add colour or refine the shape. I do touch-ups **no later than 2 months** after the initial procedure. It costs 200 PLN (brows, lips) or 150 PLN (lash line).',
         verified: false,
       },
       {
         q: 'How long does the procedure take?',
-        a: 'Plan for about 2 hours.',
+        a: 'Plan for **about 2 hours**.',
         verified: true,
       },
       {
@@ -187,7 +185,7 @@ export const en: Dictionary = {
       },
       {
         q: 'Are there contraindications?',
-        a: 'Yes — in some cases the procedure has to be postponed or isn’t possible. If you’re pregnant, breastfeeding, taking medication or have a skin condition, message me before booking and we’ll talk it through.',
+        a: 'Yes — in some cases the procedure has to be postponed or isn’t possible. If you’re pregnant, breastfeeding, taking medication or have a skin condition, **message me before booking** and we’ll talk it through.',
         verified: false,
       },
     ],
