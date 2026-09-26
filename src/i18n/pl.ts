@@ -198,7 +198,7 @@ export const pl = {
 
   contact: {
     title: 'Umów się na wizytę',
-    lead: 'Napisz, jaki zabieg Cię interesuje — pomogę wybrać i odpowiem na wszystkie pytania. Możesz też zadzwonić.',
+    lead: 'Napisz, jaki zabieg Cię interesuje — pomogę wybrać i odpowiem na wszystkie pytania. Możesz też zadzwonić lub napisać na WhatsApp.',
     call: 'Zadzwoń',
     locationTitle: 'Lokalizacja',
     // TEMP: do czasu zatwierdzenia publicznego adresu.
@@ -207,6 +207,7 @@ export const pl = {
     phone: 'Telefon',
     email: 'E-mail',
     whatsapp: 'WhatsApp',
+    whatsappMessage: 'Dzień dobry! Chciałabym zapytać o makijaż permanentny.',
     instagram: 'Instagram',
     map: 'Zobacz na mapie',
   },

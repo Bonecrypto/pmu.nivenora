@@ -2,15 +2,16 @@
 import type { Dictionary } from '../i18n/pl';
 import ContactButton from './ContactButton.astro';
 import Icon from './Icon.astro';
-import { site } from '../config/site';
+import { site, whatsappUrl } from '../config/site';
 interface Props {
   t: Dictionary;
 }
 const { t } = Astro.props;
+const waUrl = whatsappUrl(t.contact.whatsappMessage);
 ---
 
 <div class="mobile-cta" data-mobile-cta>
-  <ContactButton t={t} location="mobile-bar" class="mobile-cta__main" />
+  <ContactButton t={t} location="mobile-bar" label="short" class="mobile-cta__main" />
   {
     site.contact.phone && (
       <a
@@ -21,6 +22,21 @@ const { t } = Astro.props;
         data-track-location="mobile-bar"
       >
         <Icon name="phone" />
+      </a>
+    )
+  }
+  {
+    waUrl && (
+      <a
+        class="btn btn--ghost mobile-cta__call"
+        href={waUrl}
+        target="_blank"
+        rel="noopener"
+        aria-label={t.contact.whatsapp}
+        data-track="whatsapp_click"
+        data-track-location="mobile-bar"
+      >
+        <Icon name="whatsapp" />
       </a>
     )
   }
@@ -54,13 +70,16 @@ const { t } = Astro.props;
   }
   .mobile-cta {
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    padding-inline: 12px;
   }
   .mobile-cta :global(.mobile-cta__main) {
     flex: 1;
+    min-width: 0;
+    padding-inline: 14px;
   }
   .mobile-cta__call {
-    width: 52px;
+    width: 48px;
     padding: 0;
     flex: none;
     background: var(--bg);

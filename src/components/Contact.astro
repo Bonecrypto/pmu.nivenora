@@ -1,6 +1,6 @@
 ---
 import type { Dictionary } from '../i18n/pl';
-import { site } from '../config/site';
+import { site, whatsappUrl } from '../config/site';
 import ContactButton from './ContactButton.astro';
 import Icon from './Icon.astro';
 
@@ -9,6 +9,7 @@ interface Props {
 }
 const { t } = Astro.props;
 const { location, contact, instagram } = site;
+const waUrl = whatsappUrl(t.contact.whatsappMessage);
 ---
 
 <section class="section section--tint" id="kontakt" aria-labelledby="kontakt-title">
@@ -23,6 +24,14 @@ const { location, contact, instagram } = site;
             <a class="btn btn--ghost" href={`tel:${contact.phone.replace(/\s/g, '')}`} data-track="phone_click" data-track-location="contact">
               <Icon name="phone" />
               {t.contact.call}
+            </a>
+          )
+        }
+        {
+          waUrl && (
+            <a class="btn btn--ghost" href={waUrl} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="contact">
+              <Icon name="whatsapp" />
+              {t.contact.whatsapp}
             </a>
           )
         }
@@ -72,11 +81,11 @@ const { location, contact, instagram } = site;
             )
           }
           {
-            contact.whatsapp && (
+            waUrl && (
               <li>
                 <span>{t.contact.whatsapp}</span>
-                <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener" data-track="whatsapp_click">
-                  WhatsApp
+                <a href={waUrl} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="contact-list">
+                  {contact.phone ?? 'WhatsApp'}
                 </a>
               </li>
             )

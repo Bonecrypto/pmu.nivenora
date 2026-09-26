@@ -153,6 +153,7 @@ a {
   font-size: 1rem;
   text-decoration: none;
   border: 1.5px solid transparent;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     background-color 0.15s ease,
