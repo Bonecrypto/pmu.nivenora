@@ -1,5 +1,6 @@
 ---
 import type { Dictionary } from '../i18n/pl';
+import { rich } from '../i18n/rich';
 interface Props {
   t: Dictionary;
 }
@@ -20,7 +21,7 @@ const { t } = Astro.props;
             </span>
             <div>
               <h3>{s.title}</h3>
-              <p>{s.text}</p>
+              <p set:html={rich(s.text)} />
             </div>
           </li>
         ))
