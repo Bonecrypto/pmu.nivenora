@@ -26,7 +26,33 @@ const { current, label } = Astro.props;
             data-track="language_switch"
             data-track-location={l}
           >
-            {localeMeta[l].short}
+            <span class="flag" aria-hidden="true">
+              {l === 'pl' && (
+                <svg viewBox="0 0 16 10" preserveAspectRatio="none">
+                  <rect width="16" height="5" fill="#fff" />
+                  <rect y="5" width="16" height="5" fill="#dc143c" />
+                </svg>
+              )}
+              {l === 'uk' && (
+                <svg viewBox="0 0 16 10" preserveAspectRatio="none">
+                  <rect width="16" height="5" fill="#0057b7" />
+                  <rect y="5" width="16" height="5" fill="#ffd700" />
+                </svg>
+              )}
+              {l === 'en' && (
+                <svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice">
+                  <clipPath id="flag-gb-clip">
+                    <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+                  </clipPath>
+                  <rect width="60" height="30" fill="#012169" />
+                  <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+                  <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#flag-gb-clip)" stroke="#c8102e" stroke-width="4" />
+                  <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+                  <path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6" />
+                </svg>
+              )}
+            </span>
+            <span class="code">{localeMeta[l].short}</span>
           </a>
         </li>
       ))
@@ -66,11 +92,12 @@ const { current, label } = Astro.props;
     background: var(--surface);
   }
   a {
-    display: grid;
-    place-items: center;
-    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     height: 32px;
-    padding: 0 8px;
+    padding: 0 9px;
     border-radius: 999px;
     font-size: 0.8125rem;
     font-weight: 700;
@@ -88,13 +115,36 @@ const { current, label } = Astro.props;
     background: var(--ink);
     color: var(--bg);
   }
-  @media (max-width: 359px) {
+  .flag {
+    display: block;
+    width: 18px;
+    height: 12px;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    flex: none;
+  }
+  .flag svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Flagi są wystarczająco czytelne — globus tylko na szerokich ekranach */
+  .lang :global(.lang__icon) {
+    display: none;
+  }
+  @media (min-width: 900px) {
     .lang :global(.lang__icon) {
+      display: block;
+    }
+  }
+  /* Bardzo wąskie ekrany: same flagi */
+  @media (max-width: 374px) {
+    .code {
       display: none;
     }
     a {
-      min-width: 34px;
-      padding: 0 6px;
+      padding: 0 8px;
     }
   }
 </style>

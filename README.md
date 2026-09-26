@@ -54,7 +54,7 @@ Nowy język: kopia `pl.ts` → wpis w `src/i18n/locales.ts` i `src/i18n/index.ts
 
 Założenia tymczasowe (oznaczone w kodzie jako `TEMP` / `TODO`):
 
-- [ ] **Zdjęcia portfolio** — obecnie to kadry ze zrzutu ekranu Instagrama (~180 px, niska jakość). Potrzebne oryginały z telefonu (bez filtrów). Oznaczyć, które są wygojone, a które tuż po zabiegu.
+- [ ] **Zdjęcia portfolio** — obecnie to kadry ze zrzutu ekranu Instagrama (~470 px — lepiej, ale to wciąż zrzuty ekranu). Potrzebne oryginały z telefonu (bez filtrów). Oznaczyć, które są wygojone, a które tuż po zabiegu.
 - [ ] **Teksty FAQ z etykietą „Do weryfikacji”** (ból, gojenie, czy korekta jest konieczna, przygotowanie, pielęgnacja, przeciwwskazania) — Veronika musi potwierdzić lub poprawić. Widoczne w `npm run dev`.
 - [ ] **Adres** — teraz: „Krzyki, okolice ul. Skarbowców, dokładny adres podam przy umawianiu”.
 - [ ] **System rezerwacji** (np. Booksy) — teraz Instagram DM, telefon i WhatsApp.
