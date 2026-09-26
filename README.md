@@ -15,17 +15,17 @@ npm run preview
 
 Wymaga Node 22.12+ (`.nvmrc`).
 
-## Deploy — Cloudflare Pages
+## Deploy — Cloudflare Workers (static assets)
 
-Workers & Pages → Create → Pages → Connect to Git → to repozytorium:
+Workers & Pages → Create → Import a repository → to repozytorium. Konfiguracja jest w `wrangler.jsonc`.
 
 | Ustawienie | Wartość |
 | --- | --- |
-| Framework preset | Astro |
 | Build command | `npm run build` |
-| Build output directory | `dist` |
-| Environment variable | `NODE_VERSION` = `22` |
-| Environment variable | `SITE_URL` = docelowy adres, np. `https://twojadomena.pl` (canonical, Open Graph, sitemap) |
+| Deploy command | `npx wrangler deploy` |
+| Build variable (opcjonalnie) | `SITE_URL` = docelowy adres, np. `https://twojadomena.pl` (canonical, Open Graph, sitemap) |
+
+Wersja Node jest brana z `.nvmrc` (22). Działa też Cloudflare Pages (preset Astro, output `dist`).
 
 `public/_headers` ustawia długi cache dla plików `/_astro/*` i podstawowe nagłówki bezpieczeństwa.
 
