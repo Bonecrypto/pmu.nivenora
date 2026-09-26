@@ -1,0 +1,144 @@
+---
+import type { Dictionary } from '../i18n/pl';
+import { site } from '../config/site';
+import ContactButton from './ContactButton.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const { location, contact, instagram } = site;
+---
+
+<section class="section section--tint" id="kontakt" aria-labelledby="kontakt-title">
+  <div class="container contact">
+    <div>
+      <h2 id="kontakt-title">{t.contact.title}</h2>
+      <p class="lead">{t.contact.lead}</p>
+      <ContactButton t={t} location="contact" />
+    </div>
+
+    <div class="contact__info">
+      <div class="block">
+        <h3><Icon name="pin" /> {t.contact.locationTitle}</h3>
+        <address>
+          {location.streetAddress && <>{location.streetAddress}<br /></>}
+          {location.postalCode} {location.city} — {location.district}
+          <br />
+          {!location.streetAddress && location.area}
+        </address>
+        {!location.streetAddress && <p class="small">{t.contact.addressNote}</p>}
+        {
+          location.mapsUrl && (
+            <a href={location.mapsUrl} target="_blank" rel="noopener" data-track="map_click">
+              {t.contact.map}
+            </a>
+          )
+        }
+      </div>
+
+      <div class="block">
+        <h3><Icon name="chat" /> {t.contact.channelsTitle}</h3>
+        <ul class="channels">
+          <li>
+            <span>{t.contact.instagram}</span>
+            <a
+              href={instagram.profileUrl}
+              target="_blank"
+              rel="noopener"
+              data-track="instagram_profile_click"
+              data-track-location="contact">@{instagram.handle}</a
+            >
+          </li>
+          {
+            contact.phone && (
+              <li>
+                <span>{t.contact.phone}</span>
+                <a href={`tel:${contact.phone.replace(/\s/g, '')}`} data-track="phone_click">
+                  {contact.phone}
+                </a>
+              </li>
+            )
+          }
+          {
+            contact.whatsapp && (
+              <li>
+                <span>{t.contact.whatsapp}</span>
+                <a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noopener" data-track="whatsapp_click">
+                  WhatsApp
+                </a>
+              </li>
+            )
+          }
+          {
+            contact.email && (
+              <li>
+                <span>{t.contact.email}</span>
+                <a href={`mailto:${contact.email}`} data-track="email_click">
+                  {contact.email}
+                </a>
+              </li>
+            )
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: grid;
+    gap: 36px;
+  }
+  @media (min-width: 800px) {
+    .contact {
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+  }
+  .contact__info {
+    display: grid;
+    gap: 12px;
+  }
+  .block {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+  }
+  .block h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+  }
+  .block h3 :global(svg) {
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+  }
+  address {
+    font-style: normal;
+  }
+  .small {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    margin: 8px 0 0;
+  }
+  .channels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .channels li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+  }
+  .channels span {
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import type { Dictionary } from '../i18n/pl';
+import { site, prices } from '../config/site';
+import veronikaPhoto from '../assets/veronika/veronika.jpg';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = await getImage({ src: veronikaPhoto, width: 800, height: 800, format: 'jpg' });
+const ogImageUrl = new URL(ogImage.src, Astro.site).href;
+
+// Dane strukturalne dla Google (lokalny biznes). Bez adresu ulicy, dopóki nie jest zatwierdzony.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BeautySalon',
+  name: site.brand,
+  url: canonical,
+  image: ogImageUrl,
+  description: t.meta.description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.location.city,
+    addressRegion: 'dolnośląskie',
+    addressCountry: 'PL',
+    ...(site.location.streetAddress ? { streetAddress: site.location.streetAddress } : {}),
+    ...(site.location.postalCode ? { postalCode: site.location.postalCode } : {}),
+  },
+  areaServed: { '@type': 'City', name: site.location.city },
+  knowsLanguage: ['pl', 'uk', 'ru', 'en'],
+  sameAs: [site.instagram.profileUrl],
+  ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
+  ...(site.contact.email ? { email: site.contact.email } : {}),
+  makesOffer: Object.entries(prices.pmu).map(([id, p]) => ({
+    '@type': 'Offer',
+    price: p.price,
+    priceCurrency: 'PLN',
+    itemOffered: { '@type': 'Service', name: t.services.pmu[id as keyof typeof t.services.pmu].name },
+  })),
+};
+---
+
+<!doctype html>
+<html lang={t.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#fbf8f4" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={t.locale} />
+    <meta property="og:site_name" content={site.brand} />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.nav.skip}</a>
+    <slot />
+    <script>
+      import '../scripts/track';
+    </script>
+  </body>
+</html>
