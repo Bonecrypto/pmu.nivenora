@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+import { primaryContactUrl, primaryContactIsBooking } from '../config/site';
+import type { Dictionary } from '../i18n/pl';
+
+interface Props {
+  t: Dictionary;
+  location: string;
+  size?: 'sm' | 'md';
+  label?: 'short' | 'long';
+  class?: string;
+}
+const { t, location, size = 'md', label = 'long', class: className } = Astro.props;
+
+const text = primaryContactIsBooking
+  ? t.cta.primaryBooking
+  : label === 'long'
+    ? t.cta.primaryInstagram
+    : t.cta.primary;
+---
+
+<a
+  class:list={['btn btn--primary', size === 'sm' && 'btn--sm', className]}
+  href={primaryContactUrl}
+  target="_blank"
+  rel="noopener"
+  data-track={primaryContactIsBooking ? 'booking_click' : 'instagram_dm_click'}
+  data-track-location={location}
+>
+  <Icon name={primaryContactIsBooking ? 'arrow' : 'instagram'} />
+  {text}
+</a>

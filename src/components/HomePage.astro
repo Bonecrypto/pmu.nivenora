@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import Portfolio from './Portfolio.astro';
+import Services from './Services.astro';
+import Approach from './Approach.astro';
+import About from './About.astro';
+import Process from './Process.astro';
+import Reviews from './Reviews.astro';
+import Faq from './Faq.astro';
+import Contact from './Contact.astro';
+import FinalCta from './FinalCta.astro';
+import Footer from './Footer.astro';
+import MobileCta from './MobileCta.astro';
+import { getDictionary, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const t = getDictionary(Astro.props.locale);
+---
+
+<Layout t={t}>
+  <Header t={t} />
+  <main id="main">
+    <Hero t={t} />
+    <Portfolio t={t} />
+    <Services t={t} />
+    <Approach t={t} />
+    <About t={t} />
+    <Process t={t} />
+    <Reviews t={t} />
+    <Faq t={t} />
+    <Contact t={t} />
+    <FinalCta t={t} />
+  </main>
+  <Footer t={t} />
+  <MobileCta t={t} />
+</Layout>

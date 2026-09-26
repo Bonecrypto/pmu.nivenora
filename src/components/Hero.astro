@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import ContactButton from './ContactButton.astro';
+import Icon from './Icon.astro';
+import type { Dictionary } from '../i18n/pl';
+import { lowestPmuPrice, site } from '../config/site';
+import { portfolio } from '../config/portfolio';
+import veronikaPhoto from '../assets/veronika/veronika.jpg';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const featured = portfolio.filter((p) => p.featured).slice(0, 4);
+---
+
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <div class="artist">
+        <Image src={veronikaPhoto} alt="" width={96} height={96} class="artist__photo" loading="eager" />
+        <span>{t.hero.artistLine}</span>
+      </div>
+      <h1>{t.hero.title}</h1>
+      <p class="hero__lead">{t.hero.lead}</p>
+      <div class="hero__actions" data-hero-cta>
+        <ContactButton t={t} location="hero" />
+        <a class="btn btn--ghost" href="#efekty" data-track="see_results_click" data-track-location="hero">
+          {t.cta.seeResults}
+        </a>
+      </div>
+      <ul class="facts">
+        <li>
+          <Icon name="pin" />
+          {site.location.city} · {t.hero.location}
+        </li>
+        <li>
+          <Icon name="check" />
+          {t.hero.priceFrom} {lowestPmuPrice} {t.services.currency}
+        </li>
+      </ul>
+    </div>
+
+    <a class="mosaic" href="#efekty" aria-label={t.cta.seeResults} data-track="see_results_click" data-track-location="hero-mosaic">
+      {
+        featured.map((item, i) => (
+          <Image
+            src={item.image}
+            alt={item.alt.pl}
+            widths={[item.image.width]}
+            sizes="(min-width: 900px) 260px, 45vw"
+            loading={i < 2 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : undefined}
+          />
+        ))
+      }
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(28px, 6vw, 80px) clamp(40px, 7vw, 88px);
+  }
+  .hero__grid {
+    display: grid;
+    gap: 36px;
+  }
+  @media (min-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      gap: 64px;
+    }
+  }
+  .artist {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    margin-bottom: 20px;
+  }
+  .artist :global(.artist__photo) {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .hero__lead {
+    font-size: clamp(1.125rem, 2.6vw, 1.3rem);
+    color: var(--muted);
+    max-width: 34ch;
+    margin-bottom: 28px;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 479px) {
+    .hero__actions > :global(*) {
+      flex: 1 1 100%;
+    }
+  }
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .facts li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .facts :global(svg) {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+  }
+  /* Na telefonie galeria zaczyna się tuż pod hero — mozaika by ją dublowała */
+  .mosaic {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .mosaic {
+      display: grid;
+    }
+  }
+  .mosaic {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .mosaic :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+  .mosaic :global(img:nth-child(1)) {
+    border-top-left-radius: var(--radius);
+  }
+  .mosaic :global(img:nth-child(4)) {
+    border-bottom-right-radius: var(--radius);
+  }
+</style>

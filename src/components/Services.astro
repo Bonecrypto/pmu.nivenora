@@ -1,0 +1,163 @@
+---
+import type { Dictionary } from '../i18n/pl';
+import { prices, type ExtraServiceId, type PmuServiceId } from '../config/site';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const cur = t.services.currency;
+// Kolejność: usta jako pierwsze (potencjalna usługa wiodąca), potem brwi i kreska.
+const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
+const extraIds = Object.keys(prices.extra) as ExtraServiceId[];
+---
+
+<section class="section section--tint" id="cennik" aria-labelledby="cennik-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="cennik-title">{t.services.title}</h2>
+      <p class="lead">{t.services.lead}</p>
+    </div>
+
+    <ul class="cards">
+      {
+        pmuOrder.map((id) => {
+          const s = t.services.pmu[id];
+          const p = prices.pmu[id];
+          return (
+            <li class="card">
+              <h3>{s.name}</h3>
+              <p class="card__desc">{s.description}</p>
+              <dl class="card__prices">
+                <div class="price-main">
+                  <dt class="visually-hidden">{s.short}</dt>
+                  <dd>
+                    {p.price} <span>{cur}</span>
+                  </dd>
+                </div>
+                <div class="price-corr">
+                  <dt>{t.services.correction}</dt>
+                  <dd>
+                    {p.correction} {cur}
+                  </dd>
+                </div>
+              </dl>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <div class="extra">
+      <h3>{t.services.extraTitle}</h3>
+      <ul>
+        {
+          extraIds.map((id) => {
+            const price = prices.extra[id].price;
+            return (
+              <li>
+                <span>{t.services.extra[id]}</span>
+                <span class="extra__dots" aria-hidden="true" />
+                <span class:list={['extra__price', price === null && 'extra__price--ask']}>
+                  {price === null ? t.services.priceOnRequest : `${price} ${cur}`}
+                </span>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  @media (min-width: 800px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+  }
+  .card {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h3 {
+    margin-bottom: 8px;
+  }
+  .card__desc {
+    color: var(--muted);
+    font-size: 0.975rem;
+    flex: 1;
+  }
+  .card__prices {
+    margin: 8px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .card__prices dd {
+    margin: 0;
+  }
+  .price-main dd {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .price-main span {
+    font-size: 1rem;
+    color: var(--muted);
+  }
+  .price-corr {
+    display: flex;
+    gap: 6px;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .price-corr dt::after {
+    content: ':';
+  }
+  .extra {
+    margin-top: 32px;
+    max-width: 560px;
+  }
+  .extra h3 {
+    font-size: 1.15rem;
+  }
+  .extra ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .extra li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .extra__dots {
+    flex: 1;
+  }
+  .extra__price {
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  .extra__price--ask {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.9375rem;
+  }
+</style>

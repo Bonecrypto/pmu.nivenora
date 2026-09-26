@@ -1,0 +1,35 @@
+---
+import type { Dictionary } from '../i18n/pl';
+import { site } from '../config/site';
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>
+      <strong>{site.brand}</strong> · makijaż permanentny {site.location.city} — {site.location.district}
+    </p>
+    <p>
+      <a href={site.instagram.profileUrl} target="_blank" rel="noopener" data-track="instagram_profile_click" data-track-location="footer"
+        >@{site.instagram.handle}</a
+      >{' '}
+      · © {year} {site.brand}. {t.footer.rights}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    padding-block: 28px;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .footer p {
+    margin: 0 0 4px;
+  }
+</style>

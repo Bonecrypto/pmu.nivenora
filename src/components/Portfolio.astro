@@ -1,0 +1,320 @@
+---
+import { Image, getImage } from 'astro:assets';
+import type { Dictionary } from '../i18n/pl';
+import { portfolio, type PortfolioCategory } from '../config/portfolio';
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const isDev = import.meta.env.DEV;
+
+// Wygojone efekty zawsze na początku — to najlepszy dowód jakości.
+const items = [...portfolio].sort((a, b) => Number(b.stage === 'healed') - Number(a.stage === 'healed'));
+
+const usedCategories = (['usta', 'brwi', 'kreska'] as PortfolioCategory[]).filter((c) =>
+  items.some((i) => i.categories.includes(c)),
+);
+
+const thumbWidths = (w: number) => {
+  const ws = [360, 540, 720].filter((x) => x <= w);
+  return ws.length ? ws : [w];
+};
+
+// Wersja powiększona do podglądu (nigdy nie powiększamy ponad oryginał).
+const large = await Promise.all(
+  items.map((i) => getImage({ src: i.image, width: Math.min(i.image.width, 1400), format: 'webp' })),
+);
+const hasTempImages = items.some((i) => i.image.width < 600);
+---
+
+<section class="section" id="efekty" aria-labelledby="efekty-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="efekty-title">{t.portfolio.title}</h2>
+      <p class="lead">{t.portfolio.lead}</p>
+      {isDev && hasTempImages && <p class="dev-flag">{t.dev.tempImages}</p>}
+    </div>
+
+    {
+      usedCategories.length > 1 && (
+        <div class="filters" role="group" aria-label={t.portfolio.title} data-filters>
+          <button type="button" aria-pressed="true" data-filter="all">
+            {t.portfolio.filterAll}
+          </button>
+          {usedCategories.map((c) => (
+            <button type="button" aria-pressed="false" data-filter={c}>
+              {t.portfolio.categories[c]}
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    <ul class="gallery" data-gallery>
+      {
+        items.map((item, i) => (
+          <li data-categories={item.categories.join(' ')}>
+            <button
+              type="button"
+              class="gallery__item"
+              data-index={i}
+              data-full={large[i].src}
+              data-alt={item.alt.pl}
+              data-max={item.image.width * 2}
+              aria-label={`${t.portfolio.open}: ${item.alt.pl}`}
+            >
+              <Image
+                src={item.image}
+                alt={item.alt.pl}
+                widths={thumbWidths(item.image.width)}
+                sizes="(min-width: 1100px) 270px, (min-width: 640px) 31vw, 47vw"
+                loading="lazy"
+              />
+              {item.stage && (
+                <span class:list={['tag', item.stage === 'healed' && 'tag--healed']}>
+                  {t.portfolio.stages[item.stage]}
+                </span>
+              )}
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="note">{t.portfolio.healingNote}</p>
+
+    <a
+      class="btn btn--ghost more"
+      href={site.instagram.profileUrl}
+      target="_blank"
+      rel="noopener"
+      data-track="instagram_profile_click"
+      data-track-location="portfolio"
+    >
+      <Icon name="instagram" />
+      {t.cta.moreOnInstagram}
+    </a>
+  </div>
+
+  <dialog class="lightbox" data-lightbox aria-label={t.portfolio.title}>
+    <img alt="" data-lightbox-img />
+    <button type="button" class="lb-btn lb-close" data-lightbox-close aria-label={t.portfolio.close}>×</button>
+    <button type="button" class="lb-btn lb-prev" data-lightbox-prev aria-label={t.portfolio.prev}>‹</button>
+    <button type="button" class="lb-btn lb-next" data-lightbox-next aria-label={t.portfolio.next}>›</button>
+  </dialog>
+</section>
+
+<script>
+  import { track } from '../scripts/track';
+
+  const gallery = document.querySelector<HTMLElement>('[data-gallery]');
+  const filters = document.querySelector<HTMLElement>('[data-filters]');
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const lbImg = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]');
+
+  // Filtry kategorii
+  filters?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+    if (!btn || !gallery) return;
+    const f = btn.dataset.filter!;
+    filters.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    gallery.querySelectorAll<HTMLElement>('li').forEach((li) => {
+      li.hidden = f !== 'all' && !li.dataset.categories!.split(' ').includes(f);
+    });
+    track('portfolio_filter', { category: f });
+  });
+
+  // Podgląd zdjęcia
+  const visibleItems = () =>
+    [...(gallery?.querySelectorAll<HTMLButtonElement>('li:not([hidden]) .gallery__item') ?? [])];
+  let current: HTMLButtonElement | null = null;
+
+  const show = (btn: HTMLButtonElement) => {
+    if (!dialog || !lbImg) return;
+    current = btn;
+    lbImg.src = btn.dataset.full!;
+    lbImg.alt = btn.dataset.alt!;
+    lbImg.style.maxWidth = `min(92vw, ${btn.dataset.max}px)`;
+  };
+  const step = (dir: number) => {
+    const list = visibleItems();
+    if (!current || !list.length) return;
+    const idx = list.indexOf(current);
+    show(list[(idx + dir + list.length) % list.length]);
+  };
+
+  gallery?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.gallery__item');
+    if (!btn || !dialog) return;
+    show(btn);
+    dialog.showModal();
+    track('portfolio_open', { index: btn.dataset.index! });
+  });
+  dialog?.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => step(-1));
+  dialog?.querySelector('[data-lightbox-next]')?.addEventListener('click', () => step(1));
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog?.addEventListener('close', () => current?.focus());
+  document.addEventListener('keydown', (e) => {
+    if (!dialog?.open) return;
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  // Przesuwanie palcem na telefonie
+  let startX = 0;
+  dialog?.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
+  dialog?.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+  });
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .filters button {
+    font: inherit;
+    font-size: 0.9375rem;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .filters button[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .gallery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  @media (min-width: 640px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+  }
+  @media (min-width: 1000px) {
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .gallery li[hidden] {
+    display: none;
+  }
+  .gallery__item {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+  .gallery__item :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  @media (hover: hover) {
+    .gallery__item:hover :global(img) {
+      transform: scale(1.03);
+    }
+  }
+  .tag {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink);
+  }
+  .tag--healed {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .note {
+    margin-top: 20px;
+    font-size: 0.9375rem;
+    color: var(--muted);
+    max-width: 640px;
+  }
+  .more {
+    margin-top: 8px;
+  }
+
+  .lightbox {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+  }
+  .lightbox[open] {
+    display: grid;
+    place-items: center;
+  }
+  .lightbox::backdrop {
+    background: rgba(20, 16, 14, 0.9);
+  }
+  .lightbox img {
+    width: 100%;
+    max-height: 86vh;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+  }
+  .lb-btn {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lb-close {
+    top: 12px;
+    right: 12px;
+  }
+  .lb-prev,
+  .lb-next {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lb-prev {
+    left: 8px;
+  }
+  .lb-next {
+    right: 8px;
+  }
+</style>

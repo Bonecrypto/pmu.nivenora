@@ -1,0 +1,97 @@
+---
+import ContactButton from './ContactButton.astro';
+import type { Dictionary } from '../i18n/pl';
+import { site } from '../config/site';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const links = [
+  { href: '#efekty', label: t.nav.results },
+  { href: '#cennik', label: t.nav.prices },
+  { href: '#o-mnie', label: t.nav.about },
+  { href: '#faq', label: t.nav.faq },
+  { href: '#kontakt', label: t.nav.contact },
+];
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="logo" href="/" aria-label={site.brand}>
+      Veronika <span>PMU</span>
+    </a>
+    <nav class="nav" aria-label="Menu">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <ContactButton t={t} location="header" size="sm" label="short" />
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo span {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-left: 2px;
+  }
+  .nav {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .nav {
+      display: block;
+      margin-left: auto;
+    }
+    .nav ul {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.9375rem;
+    }
+    .nav a:hover {
+      color: var(--accent);
+    }
+  }
+  /* Na telefonie przycisk w nagłówku dubluje dolny pasek CTA — zostawiamy go tylko na szerokich ekranach */
+  .header :global(.btn) {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .header :global(.btn) {
+      display: inline-flex;
+    }
+  }
+</style>
