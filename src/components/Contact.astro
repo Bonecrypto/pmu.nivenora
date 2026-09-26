@@ -16,7 +16,17 @@ const { location, contact, instagram } = site;
     <div>
       <h2 id="kontakt-title">{t.contact.title}</h2>
       <p class="lead">{t.contact.lead}</p>
-      <ContactButton t={t} location="contact" />
+      <div class="actions">
+        <ContactButton t={t} location="contact" />
+        {
+          contact.phone && (
+            <a class="btn btn--ghost" href={`tel:${contact.phone.replace(/\s/g, '')}`} data-track="phone_click" data-track-location="contact">
+              <Icon name="phone" />
+              {t.contact.call}
+            </a>
+          )
+        }
+      </div>
     </div>
 
     <div class="contact__info">
@@ -97,6 +107,16 @@ const { location, contact, instagram } = site;
       grid-template-columns: 1fr 1fr;
       gap: 56px;
       align-items: start;
+    }
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 479px) {
+    .actions > :global(*) {
+      flex: 1 1 100%;
     }
   }
   .contact__info {

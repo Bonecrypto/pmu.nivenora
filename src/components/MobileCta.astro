@@ -1,6 +1,8 @@
 ---
 import type { Dictionary } from '../i18n/pl';
 import ContactButton from './ContactButton.astro';
+import Icon from './Icon.astro';
+import { site } from '../config/site';
 interface Props {
   t: Dictionary;
 }
@@ -8,7 +10,20 @@ const { t } = Astro.props;
 ---
 
 <div class="mobile-cta" data-mobile-cta>
-  <ContactButton t={t} location="mobile-bar" />
+  <ContactButton t={t} location="mobile-bar" class="mobile-cta__main" />
+  {
+    site.contact.phone && (
+      <a
+        class="btn btn--ghost mobile-cta__call"
+        href={`tel:${site.contact.phone.replace(/\s/g, '')}`}
+        aria-label={`${t.contact.call}: ${site.contact.phone}`}
+        data-track="phone_click"
+        data-track-location="mobile-bar"
+      >
+        <Icon name="phone" />
+      </a>
+    )
+  }
 </div>
 
 <script>
@@ -37,8 +52,18 @@ const { t } = Astro.props;
   .mobile-cta.is-hidden {
     transform: translateY(110%);
   }
-  .mobile-cta :global(.btn) {
-    width: 100%;
+  .mobile-cta {
+    display: flex;
+    gap: 10px;
+  }
+  .mobile-cta :global(.mobile-cta__main) {
+    flex: 1;
+  }
+  .mobile-cta__call {
+    width: 52px;
+    padding: 0;
+    flex: none;
+    background: var(--bg);
   }
   @media (min-width: 900px) {
     .mobile-cta {
