@@ -64,13 +64,13 @@ const hasTempImages = items.some((i) => i.image.width < 600);
               class="gallery__item"
               data-index={i}
               data-full={large[i].src}
-              data-alt={item.alt.pl}
+              data-alt={item.alt[t.lang]}
               data-max={item.image.width * 2}
-              aria-label={`${t.portfolio.open}: ${item.alt.pl}`}
+              aria-label={`${t.portfolio.open}: ${item.alt[t.lang]}`}
             >
               <Image
                 src={item.image}
-                alt={item.alt.pl}
+                alt={item.alt[t.lang]}
                 widths={thumbWidths(item.image.width)}
                 sizes="(min-width: 1100px) 270px, (min-width: 640px) 31vw, 47vw"
                 loading="lazy"

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import ContactButton from './ContactButton.astro';
 import Icon from './Icon.astro';
 import type { Dictionary } from '../i18n/pl';
-import { lowestPmuPrice, site } from '../config/site';
+import { lowestPmuPrice } from '../config/site';
 import { portfolio } from '../config/portfolio';
 import veronikaPhoto from '../assets/veronika/veronika.jpg';
 
@@ -32,7 +32,7 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
       <ul class="facts">
         <li>
           <Icon name="pin" />
-          {site.location.city} · {t.hero.location}
+          {t.hero.place}
         </li>
         <li>
           <Icon name="check" />
@@ -46,7 +46,7 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
         featured.map((item, i) => (
           <Image
             src={item.image}
-            alt={item.alt.pl}
+            alt={item.alt[t.lang]}
             widths={[item.image.width]}
             sizes="(min-width: 900px) 260px, 45vw"
             loading={i < 2 ? 'eager' : 'lazy'}

@@ -1,0 +1,100 @@
+---
+import { locales, localeMeta, type Locale } from '../i18n/locales';
+import Icon from './Icon.astro';
+
+interface Props {
+  current: Locale;
+  label: string;
+}
+const { current, label } = Astro.props;
+---
+
+<nav class="lang" aria-label={label}>
+  <Icon name="globe" class="lang__icon" />
+  <ul>
+    {
+      locales.map((l) => (
+        <li>
+          <a
+            href={localeMeta[l].path}
+            hreflang={localeMeta[l].hreflang}
+            lang={localeMeta[l].hreflang}
+            title={localeMeta[l].name}
+            aria-label={localeMeta[l].name}
+            aria-current={l === current ? 'page' : undefined}
+            data-lang-link={l}
+            data-track="language_switch"
+            data-track-location={l}
+          >
+            {localeMeta[l].short}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  // Zapamiętaj wybór — baner z propozycją języka nie pojawi się ponownie.
+  document.querySelectorAll<HTMLAnchorElement>('[data-lang-link]').forEach((a) =>
+    a.addEventListener('click', () => {
+      try {
+        localStorage.setItem('lang-choice', a.dataset.langLink!);
+      } catch {}
+    }),
+  );
+</script>
+
+<style>
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .lang :global(.lang__icon) {
+    width: 18px;
+    height: 18px;
+    color: var(--muted);
+  }
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+  a {
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    text-decoration: none;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+  a:hover {
+    color: var(--ink);
+  }
+  a[aria-current='page'] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  @media (max-width: 359px) {
+    .lang :global(.lang__icon) {
+      display: none;
+    }
+    a {
+      min-width: 34px;
+      padding: 0 6px;
+    }
+  }
+</style>

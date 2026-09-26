@@ -1,0 +1,117 @@
+---
+/**
+ * Delikatna propozycja języka: jeśli przeglądarka odwiedzającej jest ustawiona na inny język
+ * niż bieżąca strona (i mamy go), pokazujemy pasek „Ta strona jest dostępna po …”.
+ * Tylko JS, bez przekierowań (dobre dla SEO). Zamknięcie lub wybór języka = nie pokazujemy więcej.
+ */
+import { dictionaries, locales, localeMeta, type Locale } from '../i18n';
+
+interface Props {
+  current: Locale;
+}
+const { current } = Astro.props;
+const data = Object.fromEntries(
+  locales.map((l) => [l, { ...dictionaries[l].langSuggest, path: localeMeta[l].path, short: localeMeta[l].short }]),
+);
+---
+
+<div class="suggest" data-lang-suggest data-current={current} data-options={JSON.stringify(data)} hidden>
+  <div class="container suggest__inner">
+    <span class="suggest__badge" data-s-badge></span>
+    <span data-s-text></span>
+    <a class="suggest__cta" data-s-cta data-track="language_suggest_click"></a>
+    <button type="button" class="suggest__close" data-s-close>×</button>
+  </div>
+</div>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-lang-suggest]');
+  const read = (k: string) => {
+    try {
+      return localStorage.getItem(k);
+    } catch {
+      return null;
+    }
+  };
+  if (el && !read('lang-choice') && !read('lang-suggest-closed')) {
+    const current = el.dataset.current!;
+    const options = JSON.parse(el.dataset.options!) as Record<
+      string,
+      { text: string; cta: string; close: string; path: string; short: string }
+    >;
+    const browser = (navigator.languages?.length ? navigator.languages : [navigator.language]).map((l) =>
+      l.toLowerCase().slice(0, 2),
+    );
+    const first = browser[0];
+    // Polski / ukraiński — jeśli są pierwszym językiem przeglądarki; każdy inny język → angielski.
+    const preferred = first === 'pl' || first === 'uk' ? first : first ? 'en' : null;
+    if (preferred && preferred !== current && options[preferred]) {
+      const o = options[preferred];
+      el.querySelector('[data-s-badge]')!.textContent = o.short;
+      el.querySelector('[data-s-text]')!.textContent = o.text;
+      const cta = el.querySelector<HTMLAnchorElement>('[data-s-cta]')!;
+      cta.textContent = `${o.cta} →`;
+      cta.href = o.path;
+      cta.dataset.trackLocation = preferred;
+      cta.addEventListener('click', () => {
+        try {
+          localStorage.setItem('lang-choice', preferred);
+        } catch {}
+      });
+      const close = el.querySelector<HTMLButtonElement>('[data-s-close]')!;
+      close.setAttribute('aria-label', o.close);
+      close.addEventListener('click', () => {
+        el.hidden = true;
+        try {
+          localStorage.setItem('lang-suggest-closed', '1');
+        } catch {}
+      });
+      el.lang = preferred;
+      el.hidden = false;
+    }
+  }
+</script>
+
+<style>
+  .suggest {
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 0.9375rem;
+  }
+  .suggest[hidden] {
+    display: none;
+  }
+  .suggest__inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding-block: 6px;
+  }
+  .suggest__badge {
+    flex: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .suggest__cta {
+    color: var(--bg);
+    font-weight: 700;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+  .suggest__close {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--bg);
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+</style>
