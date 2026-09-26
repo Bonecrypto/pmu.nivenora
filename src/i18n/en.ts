@@ -114,6 +114,19 @@ export const en: Dictionary = {
     },
   },
 
+  info: {
+    consultation: 'Free consultation',
+    payment: 'Cash, card, BLIK',
+    hours: 'Mon–Sat, by appointment',
+  },
+
+  voucher: {
+    title: 'Gift voucher',
+    text: 'Permanent makeup or brow & lash styling as a gift. Tell me which treatment and I’ll prepare a voucher.',
+    ask: 'Ask about a voucher',
+    service: 'gift voucher',
+  },
+
   about: {
     title: 'Hi, I’m Veronika',
     text: 'I used to be **afraid of permanent makeup** myself — blue brows, harsh outlines. Now I do it the way I’d want it for myself: **light and natural**. My favourite to work on: **lips**.',
@@ -192,6 +205,21 @@ export const en: Dictionary = {
         a: 'Yes — in some cases the procedure has to be postponed or isn’t possible. If you’re pregnant, breastfeeding, taking medication or have a skin condition, **message me before booking** and we’ll talk it through.',
         verified: false,
       },
+      {
+        q: 'Can I come for a consultation without the procedure?',
+        a: 'Yes, **the consultation is free**. We’ll talk through the shape, colour and your questions — no obligation.',
+        verified: true,
+      },
+      {
+        q: 'How can I pay?',
+        a: '**Cash, card or BLIK.**',
+        verified: true,
+      },
+      {
+        q: 'Can I buy a gift voucher?',
+        a: 'Yes — a **gift voucher** for the treatment of your choice. Message me and I’ll prepare it.',
+        verified: true,
+      },
     ],
   },
 
@@ -199,6 +227,8 @@ export const en: Dictionary = {
     title: 'Book a visit',
     lead: 'Tell me which treatment you’re interested in — I’ll help you choose and answer all your questions. You can also call or message me on WhatsApp.',
     call: 'Call',
+    hoursTitle: 'Hours',
+    paymentTitle: 'Payment',
     locationTitle: 'Location',
     addressLines: ['Wrocław — Krzyki', 'near Skarbowców Street'],
     addressNote: 'I’ll send the exact address when you book.',

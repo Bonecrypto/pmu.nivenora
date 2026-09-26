@@ -1,6 +1,7 @@
 ---
 import type { Dictionary } from '../i18n/pl';
-import { prices, type PmuServiceId } from '../config/site';
+import { prices, site, type PmuServiceId } from '../config/site';
+import Icon from './Icon.astro';
 import { localeMeta } from '../i18n/locales';
 import ServiceInquiry from './ServiceInquiry.astro';
 
@@ -58,6 +59,26 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
 
     <p class="corr-note">* {t.services.correctionNote(prices.correctionWithinMonths)}</p>
 
+    <ul class="info">
+      {
+        site.info.freeConsultation && (
+          <li>
+            <Icon name="chat" />
+            {t.info.consultation}
+          </li>
+        )
+      }
+      <li>
+        <Icon name="card" />
+        {t.info.payment}
+      </li>
+      <li>
+        <Icon name="clock" />
+        {t.info.hours}
+      </li>
+    </ul>
+
+    <div class="extras">
     <div class="packages">
       <h3>{t.services.packagesTitle}</h3>
       <ul class="price-list">
@@ -72,6 +93,18 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
           ))
         }
       </ul>
+    </div>
+
+    {
+      site.info.giftVouchers && (
+        <div class="voucher">
+          <Icon name="gift" class="voucher__icon" />
+          <h3>{t.voucher.title}</h3>
+          <p>{t.voucher.text}</p>
+          <ServiceInquiry t={t} service={t.voucher.service} id="voucher" label={t.voucher.ask} />
+        </div>
+      )
+    }
     </div>
 
     <details class="styling">
@@ -181,12 +214,71 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   .styling :global(.styling__ask) {
     margin-top: 16px;
   }
-  .packages {
+  .info {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .info li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--bg);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  .info :global(svg) {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+  }
+  .extras {
     margin-top: 24px;
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 800px) {
+    .extras {
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+  }
+  .packages,
+  .voucher {
     background: var(--bg);
     border-radius: var(--radius);
     padding: 24px;
-    max-width: 560px;
+  }
+  .extras > * {
+    min-width: 0;
+  }
+  .voucher :global(.btn) {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+  .voucher {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .voucher :global(.voucher__icon) {
+    width: 36px;
+    height: 36px;
+    padding: 7px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .voucher p {
+    color: var(--muted);
+    flex: 1;
   }
   .packages h3,
   .styling h3 {

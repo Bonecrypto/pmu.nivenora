@@ -121,6 +121,19 @@ export const pl = {
     } satisfies Record<StylingServiceId, string>,
   },
 
+  info: {
+    consultation: 'Bezpłatna konsultacja',
+    payment: 'Gotówka, karta, BLIK',
+    hours: 'Pn–Sb, po umówieniu',
+  },
+
+  voucher: {
+    title: 'Voucher podarunkowy',
+    text: 'Makijaż permanentny albo stylizacja brwi i rzęs jako prezent. Napisz, na jaki zabieg — przygotuję voucher.',
+    ask: 'Zapytaj o voucher',
+    service: 'voucher podarunkowy',
+  },
+
   about: {
     title: 'Cześć, jestem Veronika',
     text: 'Kiedyś sama **bałam się makijażu permanentnego** — niebieskich brwi i zbyt mocnych konturów. Dziś robię go tak, jak sama chciałabym go mieć: **lekko i naturalnie**. Najbardziej lubię pracować z **ustami**.',
@@ -199,6 +212,21 @@ export const pl = {
         a: 'Tak, w niektórych sytuacjach zabieg trzeba przełożyć lub z niego zrezygnować. Jeśli jesteś w ciąży, karmisz piersią, przyjmujesz leki lub masz choroby skóry — **napisz przed umówieniem wizyty**, a wszystko omówimy.',
         verified: false,
       },
+      {
+        q: 'Czy mogę przyjść na konsultację bez zabiegu?',
+        a: 'Tak, **konsultacja jest bezpłatna**. Omówimy kształt, kolor i Twoje pytania — bez zobowiązań.',
+        verified: true,
+      },
+      {
+        q: 'Jak mogę zapłacić?',
+        a: '**Gotówką, kartą lub BLIKiem.**',
+        verified: true,
+      },
+      {
+        q: 'Czy mogę kupić voucher na prezent?',
+        a: 'Tak — **voucher podarunkowy** na wybrany zabieg. Napisz, a przygotuję go dla Ciebie.',
+        verified: true,
+      },
     ],
   },
 
@@ -206,6 +234,8 @@ export const pl = {
     title: 'Umów się na wizytę',
     lead: 'Napisz, jaki zabieg Cię interesuje — pomogę wybrać i odpowiem na wszystkie pytania. Możesz też zadzwonić lub napisać na WhatsApp.',
     call: 'Zadzwoń',
+    hoursTitle: 'Godziny',
+    paymentTitle: 'Płatność',
     locationTitle: 'Lokalizacja',
     addressLines: ['Wrocław — Krzyki', 'okolice ul. Skarbowców'],
     // TEMP: do czasu zatwierdzenia publicznego adresu.
