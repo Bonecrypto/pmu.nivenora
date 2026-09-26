@@ -6,11 +6,10 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="section" id="jak-to-wyglada" aria-labelledby="proces-title">
+<section class="section section--tint" id="jak-to-wyglada" aria-labelledby="proces-title">
   <div class="container">
     <div class="section-head">
       <h2 id="proces-title">{t.process.title}</h2>
-      <p class="lead">{t.process.lead}</p>
     </div>
     <ol class="steps">
       {
@@ -48,7 +47,7 @@ const { t } = Astro.props;
     display: grid;
     grid-template-columns: 40px 1fr;
     gap: 16px;
-    padding: 18px 0;
+    padding: 14px 0;
     border-bottom: 1px solid var(--line);
   }
   .step-num {

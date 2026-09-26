@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name: 'instagram' | 'pin' | 'chat' | 'phone' | 'mail' | 'arrow' | 'check';
+  name: 'instagram' | 'whatsapp' | 'pin' | 'chat' | 'phone' | 'mail' | 'arrow' | 'check';
   class?: string;
 }
 const { name, class: className } = Astro.props;
@@ -31,6 +31,14 @@ const { name, class: className } = Astro.props;
       <>
         <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" />
         <circle cx="12" cy="9.5" r="2.5" />
+      </>
+    )
+  }
+  {
+    name === 'whatsapp' && (
+      <>
+        <path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4l-4.5 1.1Z" />
+        <path d="M9 8.5c0 3.3 3.2 6.5 6.5 6.5l1-1.6-2-1-1 .8a5 5 0 0 1-2.2-2.2l.8-1-1-2L9.5 8Z" fill="currentColor" stroke="none" />
       </>
     )
   }

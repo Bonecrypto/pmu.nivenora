@@ -23,7 +23,7 @@ export const pl = {
     results: 'Efekty',
     prices: 'Cennik',
     about: 'O mnie',
-    process: 'Jak to wygląda',
+    process: 'Wizyta',
     faq: 'FAQ',
     contact: 'Kontakt',
     skip: 'Przejdź do treści',
@@ -53,6 +53,7 @@ export const pl = {
     filterAll: 'Wszystkie',
     categories: { usta: 'Usta', brwi: 'Brwi', kreska: 'Kreska' } satisfies Record<PortfolioCategory, string>,
     stages: { healed: 'Wygojone', fresh: 'Tuż po zabiegu', 'before-after': 'Przed / po' },
+    showMore: 'Pokaż więcej zdjęć',
     open: 'Powiększ zdjęcie',
     close: 'Zamknij',
     prev: 'Poprzednie zdjęcie',
@@ -93,6 +94,7 @@ export const pl = {
       brwiUstaKreska: 'Brwi + usta + linia rzęs',
     } satisfies Record<PmuPackageId, string>,
     stylingTitle: 'Stylizacja brwi i rzęs',
+    stylingFrom: 'od',
     stylingGroups: {
       brwi: 'Brwi',
       rzesy: 'Rzęsy',
@@ -111,31 +113,11 @@ export const pl = {
     } satisfies Record<StylingServiceId, string>,
   },
 
-  approach: {
-    title: 'Makijaż permanentny, który nadal wygląda jak Ty',
-    lead: 'Nie chodzi o to, żeby każda klientka wyglądała tak samo. Chodzi o to, żeby podkreślić to, co już masz.',
-    points: [
-      {
-        title: 'Kształt dopasowany do twarzy',
-        text: 'Zanim zacznę, patrzę na proporcje Twojej twarzy, rysy i mimikę. Kształt powstaje dla Ciebie, nie z szablonu.',
-      },
-      {
-        title: 'Kolor dobrany do Ciebie',
-        text: 'Odcień dobieram do karnacji, koloru włosów i efektu, który lubisz. Stawiam na naturalne, spokojne kolory.',
-      },
-      {
-        title: 'Nic bez Twojej zgody',
-        text: 'Najpierw rysuję kształt i pokazuję go w lustrze. Zabieg zaczynamy dopiero wtedy, gdy obie jesteśmy zadowolone.',
-      },
-    ],
-  },
-
   about: {
     title: 'Cześć, jestem Veronika',
     paragraphs: [
       'Kiedyś sama bałam się makijażu permanentnego — niebieskich brwi, kresek, które zostają na 10 lat, i ust ze zbyt mocnym konturem. Dziś sama go wykonuję i wiem, że może wyglądać lekko i naturalnie: nie rzuca się w oczy, a sprawia, że wyglądasz świeżo każdego dnia.',
-      'Najważniejsze jest dla mnie uwzględnienie wszystkich Twoich oczekiwań — dlatego kształt i kolor zawsze będą takie, jakie chcesz właśnie Ty.',
-      'Najbardziej lubię pracować z ustami, ale z tą samą uwagą robię brwi i kreskę. Do każdej twarzy podchodzę indywidualnie i spokojnie odpowiadam na wszystkie pytania — również te, które wydają się „głupie”.',
+      'Najważniejsze są dla mnie Twoje oczekiwania — dlatego kształt i kolor zawsze będą takie, jakie chcesz właśnie Ty. Najbardziej lubię pracować z ustami, ale z tą samą uwagą robię brwi i linię rzęs.',
     ],
     languagesTitle: 'Możesz pisać do mnie w języku:',
     languages: ['polskim', 'ukraińskim', 'rosyjskim', 'angielskim'],
@@ -144,15 +126,17 @@ export const pl = {
 
   process: {
     title: 'Jak wygląda wizyta',
-    lead: 'Wiesz, co będzie się działo na każdym etapie.',
     steps: [
-      { title: 'Wiadomość', text: 'Piszesz do mnie, jaki zabieg Cię interesuje. Ustalamy termin i odpowiadam na pytania.' },
-      { title: 'Konsultacja', text: 'Rozmawiamy o Twoich oczekiwaniach, stylu i o tym, jaki efekt chcesz osiągnąć.' },
-      { title: 'Kształt i kolor', text: 'Rysuję kształt na Twojej twarzy i razem wybieramy odcień.' },
-      { title: 'Twoja akceptacja', text: 'Oglądasz projekt w lustrze. Poprawiamy go, aż będzie dokładnie taki, jak chcesz.' },
-      { title: 'Zabieg', text: 'Zaczynam pracę dopiero wtedy, gdy projekt jest zaakceptowany.' },
-      { title: 'Pielęgnacja i gojenie', text: 'Dostajesz zalecenia, jak dbać o skórę w czasie gojenia. Jeśli coś Cię niepokoi — po prostu napisz.' },
-      { title: 'Korekta', text: 'Jeśli po wygojeniu trzeba coś uzupełnić, umawiamy korektę — nie później niż 2 miesiące po zabiegu.' },
+      { title: 'Wiadomość', text: 'Piszesz, jaki zabieg Cię interesuje. Ustalamy termin i odpowiadam na pytania.' },
+      {
+        title: 'Projekt',
+        text: 'Rysuję kształt na Twojej twarzy i razem dobieramy kolor. Zaczynam dopiero, gdy projekt Ci się podoba.',
+      },
+      {
+        title: 'Zabieg i gojenie',
+        text: 'Zabieg trwa około 2 godzin. Potem dostajesz zalecenia, jak dbać o skórę w czasie gojenia.',
+      },
+      { title: 'Korekta', text: 'Jeśli trzeba coś uzupełnić — umawiamy korektę, nie później niż 2 miesiące po zabiegu.' },
     ],
   },
 
@@ -172,16 +156,6 @@ export const pl = {
       {
         q: 'Jak długo utrzymuje się efekt?',
         a: 'Zwykle od 1 do 3 lat. Kolor nie przechodzi z czasem w szaro-zielone odcienie — po prostu stopniowo traci intensywność.',
-        verified: true,
-      },
-      {
-        q: 'Jak dobierany jest kształt?',
-        a: 'Na podstawie proporcji Twojej twarzy, naturalnej linii brwi lub ust oraz Twoich preferencji. Rysuję projekt, a Ty decydujesz, czy go akceptujesz.',
-        verified: true,
-      },
-      {
-        q: 'Jak dobierany jest kolor?',
-        a: 'Patrzę na karnację, kolor włosów i to, jaki efekt lubisz — bardziej delikatny czy wyraźniejszy. Wybieramy odcień razem.',
         verified: true,
       },
       {
@@ -223,8 +197,9 @@ export const pl = {
   },
 
   contact: {
-    title: 'Gdzie mnie znajdziesz',
-    lead: 'Najszybciej skontaktujesz się ze mną przez Instagram. Odpisuję osobiście.',
+    title: 'Umów się na wizytę',
+    lead: 'Napisz, jaki zabieg Cię interesuje — pomogę wybrać i odpowiem na wszystkie pytania. Możesz też zadzwonić lub napisać na WhatsApp.',
+    call: 'Zadzwoń',
     locationTitle: 'Lokalizacja',
     // TEMP: do czasu zatwierdzenia publicznego adresu.
     addressNote: 'Dokładny adres podam przy umawianiu wizyty.',
@@ -232,13 +207,9 @@ export const pl = {
     phone: 'Telefon',
     email: 'E-mail',
     whatsapp: 'WhatsApp',
+    whatsappMessage: 'Dzień dobry! Chciałabym zapytać o makijaż permanentny.',
     instagram: 'Instagram',
     map: 'Zobacz na mapie',
-  },
-
-  finalCta: {
-    title: 'Masz pytanie albo chcesz się umówić?',
-    text: 'Napisz, jaki zabieg Cię interesuje. Pomogę wybrać i odpowiem na wszystkie pytania — bez zobowiązań.',
   },
 
   footer: {

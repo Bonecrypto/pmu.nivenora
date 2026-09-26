@@ -27,6 +27,8 @@ const thumbWidths = (w: number) => {
 const large = await Promise.all(
   items.map((i) => getImage({ src: i.image, width: Math.min(i.image.width, 1400), format: 'webp' })),
 );
+// Na starcie widać tylko tyle zdjęć — reszta po kliknięciu „Pokaż więcej” (bez JS widać wszystkie).
+const INITIAL_VISIBLE = 8;
 const hasTempImages = items.some((i) => i.image.width < 600);
 ---
 
@@ -56,7 +58,7 @@ const hasTempImages = items.some((i) => i.image.width < 600);
     <ul class="gallery" data-gallery>
       {
         items.map((item, i) => (
-          <li data-categories={item.categories.join(' ')}>
+          <li data-categories={item.categories.join(' ')} data-extra={i >= INITIAL_VISIBLE ? '' : undefined}>
             <button
               type="button"
               class="gallery__item"
@@ -83,6 +85,14 @@ const hasTempImages = items.some((i) => i.image.width < 600);
         ))
       }
     </ul>
+
+    {
+      items.length > INITIAL_VISIBLE && (
+        <button type="button" class="btn btn--ghost show-more" data-show-more hidden>
+          {t.portfolio.showMore} ({items.length - INITIAL_VISIBLE})
+        </button>
+      )
+    }
 
     <p class="note">{t.portfolio.healingNote}</p>
 
@@ -115,11 +125,27 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
   const lbImg = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]');
 
+  // „Pokaż więcej” — zwijamy nadmiarowe zdjęcia dopiero, gdy JS działa
+  const showMore = document.querySelector<HTMLButtonElement>('[data-show-more]');
+  const expand = () => {
+    gallery?.classList.remove('is-collapsed');
+    if (showMore) showMore.hidden = true;
+  };
+  if (showMore && gallery) {
+    gallery.classList.add('is-collapsed');
+    showMore.hidden = false;
+    showMore.addEventListener('click', () => {
+      expand();
+      track('portfolio_show_more');
+    });
+  }
+
   // Filtry kategorii
   filters?.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
     if (!btn || !gallery) return;
     const f = btn.dataset.filter!;
+    expand();
     filters.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
     gallery.querySelectorAll<HTMLElement>('li').forEach((li) => {
       li.hidden = f !== 'all' && !li.dataset.categories!.split(' ').includes(f);
@@ -129,7 +155,9 @@ const hasTempImages = items.some((i) => i.image.width < 600);
 
   // Podgląd zdjęcia
   const visibleItems = () =>
-    [...(gallery?.querySelectorAll<HTMLButtonElement>('li:not([hidden]) .gallery__item') ?? [])];
+    [...(gallery?.querySelectorAll<HTMLButtonElement>('li:not([hidden]) .gallery__item') ?? [])].filter(
+      (b) => b.offsetParent !== null,
+    );
   let current: HTMLButtonElement | null = null;
 
   const show = (btn: HTMLButtonElement) => {
@@ -217,8 +245,21 @@ const hasTempImages = items.some((i) => i.image.width < 600);
       grid-template-columns: repeat(4, 1fr);
     }
   }
-  .gallery li[hidden] {
+  .gallery li[hidden],
+  .gallery.is-collapsed li[data-extra] {
     display: none;
+  }
+  .show-more {
+    margin-top: 16px;
+    width: 100%;
+  }
+  .show-more[hidden] {
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .show-more {
+      width: auto;
+    }
   }
   .gallery__item {
     position: relative;
@@ -265,6 +306,9 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   }
   .more {
     margin-top: 8px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
   }
 
   .lightbox {

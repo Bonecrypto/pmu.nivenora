@@ -9,13 +9,13 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="section section--tint" id="o-mnie" aria-labelledby="o-mnie-title">
+<section class="section" id="o-mnie" aria-labelledby="o-mnie-title">
   <div class="container about">
     <Image
       src={veronikaPhoto}
       alt={t.about.photoAlt}
-      widths={[400, 600, 846]}
-      sizes="(min-width: 800px) 420px, 100vw"
+      widths={[300, 600, 846]}
+      sizes="(min-width: 800px) 420px, 150px"
       class="about__photo"
       loading="lazy"
     />
@@ -33,9 +33,13 @@ const { t } = Astro.props;
 <style>
   .about {
     display: grid;
-    gap: 28px;
+    gap: 20px;
   }
   @media (min-width: 800px) {
+    .about :global(.about__photo) {
+      width: 100%;
+      max-width: 420px;
+    }
     .about {
       grid-template-columns: 420px 1fr;
       gap: 56px;
@@ -43,8 +47,7 @@ const { t } = Astro.props;
     }
   }
   .about :global(.about__photo) {
-    width: 100%;
-    max-width: 420px;
+    width: 150px;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: 50% 35%;
@@ -65,7 +68,7 @@ const { t } = Astro.props;
   .langs li {
     padding: 6px 14px;
     border-radius: 999px;
-    background: var(--bg);
+    background: var(--surface);
     font-size: 0.9375rem;
   }
 </style>

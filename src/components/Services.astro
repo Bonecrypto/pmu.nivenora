@@ -9,6 +9,7 @@ const { t } = Astro.props;
 const cur = t.services.currency;
 // Kolejność: usta jako pierwsze (potencjalna usługa wiodąca), potem brwi i kreska.
 const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
+const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) => i.price)));
 ---
 
 <section class="section section--tint" id="cennik" aria-labelledby="cennik-title">
@@ -65,8 +66,11 @@ const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
       </ul>
     </div>
 
-    <div class="styling">
-      <h3>{t.services.stylingTitle}</h3>
+    <details class="styling">
+      <summary>
+        <h3>{t.services.stylingTitle}</h3>
+        <span class="styling__from">{t.services.stylingFrom} {stylingFrom} {cur}</span>
+      </summary>
       <div class="styling__groups">
         {
           prices.styling.map((g) => (
@@ -86,7 +90,7 @@ const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
           ))
         }
       </div>
-    </div>
+    </details>
   </div>
 </section>
 
@@ -155,7 +159,7 @@ const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
     color: var(--muted);
   }
   .packages {
-    margin-top: 32px;
+    margin-top: 24px;
     background: var(--bg);
     border-radius: var(--radius);
     padding: 24px;
@@ -166,7 +170,46 @@ const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
     font-size: 1.2rem;
   }
   .styling {
-    margin-top: 40px;
+    margin-top: 16px;
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 0 24px;
+    max-width: 560px;
+  }
+  .styling[open] {
+    max-width: none;
+    padding-bottom: 16px;
+  }
+  .styling summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0;
+  }
+  .styling summary::-webkit-details-marker {
+    display: none;
+  }
+  .styling summary h3 {
+    margin: 0;
+  }
+  .styling__from {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+  .styling summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--accent);
+    transition: transform 0.2s ease;
+  }
+  .styling[open] summary::after {
+    transform: rotate(45deg);
   }
   .styling__groups {
     display: grid;

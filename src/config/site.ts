@@ -29,8 +29,8 @@ export const site = {
 
   // Kanały kontaktu. Brak wartości = kanał nie jest pokazywany.
   contact: {
-    phone: null as string | null, // np. '+48 600 000 000'
-    whatsapp: null as string | null, // np. '48600000000' (bez +, do linku wa.me)
+    phone: '+48 731 437 315' as string | null,
+    whatsapp: '48731437315' as string | null, // bez + i spacji (link wa.me)
     email: null as string | null,
     // Jeśli pojawi się system rezerwacji (np. Booksy), wpisz URL — stanie się głównym CTA.
     bookingUrl: null as string | null,
@@ -39,6 +39,10 @@ export const site = {
 
 /** Główne CTA: system rezerwacji, jeśli istnieje — w przeciwnym razie wiadomość na Instagramie. */
 export const primaryContactUrl = site.contact.bookingUrl ?? site.instagram.dmUrl;
+/** Link do WhatsApp z gotowym początkiem wiadomości. */
+export const whatsappUrl = (text: string) =>
+  site.contact.whatsapp ? `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}` : null;
+
 export const primaryContactIsBooking = site.contact.bookingUrl !== null;
 
 /**
