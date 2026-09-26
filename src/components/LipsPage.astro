@@ -36,7 +36,7 @@ const serviceJsonLd = {
   provider: { '@type': 'BeautySalon', name: site.brand, telephone: site.contact.phone ?? undefined, sameAs: [site.instagram.profileUrl] },
   offers: { '@type': 'Offer', price: price.price, priceCurrency: 'PLN' },
 };
-const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8].includes(i));
+const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].includes(i));
 ---
 
 <Layout t={t} page="lips" title={t.lips.metaTitle} description={t.lips.metaDescription}>

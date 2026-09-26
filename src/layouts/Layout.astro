@@ -52,6 +52,8 @@ const jsonLd = {
   sameAs: [site.instagram.profileUrl],
   priceRange: `${Math.min(...allPrices)}–${Math.max(...allPrices)} PLN`,
   currenciesAccepted: 'PLN',
+  openingHours: site.info.openingDays,
+  paymentAccepted: 'Cash, Credit Card, BLIK',
   ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
   ...(site.contact.email ? { email: site.contact.email } : {}),
   makesOffer: Object.entries(prices.pmu).map(([id, p]) => ({

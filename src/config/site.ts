@@ -27,6 +27,15 @@ export const site = {
     mapsUrl: null as string | null,
   },
 
+  /** Informacje praktyczne (potwierdzone przez Veronikę). */
+  info: {
+    freeConsultation: true,
+    giftVouchers: true,
+    payments: ['cash', 'card', 'blik'] as const,
+    /** schema.org openingHours — dni pracy (godziny ustalane indywidualnie, po umówieniu). */
+    openingDays: 'Mo-Sa',
+  },
+
   // Kanały kontaktu. Brak wartości = kanał nie jest pokazywany.
   contact: {
     phone: '+48 731 437 315' as string | null,

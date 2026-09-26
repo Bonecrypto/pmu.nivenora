@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import ContactButton from './ContactButton.astro';
 import Icon from './Icon.astro';
 import type { Dictionary } from '../i18n/pl';
-import { lowestPmuPrice } from '../config/site';
+import { lowestPmuPrice, site } from '../config/site';
 import { portfolio } from '../config/portfolio';
 import { rich } from '../i18n/rich';
 import veronikaPhoto from '../assets/veronika/veronika.jpg';
@@ -39,6 +39,14 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
           <Icon name="check" />
           {t.hero.priceFrom} {lowestPmuPrice} {t.services.currency}
         </li>
+        {
+          site.info.freeConsultation && (
+            <li>
+              <Icon name="check" />
+              {t.info.consultation}
+            </li>
+          )
+        }
       </ul>
     </div>
 

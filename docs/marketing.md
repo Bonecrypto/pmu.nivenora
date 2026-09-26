@@ -15,10 +15,13 @@ To najważniejsze źródło klientek z wyszukiwarki („makijaż permanentny Wro
 - **Telefon:** +48 731 437 315
 - **Strona:** adres strony (po podłączeniu domeny)
 - **Języki:** polski, ukraiński, rosyjski, angielski
+- **Godziny:** poniedziałek–sobota, „tylko po umówieniu” (w Google: ustaw godziny pn–sb i zaznacz „Umówione wizyty”)
+- **Płatności:** gotówka, karta, BLIK
+- **Atrybuty:** „Bezpłatna konsultacja”, „Karty podarunkowe”
 
 **Opis (PL, do 750 znaków):**
 
-> Naturalny makijaż permanentny we Wrocławiu (Krzyki): usta, brwi i linia rzęs. Kształt i kolor dobieram indywidualnie do Twojej twarzy — przed zabiegiem rysuję projekt i zaczynam dopiero, gdy go zaakceptujesz. Efekt ma być lekki i naturalny, tak żebyś nadal wyglądała jak Ty. Zabieg trwa około 2 godzin, efekt utrzymuje się zwykle 1–3 lata. Robię też laminację, regulację i farbowanie brwi i rzęs. Ceny: makijaż permanentny od 300 zł, stylizacja brwi i rzęs od 50 zł. Mówię po polsku, ukraińsku, rosyjsku i angielsku. Zapisy przez Instagram @pmu.nivenora, WhatsApp lub telefon.
+> Naturalny makijaż permanentny we Wrocławiu (Krzyki): usta, brwi i linia rzęs. Kształt i kolor dobieram indywidualnie do Twojej twarzy — przed zabiegiem rysuję projekt i zaczynam dopiero, gdy go zaakceptujesz. Efekt ma być lekki i naturalny, tak żebyś nadal wyglądała jak Ty. Zabieg trwa około 2 godzin, efekt utrzymuje się zwykle 1–3 lata. Konsultacja jest bezpłatna. Robię też laminację, regulację i farbowanie brwi i rzęs. Dostępne vouchery podarunkowe. Ceny: makijaż permanentny od 300 zł, stylizacja brwi i rzęs od 50 zł. Mówię po polsku, ukraińsku, rosyjsku i angielsku. Pn–sb, po umówieniu. Płatność gotówką, kartą lub BLIKiem. Zapisy przez Instagram @pmu.nivenora, WhatsApp lub telefon.
 
 **Usługi z cenami (dodaj w sekcji „Usługi”):**
 
@@ -45,6 +48,7 @@ To najważniejsze źródło klientek z wyszukiwarki („makijaż permanentny Wro
 ```
 Naturalny makijaż permanentny · Wrocław Krzyki
 Usta · brwi · linia rzęs — od 300 zł
+Bezpłatna konsultacja · vouchery 🎁
 PL · UA · RU · EN
 👇 Ceny, efekty i zapisy
 ```
@@ -105,4 +109,7 @@ Na stronie takie zdjęcia dostają etykietę „Wygojone” i pokazują się jak
 - [ ] Czy chcesz pokazać dokładny adres gabinetu? Zdjęcie gabinetu?
 - [ ] Sprawdź odpowiedzi FAQ oznaczone „Do weryfikacji” (ból, gojenie, korekta, przygotowanie, pielęgnacja, przeciwwskazania).
 - [ ] Przeczytaj wersję ukraińską i angielską — czy brzmi jak Ty.
+- [x] Vouchery, bezpłatna konsultacja, płatność (gotówka/karta/BLIK), godziny (pn–sb po umówieniu) — dodane na stronę
+- [ ] Zadatek przy rezerwacji — czy jest? ile?
+- [ ] Promocja dla pierwszych klientek / modelki — czy i na jakich warunkach?
 - [ ] Czy działalność jest zarejestrowana (imię i nazwisko / firma, NIP)? → polityka prywatności
