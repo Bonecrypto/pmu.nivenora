@@ -2,6 +2,8 @@
 import ContactButton from './ContactButton.astro';
 import type { Dictionary } from '../i18n/pl';
 import { site } from '../config/site';
+import LangSwitcher from './LangSwitcher.astro';
+import { localeMeta } from '../i18n/locales';
 
 interface Props {
   t: Dictionary;
@@ -18,14 +20,15 @@ const links = [
 
 <header class="header">
   <div class="container header__inner">
-    <a class="logo" href="/" aria-label={site.brand}>
+    <a class="logo" href={localeMeta[t.lang].path} aria-label={site.brand}>
       Veronika <span>PMU</span>
     </a>
-    <nav class="nav" aria-label="Menu">
+    <nav class="nav" aria-label={t.nav.menu}>
       <ul>
         {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </nav>
+    <LangSwitcher current={t.lang} label={t.nav.language} />
     <ContactButton t={t} location="header" size="sm" label="short" />
   </div>
 </header>
@@ -63,6 +66,14 @@ const links = [
   }
   .nav {
     display: none;
+  }
+  .header__inner > :global(.lang) {
+    margin-left: auto;
+  }
+  @media (min-width: 900px) {
+    .header__inner > :global(.lang) {
+      margin-left: 8px;
+    }
   }
   @media (min-width: 900px) {
     .nav {

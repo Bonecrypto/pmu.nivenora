@@ -1,12 +1,15 @@
 import type { APIRoute } from 'astro';
-
-// Jedna strona w v1. Nowe wersje językowe dopisz do listy.
-const paths = ['/'];
+import { locales, localeMeta } from '../i18n/locales';
 
 export const GET: APIRoute = ({ site }) => {
-  const urls = paths.map((p) => `<url><loc>${new URL(p, site).href}</loc></url>`).join('');
+  const alternates = locales
+    .map((l) => `<xhtml:link rel="alternate" hreflang="${localeMeta[l].hreflang}" href="${new URL(localeMeta[l].path, site).href}"/>`)
+    .join('');
+  const urls = locales
+    .map((l) => `<url><loc>${new URL(localeMeta[l].path, site).href}</loc>${alternates}</url>`)
+    .join('');
   return new Response(
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`,
     { headers: { 'Content-Type': 'application/xml' } },
   );
 };

@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import type { Locale } from '../i18n/locales';
 
 /**
  * Portfolio — WYŁĄCZNIE prawdziwe prace Veroniki.
@@ -24,7 +25,8 @@ export interface PortfolioItem {
   image: ImageMetadata;
   categories: PortfolioCategory[];
   stage?: PortfolioStage;
-  alt: { pl: string };
+  /** Opis zdjęcia (alt) w każdym języku strony. */
+  alt: Record<Locale, string>;
   /** Pokaż w sekcji hero (maks. 4). */
   featured?: boolean;
 }
@@ -44,34 +46,86 @@ export const portfolio: PortfolioItem[] = [
     categories: ['usta'],
     stage: 'before-after',
     featured: true,
-    alt: { pl: 'Makijaż permanentny ust — porównanie przed i po zabiegu' },
+    alt: {
+      pl: 'Makijaż permanentny ust — porównanie przed i po zabiegu',
+      uk: 'Перманентний макіяж губ — до і після процедури',
+      en: 'Permanent lip makeup — before and after',
+    },
   },
   {
     image: file('brwi-usta-01'),
     categories: ['brwi', 'usta'],
     featured: true,
-    alt: { pl: 'Makijaż permanentny brwi i ust — efekt na całej twarzy' },
+    alt: {
+      pl: 'Makijaż permanentny brwi i ust — efekt na całej twarzy',
+      uk: 'Перманентний макіяж брів і губ — результат на обличчі',
+      en: 'Permanent brow and lip makeup — full-face result',
+    },
   },
   {
     image: file('usta-02'),
     categories: ['usta'],
     featured: true,
-    alt: { pl: 'Makijaż permanentny ust w naturalnym, różanym odcieniu — widok z boku' },
+    alt: {
+      pl: 'Makijaż permanentny ust w naturalnym, różanym odcieniu — widok z boku',
+      uk: 'Перманентний макіяж губ у природному рожевому відтінку — вигляд збоку',
+      en: 'Permanent lip makeup in a natural rosy shade — side view',
+    },
   },
   {
     image: file('brwi-przed-po-01'),
     categories: ['brwi'],
     stage: 'before-after',
     featured: true,
-    alt: { pl: 'Makijaż permanentny brwi — porównanie przed i po zabiegu' },
+    alt: {
+      pl: 'Makijaż permanentny brwi — porównanie przed i po zabiegu',
+      uk: 'Перманентний макіяж брів — до і після процедури',
+      en: 'Permanent brow makeup — before and after',
+    },
   },
-  { image: file('brwi-03'), categories: ['brwi'], alt: { pl: 'Makijaż permanentny brwi — naturalny kształt dopasowany do twarzy' } },
-  { image: file('usta-01'), categories: ['usta'], alt: { pl: 'Makijaż permanentny ust — zbliżenie' } },
-  { image: file('brwi-06'), categories: ['brwi'], alt: { pl: 'Makijaż permanentny brwi — zbliżenie na łuk brwi' } },
-  { image: file('usta-brwi-01'), categories: ['usta', 'brwi'], alt: { pl: 'Makijaż permanentny ust w wyrazistym odcieniu oraz brwi' } },
-  { image: file('brwi-07'), categories: ['brwi'], alt: { pl: 'Makijaż permanentny brwi — efekt na twarzy klientki' } },
-  { image: file('brwi-02'), categories: ['brwi'], alt: { pl: 'Makijaż permanentny brwi — widok z boku' } },
-  { image: file('brwi-05'), categories: ['brwi'], alt: { pl: 'Makijaż permanentny brwi — zbliżenie na brew i oko' } },
-  { image: file('brwi-04'), categories: ['brwi'], alt: { pl: 'Makijaż permanentny brwi — delikatny, naturalny efekt' } },
-  { image: file('brwi-01'), categories: ['brwi'], stage: 'fresh', alt: { pl: 'Makijaż permanentny brwi tuż po zabiegu' } },
+  { image: file('brwi-03'), categories: ['brwi'], alt: {
+      pl: 'Makijaż permanentny brwi — naturalny kształt dopasowany do twarzy',
+      uk: 'Перманентний макіяж брів — природна форма, підібрана до обличчя',
+      en: 'Permanent brow makeup — natural shape matched to the face',
+    } },
+  { image: file('usta-01'), categories: ['usta'], alt: {
+      pl: 'Makijaż permanentny ust — zbliżenie',
+      uk: 'Перманентний макіяж губ — крупний план',
+      en: 'Permanent lip makeup — close-up',
+    } },
+  { image: file('brwi-06'), categories: ['brwi'], alt: {
+      pl: 'Makijaż permanentny brwi — zbliżenie na łuk brwi',
+      uk: 'Перманентний макіяж брів — крупний план',
+      en: 'Permanent brow makeup — close-up of the brow arch',
+    } },
+  { image: file('usta-brwi-01'), categories: ['usta', 'brwi'], alt: {
+      pl: 'Makijaż permanentny ust w wyrazistym odcieniu oraz brwi',
+      uk: 'Перманентний макіяж губ у насиченому відтінку та брів',
+      en: 'Permanent lip makeup in a bold shade, plus brows',
+    } },
+  { image: file('brwi-07'), categories: ['brwi'], alt: {
+      pl: 'Makijaż permanentny brwi — efekt na twarzy klientki',
+      uk: 'Перманентний макіяж брів — результат на обличчі клієнтки',
+      en: 'Permanent brow makeup — result on a client',
+    } },
+  { image: file('brwi-02'), categories: ['brwi'], alt: {
+      pl: 'Makijaż permanentny brwi — widok z boku',
+      uk: 'Перманентний макіяж брів — вигляд збоку',
+      en: 'Permanent brow makeup — side view',
+    } },
+  { image: file('brwi-05'), categories: ['brwi'], alt: {
+      pl: 'Makijaż permanentny brwi — zbliżenie na brew i oko',
+      uk: 'Перманентний макіяж брів — брова та око крупним планом',
+      en: 'Permanent brow makeup — close-up of brow and eye',
+    } },
+  { image: file('brwi-04'), categories: ['brwi'], alt: {
+      pl: 'Makijaż permanentny brwi — delikatny, naturalny efekt',
+      uk: 'Перманентний макіяж брів — делікатний, природний результат',
+      en: 'Permanent brow makeup — soft, natural result',
+    } },
+  { image: file('brwi-01'), categories: ['brwi'], stage: 'fresh', alt: {
+      pl: 'Makijaż permanentny brwi tuż po zabiegu',
+      uk: 'Перманентний макіяж брів одразу після процедури',
+      en: 'Permanent brow makeup right after the procedure',
+    } },
 ];

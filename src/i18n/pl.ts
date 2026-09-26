@@ -1,6 +1,7 @@
 /**
  * Wszystkie teksty strony w języku polskim.
- * Nowa wersja językowa = kopia tego pliku (np. uk.ts, en.ts) + strona src/pages/<lang>/index.astro.
+ * Pozostałe języki: uk.ts, en.ts (ten sam kształt — TypeScript pilnuje, żeby niczego nie brakowało).
+ * Nowy język = kopia tego pliku + wpis w src/i18n/index.ts + strona src/pages/<lang>/index.astro.
  *
  * `verified: false` = treść wymaga sprawdzenia przez Veronikę przed publikacją.
  * W trybie deweloperskim (npm run dev) takie fragmenty są oznaczone żółtą etykietą.
@@ -8,9 +9,10 @@
 
 import type { PmuPackageId, PmuServiceId, StylingGroupId, StylingServiceId } from '../config/site';
 import type { PortfolioCategory } from '../config/portfolio';
+import type { Locale } from './locales';
 
 export const pl = {
-  lang: 'pl',
+  lang: 'pl' as Locale,
   locale: 'pl_PL',
 
   meta: {
@@ -27,6 +29,8 @@ export const pl = {
     faq: 'FAQ',
     contact: 'Kontakt',
     skip: 'Przejdź do treści',
+    menu: 'Menu',
+    language: 'Język strony',
   },
 
   cta: {
@@ -42,7 +46,7 @@ export const pl = {
     lead: 'Brwi, usta i kreska dopasowane do Twojej twarzy — tak, żebyś po zabiegu nadal wyglądała jak Ty.',
     artistLine: 'Veronika · linergistka PMU',
     priceFrom: 'Makijaż permanentny od',
-    location: 'Krzyki, okolice ul. Skarbowców',
+    place: 'Wrocław · Krzyki, okolice ul. Skarbowców',
   },
 
   portfolio: {
@@ -201,6 +205,7 @@ export const pl = {
     lead: 'Napisz, jaki zabieg Cię interesuje — pomogę wybrać i odpowiem na wszystkie pytania. Możesz też zadzwonić lub napisać na WhatsApp.',
     call: 'Zadzwoń',
     locationTitle: 'Lokalizacja',
+    addressLines: ['Wrocław — Krzyki', 'okolice ul. Skarbowców'],
     // TEMP: do czasu zatwierdzenia publicznego adresu.
     addressNote: 'Dokładny adres podam przy umawianiu wizyty.',
     channelsTitle: 'Kontakt',
@@ -213,7 +218,15 @@ export const pl = {
   },
 
   footer: {
+    tagline: 'makijaż permanentny Wrocław — Krzyki',
     rights: 'Wszelkie prawa zastrzeżone.',
+  },
+
+  // Pokazywane odwiedzającym z innym językiem przeglądarki, na stronie w innym języku.
+  langSuggest: {
+    text: 'Ta strona jest dostępna po polsku.',
+    cta: 'Przejdź',
+    close: 'Zamknij',
   },
 
   dev: {

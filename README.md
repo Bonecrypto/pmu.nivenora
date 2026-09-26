@@ -2,7 +2,7 @@
 
 Jednostronicowa strona dla Veronika PMU (makijaż permanentny, Wrocław). Cel: **odwiedzająca → zaufanie → zainteresowanie → kontakt**.
 
-Stack: [Astro](https://astro.build) (statyczny HTML, prawie zero JS), optymalizacja zdjęć przez `sharp` (AVIF/WebP, kilka rozmiarów, lazy loading), czcionka Fraunces hostowana lokalnie (bez Google Fonts → bez problemów z RODO).
+Stack: [Astro](https://astro.build) (statyczny HTML, prawie zero JS), optymalizacja zdjęć przez `sharp` (AVIF/WebP, kilka rozmiarów, lazy loading), czcionka Lora hostowana lokalnie (bez Google Fonts → bez problemów z RODO).
 
 ## Uruchomienie
 
@@ -46,7 +46,9 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 - `bookingUrl` ustawiony → wszystkie główne przyciski zmieniają się z „Napisz na Instagramie” na „Umów wizytę”.
 - Portfolio: `stage: 'healed'` → etykieta „Wygojone” i miejsce na początku galerii.
 
-**Nowy język** (np. ukraiński): skopiuj `src/i18n/pl.ts` → `uk.ts`, przetłumacz, dodaj do `src/i18n/index.ts`, utwórz `src/pages/uk/index.astro` z `<HomePage locale="uk" />`, dopisz `/uk/` do `src/pages/sitemap.xml.ts`.
+**Języki:** polski (`/`), ukraiński (`/uk/`), angielski (`/en/`). Teksty: `src/i18n/pl.ts`, `uk.ts`, `en.ts` — ten sam kształt, `npm run check` pokaże, jeśli czegoś brakuje. Zmieniając tekst po polsku, zmień go też w `uk.ts` i `en.ts`.
+Przełącznik PL / UA / EN jest w nagłówku. Jeśli język przeglądarki różni się od języka strony, na górze pojawia się pasek z propozycją zmiany (bez automatycznych przekierowań).
+Nowy język: kopia `pl.ts` → wpis w `src/i18n/locales.ts` i `src/i18n/index.ts` → `src/pages/<lang>/index.astro`.
 
 ## Przed publikacją — do uzupełnienia / potwierdzenia
 

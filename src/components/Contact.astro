@@ -42,10 +42,22 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
       <div class="block">
         <h3><Icon name="pin" /> {t.contact.locationTitle}</h3>
         <address>
-          {location.streetAddress && <>{location.streetAddress}<br /></>}
-          {location.postalCode} {location.city} — {location.district}
-          <br />
-          {!location.streetAddress && location.area}
+          {
+            location.streetAddress ? (
+              <>
+                {location.streetAddress}
+                <br />
+                {location.postalCode} {location.city}
+              </>
+            ) : (
+              t.contact.addressLines.map((l, i) => (
+                <>
+                  {i > 0 && <br />}
+                  {l}
+                </>
+              ))
+            )
+          }
         </address>
         {!location.streetAddress && <p class="small">{t.contact.addressNote}</p>}
         {

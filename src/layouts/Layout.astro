@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { getImage } from 'astro:assets';
 import type { Dictionary } from '../i18n/pl';
 import { site, prices } from '../config/site';
+import { locales, localeMeta, defaultLocale, getDictionary } from '../i18n';
 import veronikaPhoto from '../assets/veronika/veronika.jpg';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 const { t } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const alternates = locales.map((l) => ({ hreflang: localeMeta[l].hreflang, href: new URL(localeMeta[l].path, Astro.site).href }));
 const ogImage = await getImage({ src: veronikaPhoto, width: 800, height: 800, format: 'jpg' });
 const ogImageUrl = new URL(ogImage.src, Astro.site).href;
 
@@ -52,11 +54,14 @@ const jsonLd = {
     <title>{t.meta.title}</title>
     <meta name="description" content={t.meta.description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(localeMeta[defaultLocale].path, Astro.site).href} />
     <meta name="theme-color" content="#fbf8f4" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={t.locale} />
+    {locales.filter((l) => l !== t.lang).map((l) => <meta property="og:locale:alternate" content={getDictionary(l).locale} />)}
     <meta property="og:site_name" content={site.brand} />
     <meta property="og:title" content={t.meta.title} />
     <meta property="og:description" content={t.meta.description} />

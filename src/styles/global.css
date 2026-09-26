@@ -1,4 +1,4 @@
-@import '@fontsource-variable/fraunces/index.css';
+@import '@fontsource-variable/lora/index.css';
 
 :root {
   --bg: #fbf8f4;
@@ -11,7 +11,7 @@
   --accent-ink: #ffffff;
   --accent-soft: #f2e4de;
 
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-display: 'Lora Variable', 'Iowan Old Style', Georgia, serif;
   --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --radius: 14px;
@@ -72,7 +72,7 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 420;
+  font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
   margin: 0 0 0.5em;
