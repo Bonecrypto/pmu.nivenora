@@ -61,14 +61,6 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
         </address>
         {!location.streetAddress && <p class="small">{t.contact.addressNote}</p>}
         <dl class="facts">
-          <div>
-            <dt>{t.contact.hoursTitle}</dt>
-            <dd>{t.info.hours}</dd>
-          </div>
-          <div>
-            <dt>{t.contact.paymentTitle}</dt>
-            <dd>{t.info.payment}</dd>
-          </div>
           {
             contact.phone && (
               <div>
