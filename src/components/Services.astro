@@ -31,6 +31,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
             <li class="card">
               <h3>{s.name}</h3>
               <p class="card__desc">{s.description}</p>
+              <div class="card__foot">
               <dl class="card__prices">
                 <div class="price-main">
                   <dt class="visually-hidden">{s.short}</dt>
@@ -45,7 +46,8 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
                   </dd>
                 </div>
               </dl>
-              <ServiceInquiry t={t} service={s.name} id={id} class="card__ask" />
+              <ServiceInquiry t={t} service={s.name} id={id} class="card__ask btn--sm" />
+              </div>
               {id === 'usta' && (
                 <a class="card__more" href={localeMeta[t.lang].pages.lips} data-track="lips_page_click">
                   {t.services.moreLips} →
@@ -153,7 +155,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   .card {
     background: var(--bg);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
   }
@@ -165,21 +167,29 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
     font-size: 0.975rem;
     flex: 1;
   }
-  .card__prices {
-    margin: 8px 0 0;
-    padding-top: 16px;
+  .card__foot {
+    margin-top: 8px;
+    padding-top: 14px;
     border-top: 1px solid var(--line);
     display: flex;
-    align-items: baseline;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px 12px;
+  }
+  .card__prices {
+    margin: 0;
+    display: grid;
+    gap: 4px;
   }
   .card__prices dd {
     margin: 0;
   }
   .price-main dd {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     line-height: 1;
   }
   .price-main span {
@@ -189,7 +199,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   .price-corr {
     display: flex;
     gap: 6px;
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
     color: var(--muted);
   }
   .price-corr dt::after {
@@ -201,8 +211,12 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
     color: var(--muted);
   }
   .card :global(.card__ask) {
-    margin-top: 16px;
-    width: 100%;
+    margin-left: auto;
+    padding: 0 14px;
+    max-width: 100%;
+  }
+  .card {
+    min-width: 0;
   }
   .card__more {
     display: block;
@@ -213,10 +227,13 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   }
   .styling :global(.styling__ask) {
     margin-top: 16px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
   }
   .info {
     list-style: none;
-    margin: 20px 0 0;
+    margin: 14px 0 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -226,10 +243,10 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 14px;
+    padding: 6px 12px;
     border-radius: 999px;
     background: var(--bg);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 600;
   }
   .info :global(svg) {
@@ -238,7 +255,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
     color: var(--accent);
   }
   .extras {
-    margin-top: 24px;
+    margin-top: 16px;
     display: grid;
     gap: 16px;
   }
@@ -252,7 +269,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   .voucher {
     background: var(--bg);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 20px;
   }
   .extras > * {
     min-width: 0;
@@ -354,7 +371,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
     align-items: baseline;
     justify-content: space-between;
     gap: 12px;
-    padding: 10px 0;
+    padding: 8px 0;
     border-bottom: 1px solid var(--line);
   }
   .price-list li:last-child {

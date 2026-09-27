@@ -69,6 +69,38 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
             <dt>{t.contact.paymentTitle}</dt>
             <dd>{t.info.payment}</dd>
           </div>
+          {
+            contact.phone && (
+              <div>
+                <dt>{t.contact.phone}</dt>
+                <dd>
+                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`} data-track="phone_click" data-track-location="contact-list">
+                    {contact.phone}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
+          <div>
+            <dt>{t.contact.instagram}</dt>
+            <dd>
+              <a href={instagram.profileUrl} target="_blank" rel="noopener" data-track="instagram_profile_click" data-track-location="contact-list">
+                @{instagram.handle}
+              </a>
+            </dd>
+          </div>
+          {
+            contact.email && (
+              <div>
+                <dt>{t.contact.email}</dt>
+                <dd>
+                  <a href={`mailto:${contact.email}`} data-track="email_click">
+                    {contact.email}
+                  </a>
+                </dd>
+              </div>
+            )
+          }
         </dl>
         {
           location.mapsUrl && (
@@ -79,51 +111,6 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
         }
       </div>
 
-      <div class="block">
-        <h3><Icon name="chat" /> {t.contact.channelsTitle}</h3>
-        <ul class="channels">
-          <li>
-            <span>{t.contact.instagram}</span>
-            <a
-              href={instagram.profileUrl}
-              target="_blank"
-              rel="noopener"
-              data-track="instagram_profile_click"
-              data-track-location="contact">@{instagram.handle}</a
-            >
-          </li>
-          {
-            contact.phone && (
-              <li>
-                <span>{t.contact.phone}</span>
-                <a href={`tel:${contact.phone.replace(/\s/g, '')}`} data-track="phone_click">
-                  {contact.phone}
-                </a>
-              </li>
-            )
-          }
-          {
-            waUrl && (
-              <li>
-                <span>{t.contact.whatsapp}</span>
-                <a href={waUrl} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="contact-list">
-                  {contact.phone ?? 'WhatsApp'}
-                </a>
-              </li>
-            )
-          }
-          {
-            contact.email && (
-              <li>
-                <span>{t.contact.email}</span>
-                <a href={`mailto:${contact.email}`} data-track="email_click">
-                  {contact.email}
-                </a>
-              </li>
-            )
-          }
-        </ul>
-      </div>
     </div>
   </div>
 </section>
@@ -131,7 +118,7 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
 <style>
   .contact {
     display: grid;
-    gap: 36px;
+    gap: 24px;
   }
   @media (min-width: 800px) {
     .contact {
@@ -145,9 +132,20 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
     flex-wrap: wrap;
     gap: 12px;
   }
+  /* Telefon: główny przycisk na całą szerokość, „Zadzwoń” i WhatsApp obok siebie */
   @media (max-width: 479px) {
+    .actions {
+      gap: 8px;
+    }
     .actions > :global(*) {
-      flex: 1 1 100%;
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 12px;
+      white-space: normal;
+      text-align: center;
+    }
+    .actions > :global(:first-child) {
+      flex-basis: 100%;
     }
   }
   .contact__info {
@@ -157,7 +155,7 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
   .block {
     background: var(--bg);
     border-radius: var(--radius);
-    padding: 22px 24px;
+    padding: 18px 20px;
   }
   .block h3 {
     display: flex;
@@ -196,19 +194,5 @@ const waUrl = whatsappUrl(t.contact.whatsappMessage);
   .facts dd {
     margin: 0;
     text-align: right;
-  }
-  .channels {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .channels li {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 6px 0;
-  }
-  .channels span {
-    color: var(--muted);
   }
 </style>
