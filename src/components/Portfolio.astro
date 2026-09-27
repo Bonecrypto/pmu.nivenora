@@ -34,7 +34,7 @@ const large = await Promise.all(
   items.map((i) => getImage({ src: i.image, width: Math.min(i.image.width, 1400), format: 'webp' })),
 );
 // Na starcie widać tylko tyle zdjęć — reszta po kliknięciu „Pokaż więcej” (bez JS widać wszystkie).
-const INITIAL_VISIBLE = category ? Infinity : 8;
+const INITIAL_VISIBLE = category ? Infinity : 6;
 const hasTempImages = items.some((i) => i.image.width < 600);
 ---
 

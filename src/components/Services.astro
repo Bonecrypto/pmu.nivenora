@@ -12,6 +12,7 @@ const { t } = Astro.props;
 const cur = t.services.currency;
 // Kolejność: usta jako pierwsze (potencjalna usługa wiodąca), potem brwi i kreska.
 const pmuOrder: PmuServiceId[] = ['usta', 'brwi', 'kreska'];
+const packagesFrom = Math.min(...prices.pmuPackages.map((p) => p.price));
 const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) => i.price)));
 ---
 
@@ -80,10 +81,13 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
       </li>
     </ul>
 
-    <div class="extras">
-    <div class="packages">
-      <h3>{t.services.packagesTitle}</h3>
-      <ul class="price-list">
+    {/* Pakiety, voucher i stylizacja — zwinięte wiersze (jak w ustawieniach iOS), otwierane dotknięciem */}
+    <details class="styling">
+      <summary>
+        <h3>{t.services.packagesTitle}</h3>
+        <span class="styling__from">{t.services.stylingFrom} {packagesFrom} {cur}</span>
+      </summary>
+      <ul class="price-list fold-body">
         {
           prices.pmuPackages.map((p) => (
             <li>
@@ -95,21 +99,24 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
           ))
         }
       </ul>
-    </div>
+    </details>
 
     {
       site.info.giftVouchers && (
-        <div class="voucher">
-          <Icon name="gift" class="voucher__icon" />
-          <h3>{t.voucher.title}</h3>
-          <p>{t.voucher.text}</p>
-          <ServiceInquiry t={t} service={t.voucher.service} id="voucher" label={t.voucher.ask} />
-        </div>
+        <details class="styling">
+          <summary>
+            <Icon name="gift" class="fold-icon" />
+            <h3>{t.voucher.title}</h3>
+          </summary>
+          <div class="fold-body">
+            <p class="voucher__text">{t.voucher.text}</p>
+            <ServiceInquiry t={t} service={t.voucher.service} id="voucher" label={t.voucher.ask} class="styling__ask" />
+          </div>
+        </details>
       )
     }
-    </div>
 
-    <details class="styling">
+    <details class="styling styling--wide">
       <summary>
         <h3>{t.services.stylingTitle}</h3>
         <span class="styling__from">{t.services.stylingFrom} {stylingFrom} {cur}</span>
@@ -268,63 +275,34 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
       font-size: 0.875rem;
     }
   }
-  .extras {
-    margin-top: 16px;
-    display: grid;
-    gap: 16px;
-  }
-  @media (min-width: 800px) {
-    .extras {
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-    }
-  }
-  .packages,
-  .voucher {
-    background: var(--bg);
-    border-radius: var(--radius);
-    padding: 20px;
-  }
-  .extras > * {
-    min-width: 0;
-  }
-  .voucher :global(.btn) {
-    max-width: 100%;
-    white-space: normal;
-    text-align: center;
-  }
-  .voucher {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .voucher :global(.voucher__icon) {
-    width: 36px;
-    height: 36px;
-    padding: 7px;
-    border-radius: 50%;
-    background: var(--accent-soft);
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-  .voucher p {
-    color: var(--muted);
-    flex: 1;
-  }
-  .packages h3,
   .styling h3 {
     font-size: 1.2rem;
   }
+  .fold-body {
+    padding-bottom: 8px;
+  }
+  .styling :global(.fold-icon) {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    color: var(--accent);
+  }
+  .voucher__text {
+    color: var(--muted);
+    margin: 0 0 4px;
+  }
   .styling {
-    margin-top: 16px;
+    margin-top: 10px;
     background: var(--bg);
     border-radius: var(--radius);
     padding: 0 24px;
     max-width: 560px;
   }
   .styling[open] {
-    max-width: none;
     padding-bottom: 16px;
+  }
+  .styling--wide[open] {
+    max-width: none;
   }
   .styling summary {
     list-style: none;
@@ -339,6 +317,8 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   }
   .styling summary h3 {
     margin: 0;
+    min-width: 0;
+    flex: 1 1 auto;
   }
   .styling__from {
     margin-left: auto;
