@@ -14,14 +14,12 @@ const year = new Date().getFullYear();
     <p>
       <strong>{site.brand}</strong> · {t.footer.tagline}
     </p>
-    <p>
+    <p class="links">
       <a href={site.instagram.profileUrl} target="_blank" rel="noopener" data-track="instagram_profile_click" data-track-location="footer"
         >@{site.instagram.handle}</a
-      >{' '}
-      · © {year} {site.brand}. {t.footer.rights}
-    </p>
-    <p>
+      >
       <a href={localeMeta[t.lang].pages.privacy}>{t.footer.privacy}</a>
+      <span>© {year}</span>
     </p>
   </div>
 </footer>
@@ -35,5 +33,10 @@ const year = new Date().getFullYear();
   }
   .footer p {
     margin: 0 0 4px;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
   }
 </style>

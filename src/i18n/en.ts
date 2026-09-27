@@ -155,52 +155,52 @@ export const en: Dictionary = {
     items: [
       {
         q: 'Will it look natural?',
-        a: 'That’s my main goal. We choose the shape and colour together, and **you see the design on your face** before we start. If something isn’t right, we change it first.',
+        a: 'Yes — **you see the design on your face** first and we adjust it together.',
         verified: true,
       },
       {
         q: 'How long does it last?',
-        a: 'Usually **1 to 3 years**. The colour doesn’t turn grey-green over time — it simply fades gradually.',
+        a: 'Usually **1–3 years**. The colour fades gradually and doesn’t turn grey-green.',
         verified: true,
       },
       {
         q: 'Does it hurt?',
-        a: 'Everyone feels it differently. Most people describe it as **discomfort rather than real pain**. I’ll tell you what to expect before we start.',
+        a: 'Most people feel **discomfort rather than real pain**.',
         verified: false,
       },
       {
         q: 'What is healing like?',
-        a: 'Right after the procedure the colour is more intense; over the next days the skin heals and the colour softens. **You see the final result once it’s healed.** You’ll get detailed aftercare instructions.',
+        a: 'The colour is stronger at first, then softens. **The final result shows once healed.**',
         verified: false,
       },
       {
         q: 'Is a touch-up necessary?',
-        a: 'Everyone’s skin heals differently, so after healing we assess the result and, if needed, add colour or refine the shape. I do touch-ups **no later than 2 months** after the initial procedure. It costs 200 PLN (brows, lips) or 150 PLN (lash line).',
+        a: 'If needed — **within 2 months**. 200 PLN (brows, lips), 150 PLN (lash line).',
         verified: false,
       },
       {
         q: 'How long does the procedure take?',
-        a: 'Plan for **about 2 hours**.',
+        a: 'About **2 hours**.',
         verified: true,
       },
       {
         q: 'How should I prepare?',
-        a: 'I’ll send you preparation tips when we book your date. If you have questions, message me beforehand.',
+        a: 'I’ll send you tips when we book your date.',
         verified: false,
       },
       {
         q: 'What should I avoid afterwards?',
-        a: 'You’ll get detailed aftercare instructions after the procedure. Following them makes a big difference to the healed result.',
+        a: 'You’ll get **detailed aftercare instructions**.',
         verified: false,
       },
       {
         q: 'Are there contraindications?',
-        a: 'Yes — in some cases the procedure has to be postponed or isn’t possible. If you’re pregnant, breastfeeding, taking medication or have a skin condition, **message me before booking** and we’ll talk it through.',
+        a: 'Yes. If you’re pregnant, breastfeeding, on medication or have a skin condition — **message me before booking**.',
         verified: false,
       },
       {
         q: 'Can I come for a consultation without the procedure?',
-        a: 'Yes, **the consultation is free**. We’ll talk through the shape, colour and your questions — no obligation.',
+        a: 'Yes, **the consultation is free**.',
         verified: true,
       },
       {
@@ -210,7 +210,7 @@ export const en: Dictionary = {
       },
       {
         q: 'Can I buy a gift voucher?',
-        a: 'Yes — a **gift voucher** for the treatment of your choice. Message me and I’ll prepare it.',
+        a: 'Yes — **a voucher for the treatment of your choice**. Message me and I’ll prepare it.',
         verified: true,
       },
     ],

@@ -3,7 +3,6 @@ import { Image, getImage } from 'astro:assets';
 import type { Dictionary } from '../i18n/pl';
 import { portfolio, type PortfolioCategory } from '../config/portfolio';
 import { site } from '../config/site';
-import Icon from './Icon.astro';
 
 interface Props {
   t: Dictionary;
@@ -41,9 +40,23 @@ const hasTempImages = items.some((i) => i.image.width < 600);
 
 <section class="section" id="efekty" aria-labelledby="efekty-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head head-row">
       <h2 id="efekty-title">{title}</h2>
+      {/* Link „zobacz więcej” w stylu Apple — zamiast dużego przycisku pod galerią */}
+      <a
+        class="see-all"
+        href={site.instagram.profileUrl}
+        target="_blank"
+        rel="noopener"
+        data-track="instagram_profile_click"
+        data-track-location="portfolio"
+      >
+        Instagram <span aria-hidden="true">›</span>
+      </a>
+    </div>
+    <div class="section-head sub">
       {t.portfolio.lead && <p class="lead">{t.portfolio.lead}</p>}
+      <p class="caption">{t.portfolio.healingNote}</p>
       {isDev && hasTempImages && <p class="dev-flag">{t.dev.tempImages}</p>}
     </div>
 
@@ -124,19 +137,6 @@ const hasTempImages = items.some((i) => i.image.width < 600);
       )
     }
 
-    <p class="note">{t.portfolio.healingNote}</p>
-
-    <a
-      class="btn btn--ghost more"
-      href={site.instagram.profileUrl}
-      target="_blank"
-      rel="noopener"
-      data-track="instagram_profile_click"
-      data-track-location="portfolio"
-    >
-      <Icon name="instagram" />
-      {t.cta.moreOnInstagram}
-    </a>
   </div>
 
   <dialog class="lightbox" data-lightbox aria-label={t.portfolio.title}>
@@ -279,6 +279,31 @@ const hasTempImages = items.some((i) => i.image.width < 600);
 </script>
 
 <style>
+  .head-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: none;
+    margin-bottom: 4px;
+  }
+  .head-row h2 {
+    margin: 0;
+  }
+  .see-all {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .sub {
+    margin-bottom: 16px;
+  }
+  .caption {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
   .filters {
     display: flex;
     flex-wrap: wrap;
@@ -372,18 +397,6 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   .tag--healed {
     background: var(--accent);
     color: var(--accent-ink);
-  }
-  .note {
-    margin-top: 20px;
-    font-size: 0.9375rem;
-    color: var(--muted);
-    max-width: 640px;
-  }
-  .more {
-    margin-top: 8px;
-    max-width: 100%;
-    white-space: normal;
-    text-align: center;
   }
 
   .lightbox {
