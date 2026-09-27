@@ -19,7 +19,7 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
   <div class="container">
     <div class="section-head">
       <h2 id="cennik-title">{t.services.title}</h2>
-      <p class="lead">{t.services.lead}</p>
+      {t.services.lead && <p class="lead">{t.services.lead}</p>}
     </div>
 
     <ul class="cards">

@@ -16,8 +16,8 @@
   --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue',
     Arial, sans-serif;
 
-  --radius: 14px;
-  --radius-sm: 8px;
+  --radius: 20px;
+  --radius-sm: 12px;
   --gutter: 16px;
   --max: 1120px;
   --section-y: clamp(36px, 6vw, 72px);
