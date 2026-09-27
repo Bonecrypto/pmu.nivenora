@@ -12,7 +12,7 @@ To najważniejsze źródło klientek z wyszukiwarki („makijaż permanentny Wro
 - **Kategoria główna:** Salon makijażu permanentnego *(Permanent make-up clinic)*
 - **Kategorie dodatkowe:** Stylistka brwi *(Eyebrow bar)*, Salon przedłużania rzęs *(Eyelash salon)*
 - **Obszar działania:** Wrocław. Jeśli nie chcesz pokazywać adresu — wybierz „firma usługowa bez adresu dla klientów” i ustaw obszar: Wrocław.
-- **Telefon:** +48 731 437 315
+- **Telefon:** +48 731 347 315
 - **Strona:** https://pmunivenora.com
 - **Języki:** polski, ukraiński, rosyjski, angielski
 - **Godziny:** poniedziałek–sobota, „tylko po umówieniu” (w Google: ustaw godziny pn–sb i zaznacz „Umówione wizyty”)
