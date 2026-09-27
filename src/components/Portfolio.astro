@@ -43,7 +43,7 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   <div class="container">
     <div class="section-head">
       <h2 id="efekty-title">{title}</h2>
-      <p class="lead">{t.portfolio.lead}</p>
+      {t.portfolio.lead && <p class="lead">{t.portfolio.lead}</p>}
       {isDev && hasTempImages && <p class="dev-flag">{t.dev.tempImages}</p>}
     </div>
 

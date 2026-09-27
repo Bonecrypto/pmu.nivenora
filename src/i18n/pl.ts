@@ -43,7 +43,7 @@ export const pl = {
 
   hero: {
     title: 'Naturalny makijaż permanentny we Wrocławiu',
-    lead: 'Brwi, usta i kreska dopasowane do Twojej twarzy — tak, żebyś po zabiegu **nadal wyglądała jak Ty**.',
+    lead: 'Brwi, usta i linia rzęs — **dopasowane do Ciebie**.',
     artistLine: 'Veronika · linergistka PMU',
     priceFrom: 'Makijaż permanentny od',
     place: 'Wrocław · Krzyki, okolice ul. Skarbowców',
@@ -51,9 +51,8 @@ export const pl = {
 
   portfolio: {
     title: 'Efekty',
-    lead: 'Prawdziwe prace z mojego gabinetu. Każdy kształt i kolor był dobierany indywidualnie.',
-    healingNote:
-      'Tuż po zabiegu kolor jest wyraźniejszy niż po wygojeniu — z czasem staje się delikatniejszy. Zdjęcia wygojonych efektów będę dodawać na bieżąco.',
+    lead: '',
+    healingNote: 'Tuż po zabiegu kolor jest intensywniejszy — po wygojeniu łagodnieje.',
     filterAll: 'Wszystkie',
     categories: { usta: 'Usta', brwi: 'Brwi', kreska: 'Kreska' } satisfies Record<PortfolioCategory, string>,
     stages: { healed: 'Wygojone', fresh: 'Tuż po zabiegu', 'before-after': 'Przed / po' },
@@ -65,27 +64,25 @@ export const pl = {
   },
 
   services: {
-    title: 'Usługi i cennik',
-    lead: 'Jasne ceny, bez niespodzianek. Jeśli nie wiesz, który zabieg wybrać — napisz, pomogę.',
+    title: 'Cennik',
+    lead: '',
     currency: 'zł',
     correction: 'Korekta',
     pmu: {
       usta: {
         name: 'Makijaż permanentny ust',
         short: 'Usta',
-        description:
-          'Wyrównany kontur i świeży, naturalny kolor. Odcień dobieramy razem — od delikatnego „nude” po wyraźniejszy róż.',
+        description: 'Kontur i naturalny kolor',
       },
       brwi: {
         name: 'Makijaż permanentny brwi',
         short: 'Brwi',
-        description:
-          'Brwi, które wyglądają dobrze od rana, bez codziennego rysowania. Kształt dopasowany do Twojej twarzy i mimiki.',
+        description: 'Bez codziennego rysowania',
       },
       kreska: {
         name: 'Linia rzęs (kreska permanentna)',
         short: 'Linia rzęs',
-        description: 'Subtelnie podkreślona linia rzęs, dzięki której oko wygląda na wyraźniejsze — nawet bez makijażu.',
+        description: 'Wyraźniejsze spojrzenie',
       },
     } satisfies Record<PmuServiceId, { name: string; short: string; description: string }>,
     correctionNote: (months: number) =>
@@ -129,14 +126,14 @@ export const pl = {
 
   voucher: {
     title: 'Voucher podarunkowy',
-    text: 'Makijaż permanentny albo stylizacja brwi i rzęs jako prezent. Napisz, na jaki zabieg — przygotuję voucher.',
+    text: 'Zabieg jako prezent — przygotuję voucher.',
     ask: 'Zapytaj o voucher',
     service: 'voucher podarunkowy',
   },
 
   about: {
     title: 'Cześć, jestem Veronika',
-    text: 'Kiedyś sama **bałam się makijażu permanentnego** — niebieskich brwi i zbyt mocnych konturów. Dziś robię go tak, jak sama chciałabym go mieć: **lekko i naturalnie**. Najbardziej lubię pracować z **ustami**.',
+    text: 'Kiedyś sama **bałam się makijażu permanentnego**. Dziś robię go tak, jak chciałabym dla siebie — **lekko i naturalnie**.',
     points: ['Kształt i kolor dopasowane do Ciebie', 'Nic bez Twojej akceptacji', 'Naturalny efekt, bez przerysowania'],
     languagesTitle: 'Możesz pisać do mnie w języku:',
     languages: ['polskim', 'ukraińskim', 'rosyjskim', 'angielskim'],
@@ -144,18 +141,12 @@ export const pl = {
   },
 
   process: {
-    title: 'Jak wygląda wizyta',
+    title: 'Jak to wygląda',
     steps: [
-      { title: 'Wiadomość', text: 'Piszesz, jaki zabieg Cię interesuje. Ustalamy termin i odpowiadam na pytania.' },
-      {
-        title: 'Projekt',
-        text: 'Rysuję kształt na Twojej twarzy i razem dobieramy kolor. Zaczynam dopiero, gdy **projekt Ci się podoba**.',
-      },
-      {
-        title: 'Zabieg i gojenie',
-        text: 'Zabieg trwa **około 2 godzin**. Potem dostajesz zalecenia, jak dbać o skórę w czasie gojenia.',
-      },
-      { title: 'Korekta', text: 'Jeśli trzeba coś uzupełnić — umawiamy korektę, **nie później niż 2 miesiące** po zabiegu.' },
+      { title: 'Wiadomość', text: 'Ustalamy termin' },
+      { title: 'Projekt', text: 'Kształt i kolor razem' },
+      { title: 'Zabieg', text: 'Około 2 godzin' },
+      { title: 'Korekta', text: 'Do 2 miesięcy' },
     ],
   },
 
@@ -232,8 +223,8 @@ export const pl = {
   },
 
   contact: {
-    title: 'Umów się na wizytę',
-    lead: 'Napisz, jaki zabieg Cię interesuje — pomogę wybrać i odpowiem na wszystkie pytania. Możesz też zadzwonić lub napisać na WhatsApp.',
+    title: 'Umów się',
+    lead: 'Napisz — pomogę wybrać zabieg.',
     call: 'Zadzwoń',
     hoursTitle: 'Godziny',
     paymentTitle: 'Płatność',
@@ -265,12 +256,12 @@ export const pl = {
       'Makijaż permanentny ust we Wrocławiu (Krzyki): wyrównany kontur i naturalny kolor dobrany do Ciebie. 400 zł, korekta 200 zł. Zobacz efekty i zapytaj o termin.',
     eyebrow: 'Makijaż permanentny ust · Wrocław',
     title: 'Naturalne usta, które wyglądają dobrze od rana',
-    lead: 'Wyrównany kontur i świeży kolor dobrany do Twojej karnacji — **bez efektu „zrobionych” ust**. To zabieg, który lubię najbardziej.',
+    lead: 'Wyrównany kontur i świeży kolor — **bez efektu „zrobionych” ust**.',
     pointsTitle: 'Co daje makijaż permanentny ust',
     points: [
-      { title: 'Świeży kolor na co dzień', text: 'Usta wyglądają zdrowo i świeżo — **bez szminki**, która ściera się po pierwszej kawie.' },
-      { title: 'Wyrównany kontur', text: 'Podkreślam naturalny kształt Twoich ust — **bez powiększania na siłę**.' },
-      { title: 'Odcień dobrany razem', text: 'Od delikatnego „nude” po wyraźniejszy róż. Ty wybierasz, ja doradzam, co będzie wyglądać naturalnie.' },
+      { title: 'Świeży kolor', text: 'Bez szminki, która się ściera.' },
+      { title: 'Naturalny kształt', text: 'Bez powiększania na siłę.' },
+      { title: 'Twój odcień', text: 'Od nude po wyraźniejszy róż.' },
     ],
     galleryTitle: 'Moje prace — usta',
     faqTitle: 'Pytania o makijaż ust',

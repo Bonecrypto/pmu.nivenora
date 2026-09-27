@@ -37,7 +37,7 @@ export const en: Dictionary = {
 
   hero: {
     title: 'Natural permanent makeup in Wrocław',
-    lead: 'Brows, lips and lash line designed for your face — so that after the procedure **you still look like you**.',
+    lead: 'Brows, lips and lash line — **designed for you**.',
     artistLine: 'Veronika · permanent makeup artist',
     priceFrom: 'Permanent makeup from',
     place: 'Wrocław · Krzyki, near Skarbowców St.',
@@ -45,9 +45,8 @@ export const en: Dictionary = {
 
   portfolio: {
     title: 'Results',
-    lead: 'Real work from my studio. Every shape and colour was chosen individually.',
-    healingNote:
-      'Right after the procedure the colour is more intense than once healed — it softens over time. I’ll keep adding photos of healed results.',
+    lead: '',
+    healingNote: 'Right after the procedure the colour is stronger — it softens as it heals.',
     filterAll: 'All',
     categories: { usta: 'Lips', brwi: 'Brows', kreska: 'Lash line' },
     stages: { healed: 'Healed', fresh: 'Fresh', 'before-after': 'Before / after' },
@@ -59,26 +58,25 @@ export const en: Dictionary = {
   },
 
   services: {
-    title: 'Services & prices',
-    lead: 'Clear prices, no surprises. Not sure which treatment to choose? Message me and I’ll help.',
+    title: 'Prices',
+    lead: '',
     currency: 'PLN',
     correction: 'Touch-up',
     pmu: {
       usta: {
         name: 'Permanent lip makeup',
         short: 'Lips',
-        description:
-          'An even contour and a fresh, natural colour. We choose the shade together — from a soft nude to a brighter pink.',
+        description: 'Contour and natural colour',
       },
       brwi: {
         name: 'Permanent brow makeup',
         short: 'Brows',
-        description: 'Brows that look good from the moment you wake up, no daily filling in. Shape matched to your face.',
+        description: 'No more daily filling-in',
       },
       kreska: {
         name: 'Lash line enhancement',
         short: 'Lash line',
-        description: 'A subtly defined lash line that makes your eyes look more defined — even without makeup.',
+        description: 'A more defined look',
       },
     },
     correctionNote: (months: number) =>
@@ -122,14 +120,14 @@ export const en: Dictionary = {
 
   voucher: {
     title: 'Gift voucher',
-    text: 'Permanent makeup or brow & lash styling as a gift. Tell me which treatment and I’ll prepare a voucher.',
+    text: 'A treatment as a gift — I’ll prepare a voucher.',
     ask: 'Ask about a voucher',
     service: 'gift voucher',
   },
 
   about: {
     title: 'Hi, I’m Veronika',
-    text: 'I used to be **afraid of permanent makeup** myself — blue brows, harsh outlines. Now I do it the way I’d want it for myself: **light and natural**. My favourite to work on: **lips**.',
+    text: 'I used to be **afraid of permanent makeup** myself. Now I do it the way I’d want it — **light and natural**.',
     points: ['Shape and colour matched to you', 'Nothing without your approval', 'Natural result, never overdone'],
     languagesTitle: 'You can message me in:',
     languages: ['Polish', 'Ukrainian', 'Russian', 'English'],
@@ -137,18 +135,12 @@ export const en: Dictionary = {
   },
 
   process: {
-    title: 'How a visit works',
+    title: 'How it works',
     steps: [
-      { title: 'Message', text: 'Tell me which treatment you’re interested in. We pick a date and I answer your questions.' },
-      {
-        title: 'Design',
-        text: 'I draw the shape on your face and we choose the colour together. I only start once **you love the design**.',
-      },
-      {
-        title: 'Procedure & healing',
-        text: 'The procedure takes **about 2 hours**. Afterwards you get aftercare instructions for the healing period.',
-      },
-      { title: 'Touch-up', text: 'If anything needs adding, we book a touch-up — **no later than 2 months** after.' },
+      { title: 'Message', text: 'We pick a date' },
+      { title: 'Design', text: 'Shape & colour together' },
+      { title: 'Procedure', text: 'About 2 hours' },
+      { title: 'Touch-up', text: 'Within 2 months' },
     ],
   },
 
@@ -226,7 +218,7 @@ export const en: Dictionary = {
 
   contact: {
     title: 'Book a visit',
-    lead: 'Tell me which treatment you’re interested in — I’ll help you choose and answer all your questions. You can also call or message me on WhatsApp.',
+    lead: 'Message me — I’ll help you choose.',
     call: 'Call',
     hoursTitle: 'Hours',
     paymentTitle: 'Payment',
@@ -257,12 +249,12 @@ export const en: Dictionary = {
       'Permanent lip makeup in Wrocław (Krzyki): an even contour and a natural colour chosen for you. 400 PLN, touch-up 200 PLN. See results and ask about a date.',
     eyebrow: 'Permanent lip makeup · Wrocław',
     title: 'Natural lips that look good from the moment you wake up',
-    lead: 'An even contour and a fresh colour matched to your skin tone — **without the “done” look**. It’s my favourite treatment.',
+    lead: 'An even contour and fresh colour — **without the “done” look**.',
     pointsTitle: 'What permanent lip makeup gives you',
     points: [
-      { title: 'Fresh colour every day', text: 'Your lips look healthy and fresh — **no lipstick** that wears off after your first coffee.' },
-      { title: 'An even contour', text: 'I enhance the natural shape of your lips — **no forced enlargement**.' },
-      { title: 'A shade we choose together', text: 'From a soft nude to a brighter pink. You choose, I advise on what will look natural.' },
+      { title: 'Fresh colour', text: 'No lipstick that wears off.' },
+      { title: 'Natural shape', text: 'No forced enlargement.' },
+      { title: 'Your shade', text: 'From nude to a brighter pink.' },
     ],
     galleryTitle: 'My work — lips',
     faqTitle: 'Questions about lip makeup',

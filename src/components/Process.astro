@@ -19,10 +19,8 @@ const { t } = Astro.props;
             <span class="step-num" aria-hidden="true">
               {i + 1}
             </span>
-            <div>
-              <h3>{s.title}</h3>
-              <p set:html={rich(s.text)} />
-            </div>
+            <h3>{s.title}</h3>
+            <p set:html={rich(s.text)} />
           </li>
         ))
       }
@@ -31,42 +29,47 @@ const { t } = Astro.props;
 </section>
 
 <style>
+  /* Kafelki w stylu Apple: numer, krótki tytuł, jedna linijka */
   .steps {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0 48px;
-    max-width: 960px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   @media (min-width: 800px) {
     .steps {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
   }
   .steps li {
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
+    min-width: 0;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 18px 16px;
   }
   .step-num {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--accent-soft);
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
     color: var(--accent);
-    display: grid;
-    place-items: center;
-    font-weight: 600;
+    margin-bottom: 12px;
   }
   .steps h3 {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     margin-bottom: 4px;
   }
   .steps p {
     margin: 0;
     color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.4;
   }
 </style>
