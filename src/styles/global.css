@@ -79,9 +79,10 @@ h3 {
   letter-spacing: -0.022em;
   margin: 0 0 0.45em;
   text-wrap: balance;
-  /* Długie słowa (np. „конфиденциальности”) na wąskich ekranach */
+  /* Bez automatycznego dzielenia wyrazów („per-manentny”); tylko bardzo długie słowa
+     (np. „конфиденциальности” na 320 px) mogą się złamać. */
   overflow-wrap: break-word;
-  hyphens: auto;
+  hyphens: manual;
 }
 h1 {
   font-size: clamp(1.85rem, 6.2vw, 2.9rem);

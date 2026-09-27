@@ -13,7 +13,7 @@ To najważniejsze źródło klientek z wyszukiwarki („makijaż permanentny Wro
 - **Kategorie dodatkowe:** Stylistka brwi *(Eyebrow bar)*, Salon przedłużania rzęs *(Eyelash salon)*
 - **Obszar działania:** Wrocław. Jeśli nie chcesz pokazywać adresu — wybierz „firma usługowa bez adresu dla klientów” i ustaw obszar: Wrocław.
 - **Telefon:** +48 731 437 315
-- **Strona:** adres strony (po podłączeniu domeny)
+- **Strona:** https://pmunivenora.com
 - **Języki:** polski, ukraiński, rosyjski, angielski
 - **Godziny:** poniedziałek–sobota, „tylko po umówieniu” (w Google: ustaw godziny pn–sb i zaznacz „Umówione wizyty”)
 - **Płatności:** gotówka, karta, BLIK
@@ -52,7 +52,7 @@ Bezpłatna konsultacja · vouchery 🎁
 PL · UA · RU · EN
 👇 Ceny, efekty i zapisy
 ```
-Link w bio: adres strony.
+Link w bio: https://pmunivenora.com
 
 **UA (wariant):**
 ```
@@ -61,13 +61,13 @@ Link w bio: adres strony.
 👇 Ціни, роботи та запис
 ```
 
-Link do konkretnej wersji językowej: `/uk/` (ukraińska), `/en/` (angielska).
+Link do konkretnej wersji językowej: https://pmunivenora.com/uk/ (ukraińska), https://pmunivenora.com/ru/ (rosyjska), https://pmunivenora.com/en/ (angielska).
 
 ---
 
 ## 3. Reklama i linki do konkretnych stron
 
-- Reklama / post o **ustach** → link do `/makijaz-permanentny-ust/` (po ukraińsku `/uk/lips/`, po rosyjsku `/ru/lips/`, po angielsku `/en/lips/`). Osoba od razu widzi prace z ustami, cenę i przycisk „Zapytaj o termin”.
+- Reklama / post o **ustach** → link do https://pmunivenora.com/makijaz-permanentny-ust/ (po ukraińsku `/uk/lips/`, po rosyjsku `/ru/lips/`, po angielsku `/en/lips/`). Osoba od razu widzi prace z ustami, cenę i przycisk „Zapytaj o termin”.
 - Dodaj do linku `?utm_source=instagram` (albo `facebook`, `google`) — w statystykach będzie widać, skąd przyszły osoby.
 - Kody QR (wizytówki, lustro w gabinecie): `docs/qr/`.
 
