@@ -10,8 +10,10 @@ interface Props {
   /** Tylko zdjęcia z tej kategorii (bez filtrów i bez „Pokaż więcej”). */
   category?: PortfolioCategory;
   title?: string;
+  /** Pokazuj zdjęcia zamiast wideo (np. gdy to samo wideo jest już wyżej na stronie). */
+  noVideo?: boolean;
 }
-const { t, category, title = t.portfolio.title } = Astro.props;
+const { t, category, title = t.portfolio.title, noVideo = false } = Astro.props;
 const isDev = import.meta.env.DEV;
 
 // Wygojone efekty zawsze na początku — to najlepszy dowód jakości.
@@ -71,15 +73,38 @@ const hasTempImages = items.some((i) => i.image.width < 600);
               data-full={large[i].src}
               data-alt={item.alt[t.lang]}
               data-max={item.image.width * 2}
+              data-video-mp4={noVideo ? undefined : item.video?.mp4}
+              data-video-webm={noVideo ? undefined : item.video?.webm}
+              data-video-poster={noVideo ? undefined : item.video?.poster}
               aria-label={`${t.portfolio.open}: ${item.alt[t.lang]}`}
             >
-              <Image
-                src={item.image}
-                alt={item.alt[t.lang]}
-                widths={thumbWidths(item.image.width)}
-                sizes="(min-width: 1100px) 270px, (min-width: 640px) 31vw, 47vw"
-                loading="lazy"
-              />
+              {item.video && !noVideo ? (
+                <>
+                  {/* Wideo startuje dopiero, gdy kafelek jest widoczny (oszczędza transfer). */}
+                  <video
+                    class="gallery__video"
+                    poster={item.video.poster}
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    aria-label={item.alt[t.lang]}
+                    data-inview-video
+                  >
+                    <source src={item.video.mp4} type="video/mp4" />
+                    {item.video.webm && <source src={item.video.webm} type="video/webm" />}
+                  </video>
+                  <span class="play" aria-hidden="true">▶</span>
+                </>
+              ) : (
+                <Image
+                  src={item.image}
+                  alt={item.alt[t.lang]}
+                  widths={thumbWidths(item.image.width)}
+                  sizes="(min-width: 1100px) 270px, (min-width: 640px) 31vw, 47vw"
+                  loading="lazy"
+                />
+              )}
               {item.stage && (
                 <span class:list={['tag', item.stage === 'healed' && 'tag--healed']}>
                   {t.portfolio.stages[item.stage]}
@@ -116,6 +141,7 @@ const hasTempImages = items.some((i) => i.image.width < 600);
 
   <dialog class="lightbox" data-lightbox aria-label={t.portfolio.title}>
     <img alt="" data-lightbox-img />
+    <video data-lightbox-video muted loop playsinline controls hidden></video>
     <button type="button" class="lb-btn lb-close" data-lightbox-close aria-label={t.portfolio.close}>×</button>
     <button type="button" class="lb-btn lb-prev" data-lightbox-prev aria-label={t.portfolio.prev}>‹</button>
     <button type="button" class="lb-btn lb-next" data-lightbox-next aria-label={t.portfolio.next}>›</button>
@@ -129,6 +155,23 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   const filters = document.querySelector<HTMLElement>('[data-filters]');
   const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
   const lbImg = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]');
+  const lbVideo = dialog?.querySelector<HTMLVideoElement>('[data-lightbox-video]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Wideo w galerii: gra tylko, gdy kafelek jest na ekranie.
+  const inview = document.querySelectorAll<HTMLVideoElement>('[data-inview-video]');
+  if (inview.length && 'IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        }),
+      { threshold: 0.5 },
+    );
+    inview.forEach((v) => io.observe(v));
+  }
 
   // „Pokaż więcej” — zwijamy nadmiarowe zdjęcia dopiero, gdy JS działa
   const showMore = document.querySelector<HTMLButtonElement>('[data-show-more]');
@@ -168,9 +211,33 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   const show = (btn: HTMLButtonElement) => {
     if (!dialog || !lbImg) return;
     current = btn;
-    lbImg.src = btn.dataset.full!;
-    lbImg.alt = btn.dataset.alt!;
-    lbImg.style.maxWidth = `min(92vw, ${btn.dataset.max}px)`;
+    const mp4 = btn.dataset.videoMp4;
+    if (mp4 && lbVideo) {
+      lbImg.hidden = true;
+      lbVideo.hidden = false;
+      lbVideo.poster = btn.dataset.videoPoster ?? '';
+      lbVideo.innerHTML = '';
+      for (const [src, type] of [
+        [mp4, 'video/mp4'],
+        [btn.dataset.videoWebm, 'video/webm'],
+      ]) {
+        if (!src) continue;
+        const s = document.createElement('source');
+        s.src = src;
+        s.type = type!;
+        lbVideo.append(s);
+      }
+      lbVideo.setAttribute('aria-label', btn.dataset.alt!);
+      lbVideo.load();
+      if (!reduceMotion) lbVideo.play().catch(() => {});
+    } else {
+      lbVideo?.pause();
+      if (lbVideo) lbVideo.hidden = true;
+      lbImg.hidden = false;
+      lbImg.src = btn.dataset.full!;
+      lbImg.alt = btn.dataset.alt!;
+      lbImg.style.maxWidth = `min(92vw, ${btn.dataset.max}px)`;
+    }
   };
   const step = (dir: number) => {
     const list = visibleItems();
@@ -192,7 +259,10 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   dialog?.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
   });
-  dialog?.addEventListener('close', () => current?.focus());
+  dialog?.addEventListener('close', () => {
+    lbVideo?.pause();
+    current?.focus();
+  });
   document.addEventListener('keydown', (e) => {
     if (!dialog?.open) return;
     if (e.key === 'ArrowLeft') step(-1);
@@ -332,6 +402,36 @@ const hasTempImages = items.some((i) => i.image.width < 600);
   }
   .lightbox::backdrop {
     background: rgba(20, 16, 14, 0.9);
+  }
+  .gallery__video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .play {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink);
+    font-size: 0.65rem;
+    padding-left: 2px;
+  }
+  .lightbox video {
+    max-width: min(92vw, 420px);
+    max-height: 86vh;
+    border-radius: var(--radius-sm);
+    background: #000;
+  }
+  .lightbox [hidden] {
+    display: none;
   }
   .lightbox img {
     width: 100%;
