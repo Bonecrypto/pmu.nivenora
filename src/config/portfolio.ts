@@ -29,6 +29,8 @@ export interface PortfolioItem {
   alt: Record<Locale, string>;
   /** Pokaż w sekcji hero (maks. 4). */
   featured?: boolean;
+  /** Opcjonalne wideo (pliki w public/video/) — w galerii zamiast zdjęcia, zdjęcie zostaje jako kadr/OG. */
+  video?: { mp4: string; webm?: string; poster: string };
 }
 
 const img = import.meta.glob<{ default: ImageMetadata }>('../assets/portfolio/*.{jpg,jpeg,png,webp}', {
@@ -46,6 +48,7 @@ export const portfolio: PortfolioItem[] = [
     categories: ['usta'],
     stage: 'before-after',
     featured: true,
+    video: { mp4: '/video/usta-przed-po.mp4', webm: '/video/usta-przed-po.webm', poster: '/video/usta-przed-po-poster.jpg' },
     alt: {
       pl: 'Makijaż permanentny ust — porównanie przed i po zabiegu',
       uk: 'Перманентний макіяж губ — до і після процедури',

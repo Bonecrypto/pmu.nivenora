@@ -5,6 +5,7 @@ import { site } from '../config/site';
 import LangSwitcher from './LangSwitcher.astro';
 import { localeMeta, type PageId } from '../i18n/locales';
 import Icon from './Icon.astro';
+import Emblem from './Emblem.astro';
 
 interface Props {
   t: Dictionary;
@@ -25,6 +26,7 @@ const links = [
 <header class="header">
   <div class="container header__inner">
     <a class="logo" href={localeMeta[t.lang].path} aria-label={site.brand}>
+      <Emblem size={28} class="logo__mark" />
       Veronika <span>PMU</span>
     </a>
     <nav class="nav" aria-label={t.nav.menu}>
@@ -63,6 +65,9 @@ const links = [
     min-height: 58px;
   }
   .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-family: var(--font-display);
     font-size: 1.2rem;
     font-weight: 700;
@@ -70,6 +75,15 @@ const links = [
     color: var(--ink);
     text-decoration: none;
     white-space: nowrap;
+  }
+  /* Wąskie telefony: emblemat + „Veronika”, bez dopisku PMU (mieści się przełącznik języków) */
+  @media (max-width: 379px) {
+    .logo span {
+      display: none;
+    }
+    .header__inner {
+      gap: 10px;
+    }
   }
   .logo span {
     font-family: var(--font-body);
