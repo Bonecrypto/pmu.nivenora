@@ -14,8 +14,8 @@ import type { Locale } from '../i18n/locales';
  *  - 'before-after' → zdjęcie porównawcze przed / po
  *  - undefined      → nie wiadomo; nic nie jest pokazywane (nie zgadujemy)
  *
- * TEMP: obecne pliki to kadry wycięte ze zrzutów ekranu profilu na Instagramie (ok. 470 px).
- * Są prawdziwe, ale w niskiej rozdzielczości — do podmiany na oryginały z telefonu Veroniki.
+ * Oryginały z telefonu: usta-przed-po-01 (kadr z wideo), usta-brwi-01, brwi-04, usta-01, usta-02, brwi-06.
+ * TEMP: pozostałe pliki to kadry ze zrzutów ekranu Instagrama (ok. 470 px) — do podmiany na oryginały.
  */
 
 export type PortfolioCategory = 'usta' | 'brwi' | 'kreska';

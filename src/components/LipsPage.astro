@@ -1,6 +1,5 @@
 ---
 /** Osobna strona o makijażu permanentnym ust — pod wyszukiwanie „makijaż permanentny ust Wrocław” i reklamy. */
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Header from './Header.astro';
 import Portfolio from './Portfolio.astro';
@@ -60,15 +59,23 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
             <ContactButton t={t} location="lips-hero" variant="ghost" />
           </div>
         </div>
-        <Image
-          src={heroImage.image}
-          alt={heroImage.alt[locale]}
-          widths={[heroImage.image.width]}
-          sizes="(min-width: 900px) 440px, 100vw"
-          class="lips-hero__img"
-          loading="eager"
-          fetchpriority="high"
-        />
+        {/* Prawdziwe wideo przed / po (bez dźwięku, w pętli). Kadr z wideo jest też w galerii. */}
+        <video
+          class="lips-hero__video"
+          poster="/video/usta-przed-po-poster.jpg"
+          width="720"
+          height="1280"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label={heroImage.alt[locale]}
+          data-reduced-motion-pause
+        >
+          <source src="/video/usta-przed-po.mp4" type="video/mp4" />
+          <source src="/video/usta-przed-po.webm" type="video/webm" />
+        </video>
       </div>
     </section>
 
@@ -103,6 +110,16 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
   <MobileCta t={t} />
 </Layout>
 
+<script>
+  // Osoby z włączonym „ogranicz ruch” — wideo zatrzymane (kadr jako podgląd).
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLVideoElement>('[data-reduced-motion-pause]').forEach((v) => {
+      v.autoplay = false;
+      v.pause();
+    });
+  }
+</script>
+
 <style>
   .lips-hero {
     padding-block: clamp(28px, 6vw, 72px) clamp(40px, 7vw, 80px);
@@ -113,8 +130,8 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
   }
   @media (min-width: 900px) {
     .lips-hero__grid {
-      grid-template-columns: 1.15fr 440px;
-      align-items: center;
+      grid-template-columns: 1.15fr 300px;
+      align-items: start;
       gap: 64px;
     }
   }
@@ -123,12 +140,15 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
     color: var(--muted);
     max-width: 36ch;
   }
-  .lips-hero :global(.lips-hero__img) {
+  .lips-hero__video {
+    display: block;
     width: 100%;
-    max-width: 440px;
-    aspect-ratio: 4 / 5;
+    max-width: 300px;
+    aspect-ratio: 9 / 16;
     object-fit: cover;
     border-radius: var(--radius);
+    background: var(--surface);
+    justify-self: center;
   }
   .price {
     margin: 24px 0;
