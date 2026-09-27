@@ -52,7 +52,9 @@ Nowy język: kopia `pl.ts` → wpis w `src/i18n/locales.ts` i `src/i18n/index.ts
 
 **Podgląd linku (Open Graph):** `public/og/{pl,uk,en}.jpg` — generowane przez `node scripts/make-og.cjs` (Playwright). Wygeneruj ponownie po zmianie zdjęć lub tekstów.
 
-**Strona o ustach:** `/makijaz-permanentny-ust/` (`/uk/lips/`, `/en/lips/`, `/ru/lips/`) — pod wyszukiwanie „makijaż permanentny ust Wrocław” i reklamy. Teksty: sekcja `lips` w plikach językowych, komponent `src/components/LipsPage.astro`.
+**Strony usług:** `/makijaz-permanentny-ust/` (`/uk/lips/`, `/en/lips/`, `/ru/lips/`) i `/makijaz-permanentny-brwi/` (`/uk/brows/`, `/en/brows/`, `/ru/brows/`) — pod wyszukiwanie „makijaż permanentny ust/brwi Wrocław” i reklamy. Teksty: sekcje `lips` i `brows` w plikach językowych, wspólny komponent `src/components/ServicePage.astro`.
+
+**Gojenie dzień po dniu:** sekcja `healing` w plikach językowych (`src/components/HealingTimeline.astro`) — na produkcji ukryta, dopóki Veronika nie potwierdzi tekstów; potem `info.healingVerified: true` w `src/config/site.ts`.
 
 **„Zapytaj o termin”:** przy każdej usłudze — WhatsApp z gotową wiadomością zawierającą nazwę usługi (`src/components/ServiceInquiry.astro`). Bez WhatsApp → Instagram.
 

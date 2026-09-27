@@ -4,7 +4,7 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'pl';
 
 /** Podstrony istniejące w każdym języku (do przełącznika języka, hreflang i sitemap). */
-export type PageId = 'home' | 'lips' | 'privacy';
+export type PageId = 'home' | 'lips' | 'brows' | 'privacy';
 
 export const localeMeta: Record<
   Locale,
@@ -25,7 +25,7 @@ export const localeMeta: Record<
     hreflang: 'pl',
     flag: 'pl',
     path: '/',
-    pages: { home: '/', lips: '/makijaz-permanentny-ust/', privacy: '/polityka-prywatnosci/' },
+    pages: { home: '/', lips: '/makijaz-permanentny-ust/', brows: '/makijaz-permanentny-brwi/', privacy: '/polityka-prywatnosci/' },
   },
   uk: {
     short: 'UA',
@@ -33,7 +33,7 @@ export const localeMeta: Record<
     hreflang: 'uk',
     flag: 'ua',
     path: '/uk/',
-    pages: { home: '/uk/', lips: '/uk/lips/', privacy: '/uk/privacy/' },
+    pages: { home: '/uk/', lips: '/uk/lips/', brows: '/uk/brows/', privacy: '/uk/privacy/' },
   },
   en: {
     short: 'EN',
@@ -41,7 +41,7 @@ export const localeMeta: Record<
     hreflang: 'en',
     flag: 'gb',
     path: '/en/',
-    pages: { home: '/en/', lips: '/en/lips/', privacy: '/en/privacy/' },
+    pages: { home: '/en/', lips: '/en/lips/', brows: '/en/brows/', privacy: '/en/privacy/' },
   },
   ru: {
     short: 'RU',
@@ -49,6 +49,6 @@ export const localeMeta: Record<
     hreflang: 'ru',
     flag: null,
     path: '/ru/',
-    pages: { home: '/ru/', lips: '/ru/lips/', privacy: '/ru/privacy/' },
+    pages: { home: '/ru/', lips: '/ru/lips/', brows: '/ru/brows/', privacy: '/ru/privacy/' },
   },
 };

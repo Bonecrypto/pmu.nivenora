@@ -1,0 +1,93 @@
+---
+/**
+ * „Gojenie krok po kroku” — 4 kafelki. Treść wymaga potwierdzenia przez Veronikę:
+ * dopóki site.info.healingVerified = false, sekcja jest widoczna tylko w `npm run dev` (z żółtą etykietą).
+ */
+import type { Dictionary } from '../i18n/pl';
+import { site } from '../config/site';
+
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const isDev = import.meta.env.DEV;
+const show = site.info.healingVerified || isDev;
+---
+
+{
+  show && (
+    <section class="section" aria-labelledby="healing-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="healing-title">{t.healing.title}</h2>
+          {!site.info.healingVerified && <p class="dev-flag">{t.dev.unverified}</p>}
+        </div>
+        <ol class="timeline">
+          {t.healing.steps.map((s) => (
+            <li>
+              <span class="when">{s.when}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="note">{t.healing.note}</p>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  @media (min-width: 420px) {
+    .timeline {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 800px) {
+    .timeline {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+  }
+  .timeline li {
+    min-width: 0;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .when {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .timeline h3 {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+  .timeline p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+  .note {
+    margin: 12px 0 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+</style>

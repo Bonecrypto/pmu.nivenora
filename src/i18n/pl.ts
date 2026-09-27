@@ -91,6 +91,7 @@ export const pl = {
     askStyling: 'Zapytaj o stylizację',
     askMessage: (service: string) => `Dzień dobry! Chciałabym zapytać o termin: ${service}.`,
     moreLips: 'Więcej o makijażu ust',
+    moreBrows: 'Więcej o makijażu brwi',
     packagesTitle: 'Pakiety makijażu permanentnego',
     packages: {
       brwiUsta: 'Brwi + usta',
@@ -266,6 +267,35 @@ export const pl = {
     galleryTitle: 'Moje prace — usta',
     faqTitle: 'Pytania o makijaż ust',
     otherServices: 'Zobacz też brwi, linię rzęs i cały cennik',
+  },
+
+  brows: {
+    metaTitle: 'Makijaż permanentny brwi Wrocław — naturalny efekt | Veronika PMU',
+    metaDescription: 'Makijaż permanentny brwi we Wrocławiu (Krzyki): kształt dopasowany do twarzy, bez codziennego rysowania. 400 zł, korekta 200 zł. Zobacz efekty i zapytaj o termin.',
+    eyebrow: 'Makijaż permanentny brwi · Wrocław',
+    title: 'Brwi, które wyglądają dobrze od rana',
+    lead: 'Kształt dopasowany do Twojej twarzy — **bez efektu „namalowanych” brwi**.',
+    pointsTitle: 'Co daje makijaż permanentny brwi',
+    points: [
+      { title: 'Bez rysowania', text: 'Gotowe brwi zaraz po przebudzeniu.' },
+      { title: 'Kształt do twarzy', text: 'Projekt dopasowany do rysów i mimiki.' },
+      { title: 'Naturalny kolor', text: 'Odcień dobrany do włosów i karnacji.' },
+    ],
+    galleryTitle: 'Moje prace — brwi',
+    faqTitle: 'Pytania o makijaż brwi',
+    otherServices: 'Zobacz też usta, linię rzęs i cały cennik',
+  },
+
+  // TODO: Veronika musi potwierdzić — do tego czasu sekcja nie jest pokazywana na stronie (site.info.healingVerified).
+  healing: {
+    title: 'Gojenie krok po kroku',
+    note: 'Orientacyjnie — u każdej osoby gojenie przebiega trochę inaczej.',
+    steps: [
+      { when: 'Dni 1–3', title: 'Intensywny kolor', text: 'Kolor jest ciemniejszy i wyraźniejszy niż docelowo.' },
+      { when: 'Dni 4–10', title: 'Łuszczenie', text: 'Skóra delikatnie się łuszczy — nie drap i nie zdzieraj.' },
+      { when: 'Tydz. 2–4', title: 'Jaśniej', text: 'Kolor może wydawać się bledszy — to normalne.' },
+      { when: 'Ok. 6 tyg.', title: 'Efekt końcowy', text: 'Widać wygojony kolor — wtedy oceniamy korektę.' },
+    ],
   },
 
   dev: {

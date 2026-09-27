@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { locales, localeMeta, type PageId } from '../i18n/locales';
 
 // Strony do indeksowania (polityka prywatności celowo pominięta).
-const indexed: PageId[] = ['home', 'lips'];
+const indexed: PageId[] = ['home', 'lips', 'brows'];
 
 export const GET: APIRoute = ({ site }) => {
   const abs = (p: string) => new URL(p, site).href;
