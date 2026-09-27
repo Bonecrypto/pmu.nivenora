@@ -34,6 +34,8 @@ export const site = {
     payments: ['cash', 'card', 'blik'] as const,
     /** schema.org openingHours — dni pracy (godziny ustalane indywidualnie, po umówieniu). */
     openingDays: 'Mo-Sa',
+    /** Czy Veronika potwierdziła teksty „Gojenie krok po kroku”. false = sekcja ukryta na stronie (widoczna tylko w npm run dev). */
+    healingVerified: false,
   },
 
   // Kanały kontaktu. Brak wartości = kanał nie jest pokazywany.

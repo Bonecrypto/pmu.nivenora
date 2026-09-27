@@ -54,6 +54,11 @@ const stylingFrom = Math.min(...prices.styling.flatMap((g) => g.items.map((i) =>
                   {t.services.moreLips} →
                 </a>
               )}
+              {id === 'brwi' && (
+                <a class="card__more" href={localeMeta[t.lang].pages.brows} data-track="brows_page_click">
+                  {t.services.moreBrows} →
+                </a>
+              )}
             </li>
           );
         })

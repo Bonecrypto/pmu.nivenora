@@ -1,5 +1,8 @@
 ---
-/** Osobna strona o makijażu permanentnym ust — pod wyszukiwanie „makijaż permanentny ust Wrocław” i reklamy. */
+/**
+ * Strona jednej usługi (usta / brwi) — pod wyszukiwanie „makijaż permanentny ust/brwi Wrocław” i reklamy.
+ * Usta mają w hero wideo przed/po, brwi — zdjęcie przed/po.
+ */
 import Layout from '../layouts/Layout.astro';
 import Header from './Header.astro';
 import Portfolio from './Portfolio.astro';
@@ -8,6 +11,8 @@ import Faq from './Faq.astro';
 import Contact from './Contact.astro';
 import Footer from './Footer.astro';
 import MobileCta from './MobileCta.astro';
+import HealingTimeline from './HealingTimeline.astro';
+import { Image } from 'astro:assets';
 import ContactButton from './ContactButton.astro';
 import ServiceInquiry from './ServiceInquiry.astro';
 import { getDictionary, localeMeta, type Locale } from '../i18n';
@@ -17,19 +22,26 @@ import { portfolio } from '../config/portfolio';
 
 interface Props {
   locale: Locale;
+  service: 'usta' | 'brwi';
 }
-const { locale } = Astro.props;
+const { locale, service } = Astro.props;
 const t = getDictionary(locale);
-const price = prices.pmu.usta;
+const page = service === 'usta' ? 'lips' : 'brows';
+const copy = service === 'usta' ? t.lips : t.brows;
+const price = prices.pmu[service];
+const serviceName = t.services.pmu[service].name;
 const cur = t.services.currency;
-const heroImage = portfolio.find((p) => p.categories.includes('usta') && p.stage === 'before-after') ?? portfolio.find((p) => p.categories.includes('usta'))!;
+const heroImage =
+  portfolio.find((p) => p.categories.includes(service) && p.stage === 'before-after') ??
+  portfolio.find((p) => p.categories.includes(service))!;
+const heroVideo = heroImage.video;
 // Pytania ogólne pasujące do ust (bez przygotowania i pielęgnacji — to Veronika wysyła indywidualnie).
 const serviceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: t.services.pmu.usta.name,
-  serviceType: t.services.pmu.usta.name,
-  description: t.lips.metaDescription,
+  name: serviceName,
+  serviceType: serviceName,
+  description: copy.metaDescription,
   areaServed: { '@type': 'City', name: site.location.city },
   provider: { '@type': 'BeautySalon', name: site.brand, telephone: site.contact.phone ?? undefined, sameAs: [site.instagram.profileUrl] },
   offers: { '@type': 'Offer', price: price.price, priceCurrency: 'PLN' },
@@ -37,16 +49,16 @@ const serviceJsonLd = {
 const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].includes(i));
 ---
 
-<Layout t={t} page="lips" title={t.lips.metaTitle} description={t.lips.metaDescription}>
-  <Header t={t} page="lips" />
+<Layout t={t} page={page} title={copy.metaTitle} description={copy.metaDescription}>
+  <Header t={t} page={page} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
   <main id="main">
     <section class="lips-hero">
       <div class="container lips-hero__grid">
         <div>
-          <p class="eyebrow">{t.lips.eyebrow}</p>
-          <h1>{t.lips.title}</h1>
-          <p class="lips-hero__lead" set:html={rich(t.lips.lead)} />
+          <p class="eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.title}</h1>
+          <p class="lips-hero__lead" set:html={rich(copy.lead)} />
           <div class="price">
             <div>
               <span class="price__main">{price.price} <small>{cur}</small></span>
@@ -55,36 +67,50 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
             <p class="price__note">* {t.services.correctionNote(prices.correctionWithinMonths)}</p>
           </div>
           <div class="actions" data-hero-cta>
-            <ServiceInquiry t={t} service={t.services.pmu.usta.name} id="lips-page" variant="primary" />
+            <ServiceInquiry t={t} service={serviceName} id={`${page}-page`} variant="primary" />
             <ContactButton t={t} location="lips-hero" variant="ghost" />
           </div>
         </div>
-        {/* Prawdziwe wideo przed / po (bez dźwięku, w pętli). Kadr z wideo jest też w galerii. */}
-        <video
-          class="lips-hero__video"
-          poster="/video/usta-przed-po-poster.jpg"
-          width="720"
-          height="1280"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-label={heroImage.alt[locale]}
-          data-reduced-motion-pause
-        >
-          <source src="/video/usta-przed-po.mp4" type="video/mp4" />
-          <source src="/video/usta-przed-po.webm" type="video/webm" />
-        </video>
+        {
+          heroVideo ? (
+            /* Prawdziwe wideo przed / po (bez dźwięku, w pętli). */
+            <video
+              class="lips-hero__video"
+              poster={heroVideo.poster}
+              width="720"
+              height="1280"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label={heroImage.alt[locale]}
+              data-reduced-motion-pause
+            >
+              <source src={heroVideo.mp4} type="video/mp4" />
+              {heroVideo.webm && <source src={heroVideo.webm} type="video/webm" />}
+            </video>
+          ) : (
+            <Image
+              src={heroImage.image}
+              alt={heroImage.alt[locale]}
+              widths={[...[360, 540].filter((x) => x < heroImage.image.width), Math.min(heroImage.image.width, 720)]}
+              sizes="(min-width: 900px) 360px, 100vw"
+              class="lips-hero__img"
+              loading="eager"
+              fetchpriority="high"
+            />
+          )
+        }
       </div>
     </section>
 
     <section class="section section--tint" aria-labelledby="lips-points">
       <div class="container">
-        <h2 id="lips-points">{t.lips.pointsTitle}</h2>
+        <h2 id="lips-points">{copy.pointsTitle}</h2>
         <ol class="points">
           {
-            t.lips.points.map((p, i) => (
+            copy.points.map((p, i) => (
               <li>
                 <span class="num" aria-hidden="true">
                   0{i + 1}
@@ -98,12 +124,13 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
       </div>
     </section>
 
-    <Portfolio t={t} category="usta" title={t.lips.galleryTitle} noVideo />
+    <HealingTimeline t={t} />
+    <Portfolio t={t} category={service} title={copy.galleryTitle} noVideo />
     <Process t={t} />
-    <Faq t={t} items={faqItems} title={t.lips.faqTitle} />
+    <Faq t={t} items={faqItems} title={copy.faqTitle} />
     <Contact t={t} />
     <div class="container other">
-      <a href={`${localeMeta[locale].path}#cennik`}>{t.lips.otherServices} →</a>
+      <a href={`${localeMeta[locale].path}#cennik`}>{copy.otherServices} →</a>
     </div>
   </main>
   <Footer t={t} />
@@ -139,6 +166,15 @@ const faqItems = t.faq.items.filter((_, i) => [0, 1, 2, 3, 4, 5, 8, 9, 10].inclu
     font-size: clamp(1.1rem, 2.6vw, 1.25rem);
     color: var(--muted);
     max-width: 36ch;
+  }
+  .lips-hero :global(.lips-hero__img) {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    justify-self: center;
   }
   .lips-hero__video {
     display: block;

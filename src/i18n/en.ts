@@ -85,6 +85,7 @@ export const en: Dictionary = {
     askStyling: 'Ask about styling',
     askMessage: (service: string) => `Hi! I’d like to ask about an appointment: ${service}.`,
     moreLips: 'More about lips',
+    moreBrows: 'More about brows',
     packagesTitle: 'Permanent makeup packages',
     packages: {
       brwiUsta: 'Brows + lips',
@@ -259,6 +260,35 @@ export const en: Dictionary = {
     galleryTitle: 'My work — lips',
     faqTitle: 'Questions about lip makeup',
     otherServices: 'See also brows, lash line and all prices',
+  },
+
+  brows: {
+    metaTitle: 'Permanent brow makeup in Wrocław — natural result | Veronika PMU',
+    metaDescription: 'Permanent brow makeup in Wrocław (Krzyki): a shape matched to your face, no daily filling-in. 400 PLN, touch-up 200 PLN. See results and ask about a date.',
+    eyebrow: 'Permanent brow makeup · Wrocław',
+    title: 'Brows that look good from the moment you wake up',
+    lead: 'A shape matched to your face — **without the “drawn-on” look**.',
+    pointsTitle: 'What permanent brow makeup gives you',
+    points: [
+      { title: 'No filling-in', text: 'Brows ready as soon as you wake up.' },
+      { title: 'Shaped to your face', text: 'Designed around your features.' },
+      { title: 'Natural colour', text: 'A shade matched to your hair and skin.' },
+    ],
+    galleryTitle: 'My work — brows',
+    faqTitle: 'Questions about brow makeup',
+    otherServices: 'See also lips, lash line and all prices',
+  },
+
+  // TODO: Veronika musi potwierdzić — do tego czasu sekcja nie jest pokazywana na stronie (site.info.healingVerified).
+  healing: {
+    title: 'Healing step by step',
+    note: 'Approximate — everyone heals a little differently.',
+    steps: [
+      { when: 'Days 1–3', title: 'Intense colour', text: 'The colour looks darker and stronger than it will be.' },
+      { when: 'Days 4–10', title: 'Flaking', text: 'The skin gently flakes — don’t scratch or pick.' },
+      { when: 'Weeks 2–4', title: 'Lighter', text: 'The colour may look paler — that’s normal.' },
+      { when: '~6 weeks', title: 'Final result', text: 'The healed colour shows — we assess the touch-up.' },
+    ],
   },
 
   dev: pl.dev,
