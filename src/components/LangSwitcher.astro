@@ -63,17 +63,6 @@ const { current, label, page = 'home' } = Astro.props;
   </ul>
 </nav>
 
-<script>
-  // Zapamiętaj wybór — baner z propozycją języka nie pojawi się ponownie.
-  document.querySelectorAll<HTMLAnchorElement>('[data-lang-link]').forEach((a) =>
-    a.addEventListener('click', () => {
-      try {
-        localStorage.setItem('lang-choice', a.dataset.langLink!);
-      } catch {}
-    }),
-  );
-</script>
-
 <style>
   .lang {
     display: flex;

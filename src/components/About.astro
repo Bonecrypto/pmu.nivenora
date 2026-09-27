@@ -34,10 +34,10 @@ const { t } = Astro.props;
           ))
         }
       </ul>
-      <p class="langs-title">{t.about.languagesTitle}</p>
-      <ul class="langs">
-        {t.about.languages.map((l) => <li>{l}</li>)}
-      </ul>
+      <p class="langs">
+        <Icon name="globe" />
+        <span>{t.about.languagesTitle} {t.about.languages.join(', ')}.</span>
+      </p>
     </div>
   </div>
 </section>
@@ -91,23 +91,19 @@ const { t } = Astro.props;
     background: var(--accent-soft);
     color: var(--accent);
   }
-  .langs-title {
-    margin: 28px 0 10px;
+  .langs {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 20px 0 0;
     color: var(--muted);
     font-size: 0.9375rem;
   }
-  .langs {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .langs li {
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: var(--surface);
-    font-size: 0.9375rem;
+  .langs :global(svg) {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    color: var(--accent);
   }
 </style>

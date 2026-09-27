@@ -159,6 +159,7 @@ export const ru: Dictionary = {
 
   faq: {
     title: 'Частые вопросы',
+    more: 'Больше вопросов',
     items: [
       {
         q: 'Будет ли результат выглядеть естественно?',
@@ -266,12 +267,6 @@ export const ru: Dictionary = {
     galleryTitle: 'Мои работы — губы',
     faqTitle: 'Вопросы о макияже губ',
     otherServices: 'Смотри также брови, стрелку и все цены',
-  },
-
-  langSuggest: {
-    text: 'Эта страница есть на русском.',
-    cta: 'Перейти',
-    close: 'Закрыть',
   },
 
   dev: pl.dev,
