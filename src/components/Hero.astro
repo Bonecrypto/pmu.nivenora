@@ -26,7 +26,7 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
       <p class="hero__lead" set:html={rich(t.hero.lead)} />
       <div class="hero__actions" data-hero-cta>
         <ContactButton t={t} location="hero" />
-        <a class="btn btn--ghost" href="#efekty" data-track="see_results_click" data-track-location="hero">
+        <a class="btn btn--ghost hero__more" href="#efekty" data-track="see_results_click" data-track-location="hero">
           {t.cta.seeResults}
         </a>
       </div>
@@ -69,11 +69,11 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
 
 <style>
   .hero {
-    padding-block: clamp(28px, 6vw, 80px) clamp(40px, 7vw, 88px);
+    padding-block: clamp(20px, 5vw, 64px) clamp(8px, 4vw, 64px);
   }
   .hero__grid {
     display: grid;
-    gap: 36px;
+    gap: 28px;
   }
   @media (min-width: 900px) {
     .hero__grid {
@@ -88,20 +88,20 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
     gap: 12px;
     color: var(--muted);
     font-size: 0.9375rem;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   .artist :global(.artist__photo) {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     object-position: 50% 30%;
   }
   .hero__lead {
-    font-size: clamp(1.125rem, 2.6vw, 1.3rem);
+    font-size: clamp(1.0625rem, 2.4vw, 1.2rem);
     color: var(--muted);
-    max-width: 34ch;
-    margin-bottom: 28px;
+    max-width: 36ch;
+    margin-bottom: 20px;
   }
   .hero__actions {
     display: flex;
@@ -113,13 +113,22 @@ const featured = portfolio.filter((p) => p.featured).slice(0, 4);
       flex: 1 1 100%;
     }
   }
+  /* Na telefonie galeria jest tuż pod hero — drugi przycisk tylko zajmuje miejsce */
+  .hero__more {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .hero__more {
+      display: inline-flex;
+    }
+  }
   .facts {
     list-style: none;
     padding: 0;
-    margin: 24px 0 0;
+    margin: 18px 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 20px;
+    gap: 6px 18px;
     font-size: 0.9375rem;
     color: var(--muted);
   }

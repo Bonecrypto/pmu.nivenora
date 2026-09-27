@@ -2,7 +2,7 @@
 
 Jednostronicowa strona dla Veronika PMU (makijaż permanentny, Wrocław). Cel: **odwiedzająca → zaufanie → zainteresowanie → kontakt**.
 
-Stack: [Astro](https://astro.build) (statyczny HTML, prawie zero JS), optymalizacja zdjęć przez `sharp` (AVIF/WebP, kilka rozmiarów, lazy loading), czcionka Lora hostowana lokalnie (bez Google Fonts → bez problemów z RODO).
+Stack: [Astro](https://astro.build) (statyczny HTML, prawie zero JS), optymalizacja zdjęć przez `sharp` (AVIF/WebP, kilka rozmiarów, lazy loading), systemowa czcionka (San Francisco na Apple, Segoe UI na Windows, Roboto na Androidzie) — bez pobierania fontów.
 
 ## Uruchomienie
 
