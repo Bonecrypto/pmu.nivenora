@@ -6,8 +6,10 @@ interface Props {
   /** Wybrane pytania (domyślnie wszystkie). */
   items?: Dictionary['faq']['items'];
   title?: string;
+  /** Ile pytań widać od razu; reszta po kliknięciu „Więcej pytań”. */
+  initial?: number;
 }
-const { t, items = t.faq.items, title = t.faq.title } = Astro.props;
+const { t, items = t.faq.items, title = t.faq.title, initial = 6 } = Astro.props;
 const isDev = import.meta.env.DEV;
 
 const faqJsonLd = {
@@ -28,8 +30,8 @@ const faqJsonLd = {
     </div>
     <div class="faq__list">
       {
-        items.map((item) => (
-          <details>
+        items.map((item, i) => (
+          <details data-extra={i >= initial ? '' : undefined}>
             <summary>{item.q}</summary>
             <div class="answer">
               {isDev && !item.verified && <p class="dev-flag">{t.dev.unverified}</p>}
@@ -39,9 +41,30 @@ const faqJsonLd = {
         ))
       }
     </div>
+    {
+      items.length > initial && (
+        <button type="button" class="more" data-faq-more hidden>
+          {t.faq.more} ({items.length - initial})
+        </button>
+      )
+    }
   </div>
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 </section>
+
+<script>
+  // Zwijamy dodatkowe pytania dopiero, gdy JS działa (bez JS widać wszystkie).
+  document.querySelectorAll<HTMLButtonElement>('[data-faq-more]').forEach((btn) => {
+    const list = btn.parentElement?.querySelector<HTMLElement>('.faq__list');
+    if (!list) return;
+    list.classList.add('is-collapsed');
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
+      list.classList.remove('is-collapsed');
+      btn.hidden = true;
+    });
+  });
+</script>
 
 <style>
   .faq__list {
@@ -50,6 +73,22 @@ const faqJsonLd = {
   }
   details {
     border-bottom: 1px solid var(--line);
+  }
+  .faq__list.is-collapsed details[data-extra] {
+    display: none;
+  }
+  .more {
+    margin-top: 12px;
+    padding: 8px 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .more[hidden] {
+    display: none;
   }
   summary {
     list-style: none;

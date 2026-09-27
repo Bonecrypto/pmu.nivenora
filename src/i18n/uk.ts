@@ -159,6 +159,7 @@ export const uk: Dictionary = {
 
   faq: {
     title: 'Часті питання',
+    more: 'Більше питань',
     items: [
       {
         q: 'Чи виглядатиме результат природно?',
@@ -266,12 +267,6 @@ export const uk: Dictionary = {
     galleryTitle: 'Мої роботи — губи',
     faqTitle: 'Питання про макіяж губ',
     otherServices: 'Дивись також брови, стрілку та всі ціни',
-  },
-
-  langSuggest: {
-    text: 'Ця сторінка є українською.',
-    cta: 'Перейти',
-    close: 'Закрити',
   },
 
   dev: pl.dev,

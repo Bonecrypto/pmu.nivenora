@@ -11,17 +11,19 @@ import Faq from './Faq.astro';
 import Contact from './Contact.astro';
 import Footer from './Footer.astro';
 import MobileCta from './MobileCta.astro';
-import LangSuggest from './LangSuggest.astro';
 import { getDictionary, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
 }
 const t = getDictionary(Astro.props.locale);
+// Najpierw pytania, które najczęściej powstrzymują przed zapisem; reszta pod „Więcej pytań”.
+// Indeksy = kolejność w t.faq.items: naturalnie, ból, trwałość, gojenie, konsultacja, czas,
+// potem korekta, przygotowanie, pielęgnacja, przeciwwskazania, płatność, voucher.
+const faqOrder = [0, 2, 1, 3, 9, 5, 4, 6, 7, 8, 10, 11];
 ---
 
 <Layout t={t}>
-  <LangSuggest current={Astro.props.locale} page="home" />
   <Header t={t} />
   <main id="main">
     <Hero t={t} />
@@ -30,7 +32,7 @@ const t = getDictionary(Astro.props.locale);
     <About t={t} />
     <Process t={t} />
     <Reviews t={t} />
-    <Faq t={t} />
+    <Faq t={t} items={faqOrder.map((i) => t.faq.items[i])} />
     <Contact t={t} />
   </main>
   <Footer t={t} />

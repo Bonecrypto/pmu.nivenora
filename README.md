@@ -39,7 +39,7 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 | Ceny, kontakt (telefon, e-mail, WhatsApp, Booksy), adres | `src/config/site.ts` |
 | Zdjęcia portfolio | `src/assets/portfolio/` + `src/config/portfolio.ts` |
 | Opinie (sekcja pojawi się sama po dodaniu pierwszej) | `src/config/reviews.ts` |
-| Wszystkie teksty po polsku, FAQ | `src/i18n/pl.ts` |
+| Wszystkie teksty po polsku, FAQ | `src/i18n/pl.ts` (kolejność FAQ na stronie głównej: `faqOrder` w `src/components/HomePage.astro`) |
 | Zdjęcie Veroniki | `src/assets/veronika/veronika.jpg` |
 
 - Kontakt `null` → kanał nie jest pokazywany.
@@ -47,7 +47,7 @@ Kliknięcia w CTA są oznaczone atrybutami `data-track` (`instagram_dm_click`, `
 - Portfolio: `stage: 'healed'` → etykieta „Wygojone” i miejsce na początku galerii.
 
 **Języki:** polski (`/`), ukraiński (`/uk/`), angielski (`/en/`), rosyjski (`/ru/`). Teksty: `src/i18n/pl.ts`, `uk.ts`, `en.ts`, `ru.ts` — ten sam kształt, `npm run check` pokaże, jeśli czegoś brakuje. Zmieniając tekst po polsku, zmień go też w pozostałych plikach.
-Przełącznik języków jest w nagłówku (dla rosyjskiego celowo bez flagi — sam kod „RU”). Adresy podstron w każdym języku: `src/i18n/locales.ts`. Jeśli język przeglądarki różni się od języka strony, na górze pojawia się pasek z propozycją zmiany (bez automatycznych przekierowań).
+Przełącznik języków jest w nagłówku (dla rosyjskiego celowo bez flagi — sam kod „RU”). Adresy podstron w każdym języku: `src/i18n/locales.ts`.
 Nowy język: kopia `pl.ts` → wpis w `src/i18n/locales.ts` i `src/i18n/index.ts` → `src/pages/<lang>/index.astro`.
 
 **Podgląd linku (Open Graph):** `public/og/{pl,uk,en}.jpg` — generowane przez `node scripts/make-og.cjs` (Playwright). Wygeneruj ponownie po zmianie zdjęć lub tekstów.

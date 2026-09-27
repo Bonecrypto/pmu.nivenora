@@ -159,6 +159,7 @@ export const en: Dictionary = {
 
   faq: {
     title: 'FAQ',
+    more: 'More questions',
     items: [
       {
         q: 'Will it look natural?',
@@ -266,12 +267,6 @@ export const en: Dictionary = {
     galleryTitle: 'My work — lips',
     faqTitle: 'Questions about lip makeup',
     otherServices: 'See also brows, lash line and all prices',
-  },
-
-  langSuggest: {
-    text: 'This page is available in English.',
-    cta: 'Switch',
-    close: 'Close',
   },
 
   dev: pl.dev,

@@ -166,6 +166,7 @@ export const pl = {
 
   faq: {
     title: 'Częste pytania',
+    more: 'Więcej pytań',
     items: [
       {
         q: 'Czy efekt będzie wyglądał naturalnie?',
@@ -258,7 +259,6 @@ export const pl = {
     rights: 'Wszelkie prawa zastrzeżone.',
   },
 
-  // Pokazywane odwiedzającym z innym językiem przeglądarki, na stronie w innym języku.
   lips: {
     metaTitle: 'Makijaż permanentny ust Wrocław — naturalny efekt | Veronika PMU',
     metaDescription:
@@ -275,12 +275,6 @@ export const pl = {
     galleryTitle: 'Moje prace — usta',
     faqTitle: 'Pytania o makijaż ust',
     otherServices: 'Zobacz też brwi, linię rzęs i cały cennik',
-  },
-
-  langSuggest: {
-    text: 'Ta strona jest dostępna po polsku.',
-    cta: 'Przejdź',
-    close: 'Zamknij',
   },
 
   dev: {
