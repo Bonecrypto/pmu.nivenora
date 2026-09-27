@@ -14,6 +14,7 @@ import type { Locale } from '../i18n/locales';
  *  - 'before-after' → zdjęcie porównawcze przed / po
  *  - undefined      → nie wiadomo; nic nie jest pokazywane (nie zgadujemy)
  *
+ * Wygojone (brwi-wygojone-01/02, full-face-wygojone-01): kadry ze stories „wygojone” (bez napisów i ramek).
  * Oryginały z telefonu: usta-przed-po-01 (kadr z wideo), usta-brwi-01, brwi-04, usta-01, usta-02, brwi-06.
  * TEMP: pozostałe pliki to kadry ze zrzutów ekranu Instagrama (ok. 470 px) — do podmiany na oryginały.
  */
@@ -54,6 +55,39 @@ export const portfolio: PortfolioItem[] = [
       uk: 'Перманентний макіяж губ — до і після процедури',
       ru: 'Перманентный макияж губ — до и после процедуры',
       en: 'Permanent lip makeup — before and after',
+    },
+  },
+  {
+    image: file('brwi-wygojone-01'),
+    categories: ['brwi'],
+    stage: 'healed',
+    alt: {
+      pl: 'Wygojony makijaż permanentny brwi po jednym zabiegu',
+      uk: 'Загоєний перманентний макіяж брів після однієї процедури',
+      ru: 'Заживший перманентный макияж бровей после одной процедуры',
+      en: 'Healed permanent brow makeup after one session',
+    },
+  },
+  {
+    image: file('full-face-wygojone-01'),
+    categories: ['brwi', 'usta', 'kreska'],
+    stage: 'healed',
+    alt: {
+      pl: 'Wygojony makijaż permanentny brwi, ust i kreski bez korekty',
+      uk: 'Загоєний перманентний макіяж брів, губ і стрілки без корекції',
+      ru: 'Заживший перманентный макияж бровей, губ и стрелки без коррекции',
+      en: 'Healed permanent brow, lip and lash line makeup, no touch-up',
+    },
+  },
+  {
+    image: file('brwi-wygojone-02'),
+    categories: ['brwi'],
+    stage: 'healed',
+    alt: {
+      pl: 'Wygojone brwi po jednym zabiegu makijażu permanentnego',
+      uk: 'Загоєні брови після однієї процедури перманентного макіяжу',
+      ru: 'Зажившие брови после одной процедуры перманентного макияжа',
+      en: 'Healed brows after one permanent makeup session',
     },
   },
   {

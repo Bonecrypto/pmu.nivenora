@@ -40,8 +40,8 @@ export const site = {
 
   // Kanały kontaktu. Brak wartości = kanał nie jest pokazywany.
   contact: {
-    phone: '+48 731 437 315' as string | null,
-    whatsapp: '48731437315' as string | null, // bez + i spacji (link wa.me)
+    phone: '+48 731 347 315' as string | null,
+    whatsapp: '48731347315' as string | null, // bez + i spacji (link wa.me)
     email: null as string | null,
     // Jeśli pojawi się system rezerwacji (np. Booksy), wpisz URL — stanie się głównym CTA.
     bookingUrl: null as string | null,

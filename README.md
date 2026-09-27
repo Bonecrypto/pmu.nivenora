@@ -75,7 +75,7 @@ Założenia tymczasowe (oznaczone w kodzie jako `TEMP` / `TODO`):
 - [ ] **Zdjęcia portfolio** — obecnie to kadry ze zrzutu ekranu Instagrama (~470 px — lepiej, ale to wciąż zrzuty ekranu). Potrzebne oryginały z telefonu (bez filtrów). Oznaczyć, które są wygojone, a które tuż po zabiegu.
 - [ ] **Teksty FAQ z etykietą „Do weryfikacji”** (ból, gojenie, czy korekta jest konieczna, przygotowanie, pielęgnacja, przeciwwskazania) — Veronika musi potwierdzić lub poprawić. Widoczne w `npm run dev`.
 - [ ] **Adres** — teraz: „Krzyki, okolice ul. Skarbowców, dokładny adres podam przy umawianiu”.
-- [ ] **System rezerwacji** (np. Booksy) — teraz Instagram DM, telefon i WhatsApp.
+- [ ] **System rezerwacji** — na razie bez Booksy (prowizja); zapisy przez Instagram DM, telefon i WhatsApp.
 - [x] **Domena:** https://pmunivenora.com (domyślnie w `astro.config.mjs`).
 - [ ] **Polityka prywatności** — gotowa wersja podstawowa; Veronika sprawdza, ewentualnie dopisuje dane firmy (imię i nazwisko / NIP).
 - [ ] Tekst „O mnie” — przeczytać z Veroniką, czy brzmi jak ona.
